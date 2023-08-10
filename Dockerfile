@@ -14,7 +14,7 @@ FROM nginx:alpine AS web
 WORKDIR /app
 
 COPY --from=build /app/build /usr/share/nginx/html
-COPY ./client/nginx/nginx.conf /etc/nginx/nginx.template
+COPY ./nginx/nginx.conf /etc/nginx/nginx.template
 
 EXPOSE 80
 
