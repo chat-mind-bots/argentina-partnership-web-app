@@ -5,7 +5,8 @@ import styles from "./partners.module.css";
 const tg = window.Telegram.WebApp;
 
 tg.onEvent("qrTextReceived", () => {
-  tg.openLink("https://google.com");
+  // tg.openLink("https://google.com");
+  tg.sendData({ data: "menu", button_text: "text" });
 });
 const Partners = () => {
   const onClose = () => {
