@@ -23,14 +23,26 @@ const CreateBusinessForm = () => {
       />
     </div>
   );
-  useEffect(() => {
-    console.log(title);
-  }, [title]);
+
+  const Description = (
+    <div>
+      <h2>Введите описание бизнеса:</h2>
+      <InputText
+        initialState={description}
+        placeholder={"Описание"}
+        callback={setDescription}
+      />
+    </div>
+  );
+
+  useEffect(() => {}, [title, description]);
+
   return (
     <div>
-      <div>
-        <Slider steps={[InputTitle]} finishButtonText={"Сохранить"} />
-      </div>
+      <Slider
+        steps={[InputTitle, Description]}
+        finishButtonText={"Сохранить"}
+      />
     </div>
   );
 };

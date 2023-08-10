@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Input } from "antd";
 
 interface InputTextProps {
+  initialState: string;
   callback?: (str: string) => void;
   placeholder?: string;
-  initialState?: string;
 }
 
 const InputText = ({ initialState, placeholder, callback }: InputTextProps) => {
