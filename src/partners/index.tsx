@@ -13,7 +13,7 @@ const Partners = () => {
   };
   const onScan = () => {
     // tg.showScanQrPopup("menu");
-    tg.showScanQrPopup();
+    tg.showScanQrPopup(true);
   };
   return (
     <div className={styles.body}>
