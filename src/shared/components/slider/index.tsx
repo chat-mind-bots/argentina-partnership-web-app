@@ -2,10 +2,16 @@ import React from "react";
 import { Button } from "antd";
 
 interface SliderProps {
-  steps: string[];
+  steps: React.ReactElement[];
+  isNextButtonDisabled?: boolean;
+  finishButtonText?: string;
 }
 
-const Slider = ({ steps }: SliderProps) => {
+const Slider = ({
+  steps,
+  finishButtonText,
+  isNextButtonDisabled,
+}: SliderProps) => {
   const [activeStep, setActiveStep] = React.useState(0);
   const handleNext = () => {
     setActiveStep((prevState) => prevState + 1);
@@ -16,9 +22,9 @@ const Slider = ({ steps }: SliderProps) => {
   };
   return (
     <div>
-      {steps.map((step, index) => {
+      {steps.map((Step, index) => {
         if (activeStep === index) {
-          return step;
+          return <div key={`active--step${index}`}>{Step}</div>;
         }
       })}
       {activeStep !== steps.length ? (
@@ -30,8 +36,14 @@ const Slider = ({ steps }: SliderProps) => {
           >
             Назад
           </Button>
-          <Button type={"primary"} onClick={handleNext}>
-            {activeStep === steps.length - 1 ? "Finish" : "Вперед"}
+          <Button
+            type={"primary"}
+            onClick={handleNext}
+            disabled={isNextButtonDisabled}
+          >
+            {activeStep === steps.length - 1
+              ? finishButtonText && "Закончить"
+              : "Вперед"}
           </Button>
         </div>
       ) : (
