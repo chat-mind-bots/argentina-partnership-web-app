@@ -13,8 +13,11 @@ RUN yarn build
 FROM nginx:alpine AS web
 WORKDIR /app
 
-COPY --from=build /app/build /usr/share/nginx/html
-COPY ./nginx/nginx.conf /etc/nginx/nginx.template
+COPY --from=build /app/build ./
+#COPY ./nginx/nginx.conf /etc/nginx/nginx.template
+#COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
+COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
+#COPY --from=build /react-ui/build /usr/share/nginx/html
 
 EXPOSE 80
 
