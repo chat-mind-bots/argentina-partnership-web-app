@@ -3,7 +3,7 @@ name: Dev Deployment
 on:
   push:
     branches:
-      - master
+      - dev
 
 jobs:
   deploy:
@@ -15,7 +15,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
-          ref: master
+          ref: dev
 
 
       # Set up SSH key for authentication
