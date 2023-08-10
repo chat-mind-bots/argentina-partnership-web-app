@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./partners.module.css";
+import { useTelegram } from "hooks/useTelegram";
+import {
+  WebAppProvider,
+  MainButton,
+  BackButton,
+} from "@vkruglikov/react-telegram-web-app";
 
-// @ts-ignore
-const tg = window.Telegram.WebApp;
-
-tg.onEvent("qrTextReceived", () => {
-  // tg.openLink("https://google.com");
-  tg.sendData({ data: "menu", button_text: "text" });
-});
 const Partners = () => {
+  const { tg } = useTelegram();
   const onClose = () => {
     tg.close();
   };
@@ -16,11 +16,24 @@ const Partners = () => {
     // tg.showScanQrPopup("menu");
     tg.showScanQrPopup(true);
   };
+
+  useEffect(() => {
+    tg.onEvent("qrTextReceived", () => {
+      // tg.openLink("https://google.com");
+      tg.sendData({ data: "menu", button_text: "text" });
+    });
+  });
   return (
-    <div className={styles.body}>
+    <WebAppProvider>
+      <MainButton />
+      <BackButton />
       <button onClick={onScan}>Scan</button>
-      <button onClick={onClose}>Закрыть</button>
-    </div>
+    </WebAppProvider>
+    // <div className={styles.body}>
+    //   {tg.BackButton(true)}
+    //   <button onClick={onScan}>Scan</button>
+    //   <button onClick={onClose}>Закрыть</button>
+    // </div>
   );
 };
 
