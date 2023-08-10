@@ -1,0 +1,5 @@
+.body {
+  background-color: var(--tg-theme-button-color);
+  display: flex;
+  flex-direction: column;
+}

@@ -1,4 +1,5 @@
 import React from "react"
+import styles from "./partners.module.css"
 
 // @ts-ignore
 const tg = window.Telegram.WebApp;
@@ -8,9 +9,9 @@ const Partners = () => {
         tg.close()
     }
     const onScan = () => {
-        tg.showScanQrPopup()
+        tg.showScanQrPopup(true)
     }
-    return <><button onClick={onScan}>Scan</button><button onClick={onClose}>Закрыть</button></>
+    return <div className={styles.body}><button onClick={onScan}>Scan</button><button onClick={onClose}>Закрыть</button></div>
 }
 
 export default Partners
