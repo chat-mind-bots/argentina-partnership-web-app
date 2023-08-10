@@ -11,8 +11,6 @@ const CreateBusinessForm = () => {
   const [contacts, setContacts] = useState("");
   const [preview, setPreview] = useState("");
 
-  const steps = [];
-
   const InputTitle = (
     <div>
       <h2>Введите название бизнеса:</h2>
@@ -35,14 +33,13 @@ const CreateBusinessForm = () => {
     </div>
   );
 
+  const steps = [InputTitle, Description];
+
   useEffect(() => {}, [title, description]);
 
   return (
     <div>
-      <Slider
-        steps={[InputTitle, Description]}
-        finishButtonText={"Сохранить"}
-      />
+      <Slider steps={steps} finishButtonText={"Сохранить"} />
     </div>
   );
 };
