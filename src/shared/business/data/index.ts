@@ -1,4 +1,4 @@
-interface JsonplaceholderResp {
+export interface JsonplaceholderResp {
   userId: number;
   id: number;
   title: string;
