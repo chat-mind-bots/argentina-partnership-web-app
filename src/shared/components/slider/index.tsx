@@ -1,5 +1,6 @@
 import React from "react";
 import { Button } from "antd";
+import styles from "./slider.module.css";
 
 interface SliderProps {
   steps: React.ReactElement[];
@@ -28,10 +29,11 @@ const Slider = ({
         }
       })}
       {activeStep !== steps.length ? (
-        <div>
+        <div className={styles.wrapper}>
           <Button
             type={"primary"}
             onClick={handleBack}
+            className={styles.primaryButton}
             disabled={activeStep === 0}
           >
             Назад
@@ -39,6 +41,7 @@ const Slider = ({
           <Button
             type={"primary"}
             onClick={handleNext}
+            className={styles.primaryButton}
             disabled={isNextButtonDisabled}
           >
             {activeStep === steps.length - 1
