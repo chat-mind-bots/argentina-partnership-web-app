@@ -2,24 +2,19 @@ import React, { useEffect, useState } from "react";
 import { Input } from "antd";
 
 interface InputTextProps {
-  initialState: string;
-  callback?: (str: string) => void;
+  onChange: (str: string) => void;
+  value: string;
   placeholder?: string;
 }
 
-const InputText = ({ initialState, placeholder, callback }: InputTextProps) => {
-  const [text, setText] = useState(initialState);
-
+const InputText = ({ value, placeholder, onChange }: InputTextProps) => {
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setText(event.target.value);
+    onChange(event.target.value);
   };
-  useEffect(() => {
-    if (callback)
-      if (text) {
-        callback(text);
-      }
-  }, [text]);
-  return <Input onChange={handleOnChange} placeholder={placeholder}></Input>;
+
+  return (
+    <Input onChange={handleOnChange} placeholder={placeholder} value={value} />
+  );
 };
 
 export default InputText;
