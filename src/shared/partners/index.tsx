@@ -7,8 +7,10 @@ import {
   useScanQrPopup,
   useShowPopup,
 } from "@vkruglikov/react-telegram-web-app";
+import { useTelegram } from "hooks/useTelegram";
 
 const Partners = () => {
+  const { tg } = useTelegram();
   const [showQrPopup, closeQrPopup] = useScanQrPopup();
   const showPopup = useShowPopup();
   // const { tg } = useTelegram();
@@ -39,9 +41,13 @@ const Partners = () => {
             },
             (text) => {
               closeQrPopup();
-              showPopup({
-                message: text,
-              });
+              tg.sendData(
+                JSON.stringify({ info: "Info", text: text }),
+                // JSON.stringify({ data: "menu", button_text: "text" }),
+              );
+              // showPopup({
+              //   message: text,
+              // });
             },
           )
         }
