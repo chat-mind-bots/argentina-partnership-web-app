@@ -1,6 +1,6 @@
 .body {
-  background-color: var(--tg-theme-button-color);
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+    background-color: var(--tg-theme-button-color);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
