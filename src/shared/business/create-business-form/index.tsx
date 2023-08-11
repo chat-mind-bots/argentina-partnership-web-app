@@ -35,7 +35,9 @@ const CreateBusinessForm = () => {
 
   const steps = [InputTitle, Description];
 
-  useEffect(() => {}, [title, description]);
+  useEffect(() => {
+    console.log(title, description);
+  }, [title, description]);
 
   return (
     <div>
