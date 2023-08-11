@@ -10,7 +10,7 @@ import {
 import { useTelegram } from "hooks/useTelegram";
 
 const Partners = () => {
-	const { tg } = useTelegram();
+	const { tg, user } = useTelegram();
 	const [showQrPopup, closeQrPopup] = useScanQrPopup();
 	const showPopup = useShowPopup();
 	// const { tg } = useTelegram();
@@ -41,13 +41,40 @@ const Partners = () => {
 						},
 						(text) => {
 							closeQrPopup();
-							tg.sendData(
-								JSON.stringify({ info: "Info", text: text, data: "test" })
-								// JSON.stringify({ data: "menu", button_text: "text" }),
-							);
-							// showPopup({
-							//   message: text,
-							// });
+							if (text.includes("user-code-")) {
+								const code = text.split("user-code-")[1];
+								const url = `https://${process.env.REACT_BASE_URL}/user-codes/${code}`;
+								fetch(url, {
+									body: JSON.stringify({ userId: `${user?.id}` }),
+								})
+									.then(async (response) => {
+										if (response.ok) {
+											const data = (await response.json()) as {
+												status: string;
+											};
+											if (data.status === "authorized") {
+												await showPopup({
+													message: "Код успешно активирован",
+												});
+											} else {
+												await showPopup({
+													message:
+														"Код был актвирован ранее, или его срок действия истек. Просканируйте новый код",
+												});
+											}
+										}
+										await showPopup({
+											message:
+												"Произошла ошибка, попробуйте позже, или поробуйте просканировать новый код",
+										});
+									})
+									.catch(async () => {
+										await showPopup({
+											message:
+												"Произошла ошибка, попробуйте позже, или поробуйте просканировать новый код",
+										});
+									});
+							}
 						}
 					)
 				}
