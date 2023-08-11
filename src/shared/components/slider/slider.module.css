@@ -9,5 +9,5 @@
 
 .primaryButton:disabled {
     color: var(--tg-theme-hint-color);
-    background-color: var(--tg-theme-secondary-bg-color).
+    background-color: var(--tg-theme-secondary-bg-color)
 }
