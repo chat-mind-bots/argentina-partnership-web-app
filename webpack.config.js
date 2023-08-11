@@ -13,7 +13,7 @@ module.exports = {
 		publicPath: "/",
 	},
 	devServer: {
-		port: 3000,
+		port: 3001,
 		static: {
 			directory: path.resolve(__dirname, "./build"),
 		},

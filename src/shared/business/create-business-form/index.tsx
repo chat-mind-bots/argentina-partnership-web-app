@@ -3,52 +3,53 @@ import Slider from "shared/components/slider";
 import InputText from "shared/components/input/input-text";
 import styles from "./business-form.module.css";
 import { useTelegram } from "hooks/useTelegram";
+import { getCategories } from "shared/business/create-business-form/services/data";
 
 const CreateBusinessForm = () => {
 	const { tg } = useTelegram();
-	const [owner, setOwner] = useState("");
-	const [title, setTitle] = useState("");
-	const [description, setDescription] = useState("");
-	const [category, setCategory] = useState("");
-	const [address, setAddress] = useState("");
-	const [contacts, setContacts] = useState("");
-	const [preview, setPreview] = useState("");
+	const categories = getCategories();
+	const [data, setData] = useState({
+		title: "",
+		description: "",
+		categoryId: "",
+		address: "",
+		contacts: "",
+		preview: "",
+	});
 
 	const InputTitle = (
 		<div>
 			<h2>Введите название бизнеса:</h2>
-			<InputText value={title} placeholder={"Название"} onChange={setTitle} />
+			<InputText
+				value={data.title}
+				placeholder={"Название"}
+				fieldName={"title"}
+				onChange={setData}
+			/>
 		</div>
 	);
-
+	useEffect(() => {
+		console.log(categories);
+	}, []);
 	const Description = (
 		<div>
 			<h2>Введите описание бизнеса:</h2>
 			<InputText
-				value={description}
+				value={data.description}
 				placeholder={"Описание"}
-				onChange={setDescription}
+				fieldName={"description"}
+				onChange={setData}
 			/>
 		</div>
 	);
 
-	const steps = [InputTitle, Description];
+	const Categories = <div></div>;
 
-	const onSendData = useCallback(() => {
-		const business = {
-			title,
-			description,
-		};
-		tg.sendData(JSON.stringify(business));
-	}, [title, description]);
+	const steps = [InputTitle, Description];
 
 	return (
 		<div className={styles.wrapper}>
-			<Slider
-				steps={steps}
-				finishButtonText={"Сохранить"}
-				onSendData={onSendData}
-			/>
+			<Slider steps={steps} finishButtonText={"Сохранить"} />
 		</div>
 	);
 };
