@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import styles from "./partners.module.css";
+import styles from "shared/partners/partners.module.css";
 import { useTelegram } from "hooks/useTelegram";
 import {
   WebAppProvider,
