@@ -4,7 +4,7 @@ import CreateBusinessForm from "shared/business/create-business-form";
 
 export const router = createBrowserRouter([
   {
-    path: "/partners",
+    path: "/partner",
     Component() {
       return <CreateBusinessForm />;
     },
