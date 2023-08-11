@@ -8,14 +8,14 @@ module.exports = {
 	mode: "development",
 	entry: "./src/index.tsx",
 	output: {
-		path: path.resolve(__dirname, "./dist"),
+		path: path.resolve(__dirname, "./build"),
 		filename: "[name].[hash].js",
 		publicPath: "/",
 	},
 	devServer: {
 		port: 3000,
 		static: {
-			directory: path.resolve(__dirname, "./dist"),
+			directory: path.resolve(__dirname, "./build"),
 		},
 		historyApiFallback: {
 			disableDotRule: true,
