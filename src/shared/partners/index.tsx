@@ -43,11 +43,9 @@ const Partners = () => {
 							closeQrPopup();
 							if (text.includes("user-code-")) {
 								const code = text.split("user-code-")[1];
-								// const url = `https://${process.env.REACT_BASE_URL}/user-codes/${code}`;
-								const url = `https://remote-bot.tech/user-codes/${code}`;
-								fetch(url, {
-									body: JSON.stringify({ userId: `${user?.id}` }),
-								})
+								const url = `https://${process.env.REACT_BASE_URL}/user-codes/${code}?id=${user.id}`;
+								// const url = `https://remote-bot.tech/user-codes/${code}`;
+								fetch(url)
 									.then(async (response) => {
 										if (response.ok) {
 											const data = (await response.json()) as {
