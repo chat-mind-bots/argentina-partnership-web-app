@@ -3,32 +3,40 @@ import React from "react";
 import CreateBusinessForm from "shared/business/create-business-form";
 import { JsonplaceholderResp, loadData } from "shared/business/data";
 import Partners from "shared/partners";
+import Form from "shared/testForm";
 
 export const router = createBrowserRouter([
-  {
-    path: "/partners",
-    loader: () => loadData(),
-    Component() {
-      const data = useLoaderData() as JsonplaceholderResp;
-      return <Partners />;
-    },
-  },
-  {
-    path: "/create/business",
-    Component() {
-      return <CreateBusinessForm />;
-    },
-  },
-  {
-    path: "/partner/:userId/:businessId",
-    Component() {
-      return <div>List</div>;
-    },
-  },
-  {
-    path: "*",
-    Component() {
-      return <div>Not found</div>;
-    },
-  },
+	{
+		path: "/partners",
+		loader: () => loadData(),
+		Component() {
+			const data = useLoaderData() as JsonplaceholderResp;
+			return <Partners />;
+		},
+	},
+	{
+		path: "/test",
+		Component() {
+			return <Form />;
+		},
+	},
+
+	{
+		path: "/create/business",
+		Component() {
+			return <CreateBusinessForm />;
+		},
+	},
+	{
+		path: "/partner/:userId/:businessId",
+		Component() {
+			return <div>List</div>;
+		},
+	},
+	{
+		path: "*",
+		Component() {
+			return <div>Not found</div>;
+		},
+	},
 ]);
