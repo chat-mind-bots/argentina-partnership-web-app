@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Slider from "shared/components/slider";
 import InputText from "shared/components/input/input-text";
+import styles from "./business-form.module.css";
 
 const CreateBusinessForm = () => {
   const [owner, setOwner] = useState("");
@@ -40,7 +41,7 @@ const CreateBusinessForm = () => {
   }, [title, description]);
 
   return (
-    <div>
+    <div className={styles.wrapper}>
       <Slider steps={steps} finishButtonText={"Сохранить"} />
     </div>
   );
