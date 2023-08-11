@@ -19,7 +19,7 @@ const Partners = () => {
 
   useEffect(() => {
     tg.onEvent("qrTextReceived", () => {
-      // tg.openLink("https://google.com");
+      tg.close();
       tg.sendData({ data: "menu", button_text: "text" });
     });
   });
@@ -29,11 +29,6 @@ const Partners = () => {
       <BackButton />
       <button onClick={onScan}>Scan</button>
     </WebAppProvider>
-    // <div className={styles.body}>
-    //   {tg.BackButton(true)}
-    //   <button onClick={onScan}>Scan</button>
-    //   <button onClick={onClose}>Закрыть</button>
-    // </div>
   );
 };
 

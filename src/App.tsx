@@ -1,16 +1,9 @@
 import React from "react";
-import {
-  createBrowserRouter,
-  RouterProvider,
-  useLoaderData,
-} from "react-router-dom";
-import Partners from "shared/partners";
+import { RouterProvider } from "react-router-dom";
 import { router } from "shared/router";
 
 function App() {
-  return (
-    <RouterProvider router={router} fallbackElement={<p>Loading.Ы..</p>} />
-  );
+  return <RouterProvider router={router} fallbackElement={<p>Loading...</p>} />;
 }
 
 export default App;
