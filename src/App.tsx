@@ -1,15 +1,15 @@
-import React from 'react';
+import React from "react";
 import {
   createBrowserRouter,
   RouterProvider,
   useLoaderData,
 } from "react-router-dom";
-import Partners from "partners";
-import {router} from "shared/router";
+import Partners from "shared/partners";
+import { router } from "shared/router";
 
 function App() {
   return (
-      <RouterProvider router={router} fallbackElement={<p>Loading.Ы..</p>} />
+    <RouterProvider router={router} fallbackElement={<p>Loading.Ы..</p>} />
   );
 }
 
