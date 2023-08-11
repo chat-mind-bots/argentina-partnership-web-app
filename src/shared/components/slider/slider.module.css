@@ -4,7 +4,7 @@
 }
 
 .primaryButton {
- background-color: var(--tg-theme-button-color)
+    background-color: var(--tg-theme-button-color)
 }
 
 .primaryButton:disabled {
