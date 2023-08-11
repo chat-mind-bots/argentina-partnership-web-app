@@ -31,7 +31,7 @@ const Slider = ({
 		return () => {
 			tg.offEvent("mainButtonClicked", onSendData);
 		};
-	}, []);
+	}, [onSendData]);
 
 	return (
 		<div>
