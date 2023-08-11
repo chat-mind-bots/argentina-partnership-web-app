@@ -46,7 +46,7 @@ const Partners = () => {
           )
         }
       >
-        Scan
+        Scan 2.0
       </button>
     </WebAppProvider>
   );
