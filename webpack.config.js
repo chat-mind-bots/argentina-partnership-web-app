@@ -4,6 +4,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const Dotenv = require("dotenv-webpack");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
+const webpack = require("webpack");
 module.exports = {
 	mode: "development",
 	entry: "./src/index.tsx",
@@ -60,6 +61,13 @@ module.exports = {
 			template: "./public/index.html",
 		}),
 		new Dotenv(),
+		new webpack.DefinePlugin({
+			"process.env.BASE_URL": JSON.stringify(process.env.REACT_BASE_URL),
+			"process.env.MODE": JSON.stringify(process.env.REACT_MODE),
+			"process.env.BACKEND_ENDPOINT": JSON.stringify(
+				process.env.REACT_BACKEND_ENDPOINT
+			),
+		}),
 		new CleanWebpackPlugin(),
 		new ForkTsCheckerWebpackPlugin(),
 	],
