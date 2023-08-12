@@ -62,9 +62,11 @@ module.exports = {
 		}),
 		new Dotenv(),
 		new webpack.DefinePlugin({
-			"process.env.BASE_URL": JSON.stringify(process.env.REACT_BASE_URL),
-			"process.env.MODE": JSON.stringify(process.env.REACT_MODE),
-			"process.env.BACKEND_ENDPOINT": JSON.stringify("http://localhost:3000/"),
+			"process.env.BASE_URL": JSON.stringify(process.env.BASE_URL),
+			"process.env.MODE": JSON.stringify(process.env.MODE),
+			"process.env.BACKEND_ENDPOINT": JSON.stringify(
+				process.env.BACKEND_ENDPOINT
+			),
 		}),
 		new CleanWebpackPlugin(),
 		new ForkTsCheckerWebpackPlugin(),
