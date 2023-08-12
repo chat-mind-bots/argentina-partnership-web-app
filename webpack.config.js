@@ -64,9 +64,7 @@ module.exports = {
 		new webpack.DefinePlugin({
 			"process.env.BASE_URL": JSON.stringify(process.env.REACT_BASE_URL),
 			"process.env.MODE": JSON.stringify(process.env.REACT_MODE),
-			"process.env.BACKEND_ENDPOINT": JSON.stringify(
-				process.env.REACT_BACKEND_ENDPOINT
-			),
+			"process.env.BACKEND_ENDPOINT": "http://localhost:3000",
 		}),
 		new CleanWebpackPlugin(),
 		new ForkTsCheckerWebpackPlugin(),
