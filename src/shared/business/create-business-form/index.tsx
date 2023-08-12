@@ -29,10 +29,6 @@ const CreateBusinessForm = () => {
 		</div>
 	);
 	useEffect(() => {
-		console.log(categories);
-		console.log(process.env.BASE_URL);
-		console.log(process.env.BACKEND_ENDPOINT);
-		console.log(process.env.REACT_MODE);
 	}, []);
 	const Description = (
 		<div>
