@@ -32,7 +32,7 @@ const CreateBusinessForm = () => {
 		console.log(categories);
 		console.log(process.env.BASE_URL);
 		console.log(process.env.BACKEND_ENDPOINT);
-		console.log(process.env.MODE);
+		console.log(process.env.REACT_MODE);
 	}, []);
 	const Description = (
 		<div>
