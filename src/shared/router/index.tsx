@@ -28,7 +28,7 @@ export const router = createBrowserRouter([
 		},
 	},
 	{
-		path: "/partner/:userId/:businessId",
+		path: "/partner/:userId/business/:businessId",
 		Component() {
 			return <div>List</div>;
 		},

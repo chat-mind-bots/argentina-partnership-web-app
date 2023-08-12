@@ -7,7 +7,13 @@ COPY package.json yarn.lock /app/
 RUN yarn install
 
 COPY . /app/
-
+ARG SERVICE_2_ENV_VAR
+ARG MODE
+ARG BASE_URL
+ARG BACKEND_ENDPOINT
+ENV BASE_URL=${BASE_URL}
+ENV BACKEND_ENDPOINT=${BACKEND_ENDPOINT}
+ENV MODE=${MODE}
 RUN yarn build
 
 FROM nginx:alpine AS web
