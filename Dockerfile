@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY package.json yarn.lock /app/
 
-RUN yarn install
+RUN yarn install --force
 
 COPY . /app/
 ARG SERVICE_2_ENV_VAR
