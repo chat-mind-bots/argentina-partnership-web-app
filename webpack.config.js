@@ -1,12 +1,13 @@
 const path = require("path");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
+// const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const Dotenv = require("dotenv-webpack");
+// const Dotenv = require("dotenv-webpack");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const webpack = require("webpack");
+
+
 module.exports = (env) => {
-	console.log(env);
 	return {
 		mode: "development",
 		entry: "./src/index.tsx",
@@ -66,14 +67,7 @@ module.exports = (env) => {
 				title: "Finance App",
 				template: "./public/index.html",
 			}),
-			new webpack.DefinePlugin({
-				"process.env.BASE_URL": JSON.stringify(process.env.BASE_URL),
-				"process.env.MODE": JSON.stringify(process.env.MODE),
-				"process.env.BACKEND_PORT": JSON.stringify(process.env.BACKEND_PORT),
-				"process.env.BACKEND_ENDPOINT": JSON.stringify(
-					process.env.BACKEND_ENDPOINT
-				),
-			}),
+			new webpack.EnvironmentPlugin( { ...env } ),
 			new CleanWebpackPlugin(),
 			new ForkTsCheckerWebpackPlugin(),
 		],
