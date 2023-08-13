@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Button } from "antd";
+import { Button, Progress } from "antd";
 import styles from "./slider.module.css";
 import { useTelegram } from "hooks/useTelegram";
 
@@ -34,6 +34,11 @@ const Slider = ({
 
 	return (
 		<div>
+			<Progress
+				size={"small"}
+				percent={Math.round((activeStep / steps.length) * 100)}
+				className={styles.progress}
+			/>
 			{steps.map((Step, index) => {
 				if (activeStep === index) {
 					return <div key={`active--step${index}`}>{Step}</div>;
