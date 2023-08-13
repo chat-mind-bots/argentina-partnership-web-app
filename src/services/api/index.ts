@@ -5,19 +5,19 @@ export const instance = axios.create({
 	...config.api,
 });
 
-instance.interceptors.response.use(
-	function (response) {
-		return response;
-	},
-	function (error) {
-		if (error.response.status === 401) {
-			localStorage.removeItem("auth");
-			location.reload();
-		} else {
-			throw error;
-		}
-	}
-);
+// instance.interceptors.response.use(
+// 	function (response) {
+// 		return response;
+// 	},
+// 	function (error) {
+// 		if (error.response.status === 401) {
+// 			localStorage.removeItem("auth");
+// 			location.reload();
+// 		} else {
+// 			throw error;
+// 		}
+// 	}
+// );
 
 export const cancelToken = axios.CancelToken;
 

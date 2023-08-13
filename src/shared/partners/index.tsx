@@ -8,6 +8,7 @@ import {
 	useShowPopup,
 } from "@vkruglikov/react-telegram-web-app";
 import { useTelegram } from "hooks/useTelegram";
+import { get } from "services/api";
 
 const Partners = () => {
 	const { tg, user } = useTelegram();
@@ -43,24 +44,20 @@ const Partners = () => {
 							closeQrPopup();
 							if (text.includes("user-code-")) {
 								const code = text.split("user-code-")[1];
-								const url = `https://${process.env.REACT_BASE_URL}/user-codes/${code}?id=${user.id}`;
-								// const url = `https://remote-bot.tech/user-codes/${code}?id=${user.id}`;
-								fetch(url)
-									.then(async (response) => {
-										if (response.ok) {
-											const data = (await response.json()) as {
-												status: string;
-											};
-											if (data.status === "authorized") {
-												await showPopup({
-													message: "Код успешно активирован",
-												});
-											} else {
-												await showPopup({
-													message:
-														"Код был актвирован ранее, или его срок действия истек. Просканируйте новый код",
-												});
-											}
+								const url = `user-codes/${code}`;
+								get<{
+									status: "authorized" | "reject";
+								}>(url, { query: { id: user.id } })
+									.then(async (data) => {
+										if (data.status === "authorized") {
+											await showPopup({
+												message: "Код успешно активирован",
+											});
+										} else {
+											await showPopup({
+												message:
+													"Код был актвирован ранее, или его срок действия истек. Просканируйте новый код",
+											});
 										}
 										await showPopup({
 											message:

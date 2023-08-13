@@ -61,8 +61,9 @@ module.exports = {
 			template: "./public/index.html",
 		}),
 		new webpack.DefinePlugin({
-			'process.env.BASE_URL': JSON.stringify(process.env.BASE_URL),
+			"process.env.BASE_URL": JSON.stringify(process.env.BASE_URL),
 			"process.env.MODE": JSON.stringify(process.env.MODE),
+			"process.env.BACKEND_PORT": JSON.stringify(process.env.BACKEND_PORT),
 			"process.env.BACKEND_ENDPOINT": JSON.stringify(
 				process.env.BACKEND_ENDPOINT
 			),
