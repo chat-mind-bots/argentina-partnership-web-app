@@ -156,6 +156,7 @@ const CreateBusinessForm = ({ categories }: BusinessFormProps) => {
 				finishButtonText={"Сохранить"}
 				isNextButtonDisabled={isEmpty}
 				onSendData={handleOnSend}
+				finishText={"Бизнес был успешно создан"}
 			/>
 		</div>
 	);

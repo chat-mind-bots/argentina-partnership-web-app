@@ -8,6 +8,7 @@ interface SliderProps {
 	onSendData?: () => void;
 	isNextButtonDisabled?: boolean;
 	finishButtonText?: string;
+	finishText?: string;
 }
 
 const Slider = ({
@@ -15,6 +16,7 @@ const Slider = ({
 	finishButtonText,
 	isNextButtonDisabled,
 	onSendData,
+	finishText,
 }: SliderProps) => {
 	const [activeStep, setActiveStep] = React.useState(0);
 	const handleNext = () => {
@@ -78,7 +80,7 @@ const Slider = ({
 					)}
 				</div>
 			) : (
-				<div>All steps completed - you&apos;re finished</div>
+				<div>{finishText}</div>
 			)}
 		</div>
 	);

@@ -36,7 +36,9 @@ export const router = createBrowserRouter([
 	},
 	{
 		path: "/partner/:userId/business/:businessId",
+		loader: () => getCategories(),
 		Component() {
+			const data = useLoaderData() as Category[];
 			return <div>List</div>;
 		},
 	},
