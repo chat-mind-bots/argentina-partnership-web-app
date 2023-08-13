@@ -16,7 +16,7 @@ COPY . /app/
 #ENV BACKEND_ENDPOINT=${BACKEND_ENDPOINT}
 #ENV BACKEND_PORT=${BACKEND_PORT}
 #ENV MODE=${MODE}
-RUN yarn build --env BASE_URL=BASE_URL --env MODE=MODE --progress
+RUN yarn build --env BASE_URL=${BASE_URL} --env MODE=${MODE} --progress
 
 FROM nginx:alpine AS web
 WORKDIR /app
