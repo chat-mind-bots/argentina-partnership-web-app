@@ -6,7 +6,7 @@ import { useTelegram } from "hooks/useTelegram";
 
 interface SliderProps {
 	steps: React.ReactElement[];
-	onSendData: () => void;
+	onSendData?: () => void;
 	isNextButtonDisabled?: boolean;
 	finishButtonText?: string;
 }
@@ -50,18 +50,14 @@ const Slider = ({
 					>
 						Назад
 					</Button>
-					{activeStep === steps.length - 1 ? (
-						<MainButton text={finishButtonText && "Закончить"} />
-					) : (
-						<Button
-							type={"primary"}
-							onClick={handleNext}
-							className={styles.primaryButton}
-							disabled={isNextButtonDisabled}
-						>
-							{finishButtonText}
-						</Button>
-					)}
+					<Button
+						type={"primary"}
+						onClick={handleNext}
+						className={styles.primaryButton}
+						disabled={isNextButtonDisabled}
+					>
+						{activeStep !== steps.length - 1 ? finishButtonText : "Закончить"}
+					</Button>
 				</div>
 			) : (
 				<div>All steps completed - you&apos;re finished</div>
