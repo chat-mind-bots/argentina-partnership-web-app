@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { Button } from "antd";
 import styles from "./slider.module.css";
-import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import { useTelegram } from "hooks/useTelegram";
 
 interface SliderProps {

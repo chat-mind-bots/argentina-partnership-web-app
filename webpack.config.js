@@ -52,8 +52,11 @@ module.exports = {
 		],
 	},
 	resolve: {
-		extensions: [".tsx", ".ts", ".js", ".jsx"],
+		extensions: [".tsx", ".ts", ".js", ".jsx", "less", "css", "scss"],
 		modules: ["node_modules", "src"],
+		alias: {
+			process: "process/browser",
+		},
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
