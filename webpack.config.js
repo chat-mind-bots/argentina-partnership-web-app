@@ -59,6 +59,7 @@ module.exports = {
 		},
 	},
 	plugins: [
+		new Dotenv(),
 		new HtmlWebpackPlugin({
 			title: "Finance App",
 			template: "./public/index.html",
