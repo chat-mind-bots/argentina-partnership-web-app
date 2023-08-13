@@ -14,6 +14,10 @@ const Partners = () => {
 	const { tg, user } = useTelegram();
 	const [showQrPopup, closeQrPopup] = useScanQrPopup();
 	const showPopup = useShowPopup();
+	useEffect(() => {
+		get("/teset", {});
+	}, []);
+
 	// const { tg } = useTelegram();
 	// const onClose = () => {
 	//   tg.close();
