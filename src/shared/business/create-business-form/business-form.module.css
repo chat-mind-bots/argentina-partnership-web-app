@@ -1,4 +1,18 @@
 .wrapper {
     background-color: var(--tg-theme-bg-color);
-    padding: 20px 20px;
+    margin: 20px 10px;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.formHeader {
+    margin-bottom: 10px;
+}
+
+.formInput {
+    margin-bottom: 5px;
+}
+.formSelect {
+    width: 100%;
+    margin-bottom: 10px;
 }
