@@ -1,5 +1,5 @@
 export interface CreateBusiness {
-	categoryId: string;
+	categoryName: string;
 	title: string;
 	description?: string;
 	contacts?: string;

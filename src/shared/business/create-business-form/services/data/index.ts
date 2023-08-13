@@ -4,7 +4,7 @@ import { CategoriesDto } from "shared/business/create-business-form/types/catego
 
 export const getBusiness = (id: number) => get<any>(`chats/${id}`, {});
 
-export const createBusiness = (id: number, body: CreateBusiness) =>
-	post<any>(`${id}/business/create`, { body });
+export const createBusiness = (id: string, body: CreateBusiness) =>
+	post<any>(`business/${id}/create`, { body });
 
 export const getCategories = () => get<CategoriesDto>("categories", {});
