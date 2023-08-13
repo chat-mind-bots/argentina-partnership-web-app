@@ -6,6 +6,7 @@ import { useTelegram } from "hooks/useTelegram";
 import { Category } from "shared/business/create-business-form/types/categories.dto";
 import Select from "shared/components/select";
 import { createBusiness } from "shared/business/create-business-form/services/data";
+import { Button, Upload } from "antd";
 
 export interface BusinessFormProps {
 	categories: Category[];
@@ -124,14 +125,9 @@ const CreateBusinessForm = ({ categories }: BusinessFormProps) => {
 	const Preview = (
 		<div>
 			<h2 className={styles.formHeader}>Ваши контакты:</h2>
-			<InputText
-				className={styles.formInput}
-				value={data.preview}
-				isEmptyCallback={setIsEmpty}
-				placeholder={"ссылка на фото"}
-				fieldName={"preview"}
-				onChange={setData}
-			/>
+			<Upload className={styles.formInput} type={"select"}>
+				<Button>Click to Upload</Button>
+			</Upload>
 		</div>
 	);
 
