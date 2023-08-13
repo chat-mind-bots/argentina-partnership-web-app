@@ -1,18 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Input } from "antd";
-import { CreateBusiness } from "shared/business/create-business-form/types/create-business.interface";
 
 interface InputTextProps {
 	onChange: React.Dispatch<React.SetStateAction<any>>;
 	value: string;
 	fieldName: string;
 	placeholder?: string;
+	className?: string;
 }
 
 const InputText = ({
 	value,
 	placeholder,
 	onChange,
+	className,
 	fieldName,
 }: InputTextProps) => {
 	const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,7 +24,12 @@ const InputText = ({
 	};
 
 	return (
-		<Input onChange={handleOnChange} placeholder={placeholder} value={value} />
+		<Input
+			onChange={handleOnChange}
+			placeholder={placeholder}
+			value={value}
+			className={className}
+		/>
 	);
 };
 

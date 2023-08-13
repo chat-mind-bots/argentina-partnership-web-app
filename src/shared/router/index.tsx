@@ -4,6 +4,11 @@ import CreateBusinessForm from "shared/business/create-business-form";
 import { JsonplaceholderResp, loadData } from "shared/business/data";
 import Partners from "shared/partners";
 import Form from "shared/testForm";
+import { getCategories } from "shared/business/create-business-form/services/data";
+import {
+	CategoriesDto,
+	Category,
+} from "shared/business/create-business-form/types/categories.dto";
 
 export const router = createBrowserRouter([
 	{
@@ -23,8 +28,10 @@ export const router = createBrowserRouter([
 
 	{
 		path: "/create/business",
+		loader: () => getCategories(),
 		Component() {
-			return <CreateBusinessForm />;
+			const data = useLoaderData() as Category[];
+			return <CreateBusinessForm categories={data} />;
 		},
 	},
 	{
