@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Input } from "antd";
 
 interface InputTextProps {
@@ -7,6 +7,7 @@ interface InputTextProps {
 	fieldName: string;
 	placeholder?: string;
 	className?: string;
+	isEmptyCallback: (value: boolean) => void;
 }
 
 const InputText = ({
@@ -15,6 +16,7 @@ const InputText = ({
 	onChange,
 	className,
 	fieldName,
+	isEmptyCallback,
 }: InputTextProps) => {
 	const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		onChange((prevData: any) => ({
@@ -22,6 +24,13 @@ const InputText = ({
 			[fieldName]: event.target.value,
 		}));
 	};
+	useEffect(() => {
+		if (value !== "") {
+			isEmptyCallback(false);
+		} else {
+			isEmptyCallback(true);
+		}
+	}, [value]);
 
 	return (
 		<Input
