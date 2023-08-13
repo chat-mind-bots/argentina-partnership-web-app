@@ -11,28 +11,9 @@ import { useTelegram } from "hooks/useTelegram";
 import { get } from "services/api";
 
 const Partners = () => {
-	const { tg, user } = useTelegram();
+	const { user } = useTelegram();
 	const [showQrPopup, closeQrPopup] = useScanQrPopup();
 	const showPopup = useShowPopup();
-	useEffect(() => {
-		get("/teset", {});
-	}, []);
-
-	// const { tg } = useTelegram();
-	// const onClose = () => {
-	//   tg.close();
-	// };
-	// const onScan = () => {
-	//   // tg.showScanQrPopup("menu");
-	//   tg.showScanQrPopup(true);
-	// };
-
-	// useEffect(() => {
-	//   tg.onEvent("qrTextReceived", () => {
-	//     tg.close();
-	//     tg.sendData({ data: "menu", button_text: "text" });
-	//   });
-	// });
 	return (
 		<WebAppProvider>
 			<MainButton />
