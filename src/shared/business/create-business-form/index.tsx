@@ -3,11 +3,15 @@ import Slider from "shared/components/slider";
 import InputText from "shared/components/input/input-text";
 import styles from "./business-form.module.css";
 import { useTelegram } from "hooks/useTelegram";
-import { getCategories } from "shared/business/create-business-form/services/data";
+import {
+	getBusiness,
+	getCategories,
+} from "shared/business/create-business-form/services/data";
+import {Select} from "antd";
 
 const CreateBusinessForm = () => {
 	const { tg } = useTelegram();
-	const categories = getCategories();
+	// const categories = getCategories();
 	const [data, setData] = useState({
 		title: "",
 		description: "",
@@ -16,6 +20,7 @@ const CreateBusinessForm = () => {
 		contacts: "",
 		preview: "",
 	});
+	const [categories, setCategories] = useState({});
 
 	const InputTitle = (
 		<div>
@@ -28,8 +33,7 @@ const CreateBusinessForm = () => {
 			/>
 		</div>
 	);
-	useEffect(() => {
-	}, []);
+
 	const Description = (
 		<div>
 			<h2>Введите описание бизнеса:</h2>
@@ -42,9 +46,19 @@ const CreateBusinessForm = () => {
 		</div>
 	);
 
-	const Categories = <div></div>;
+	const Categories = (
+		<div>
+			<Select>
+
+			</Select>
+		</div>
+	);
 
 	const steps = [InputTitle, Description];
+
+	useEffect(() => {
+		setCategories(getCategories());
+	}, []);
 
 	return (
 		<div className={styles.wrapper}>
