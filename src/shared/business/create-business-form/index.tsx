@@ -29,7 +29,7 @@ const CreateBusinessForm = ({ categories }: BusinessFormProps) => {
 	});
 	const [isEmpty, setIsEmpty] = useState(true);
 	const handleOnSend = () => {
-		return createBusiness("250101824", data);
+		return createBusiness(user.id, data);
 	};
 	const InputTitle = (
 		<div>
