@@ -35,14 +35,18 @@ export function Component() {
 						if (data.status === "authorized") {
 							await showPopup({
 								message: "Код успешно активирован",
-								// }).then(close);
-							});
+							})
+								.then(close)
+								.catch(close);
+							// });
 						} else {
 							await showPopup({
 								message:
 									"Код был актвирован ранее, или его срок действия истек. Просканируйте новый код",
-								// }).then(close);
-							});
+							})
+								.then(close)
+								.catch(close);
+							// });
 						}
 					});
 					// .catch(async () => {
