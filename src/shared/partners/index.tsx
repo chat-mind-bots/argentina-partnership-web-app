@@ -31,25 +31,24 @@ export function Component() {
 					const url = `user-codes/${code}`;
 					get<{
 						status: "authorized" | "reject";
-					}>(url, { query: { id: user.id } })
-						.then(async (data) => {
-							if (data.status === "authorized") {
-								await showPopup({
-									message: "Код успешно активирован",
-								}).then(close);
-							} else {
-								await showPopup({
-									message:
-										"Код был актвирован ранее, или его срок действия истек. Просканируйте новый код",
-								}).then(close);
-							}
-						})
-						.catch(async () => {
+					}>(url, { query: { id: user.id } }).then(async (data) => {
+						if (data.status === "authorized") {
+							await showPopup({
+								message: "Код успешно активирован",
+							}).then(close);
+						} else {
 							await showPopup({
 								message:
-									"Произошла ошибка, попробуйте позже, или поробуйте просканировать новый код",
+									"Код был актвирован ранее, или его срок действия истек. Просканируйте новый код",
 							}).then(close);
-						});
+						}
+					});
+					// .catch(async () => {
+					// 	await showPopup({
+					// 		message:
+					// 			"Произошла ошибка, попробуйте позже, или поробуйте просканировать новый код",
+					// 	}).then(close);
+					// });
 				}
 			}
 		);
