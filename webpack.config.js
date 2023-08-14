@@ -6,7 +6,6 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const webpack = require("webpack");
 
-
 module.exports = (env) => {
 	return {
 		mode: "development",
@@ -59,6 +58,7 @@ module.exports = (env) => {
 			modules: ["node_modules", "src"],
 			alias: {
 				process: "process/browser",
+				Components: path.resolve(__dirname, "src/shared/"),
 			},
 		},
 		plugins: [
@@ -67,7 +67,7 @@ module.exports = (env) => {
 				title: "Finance App",
 				template: "./public/index.html",
 			}),
-			new webpack.EnvironmentPlugin( { ...env } ),
+			new webpack.EnvironmentPlugin({ ...env }),
 			new CleanWebpackPlugin(),
 			new ForkTsCheckerWebpackPlugin(),
 		],

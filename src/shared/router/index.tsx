@@ -2,22 +2,20 @@ import { createBrowserRouter, useLoaderData } from "react-router-dom";
 import React from "react";
 import CreateBusinessForm from "shared/business/create-business-form";
 import { JsonplaceholderResp, loadData } from "shared/business/data";
-import Partners from "shared/partners";
+// import Partners from "shared/partners";
 import Form from "shared/testForm";
 import { getCategories } from "shared/business/create-business-form/services/data";
-import {
-	CategoriesDto,
-	Category,
-} from "shared/business/create-business-form/types/categories.dto";
+import { Category } from "shared/business/create-business-form/types/categories.dto";
+import PageLoader from "shared/components/page-loader";
 
 export const router = createBrowserRouter([
 	{
-		path: "/partners",
-		loader: () => loadData(),
-		Component() {
-			const data = useLoaderData() as JsonplaceholderResp;
-			return <Partners />;
-		},
+		path: "partners",
+		lazy: () => import("../partners"),
+		// async lazy() {
+		// 	const { Partners } = await import("../partners");
+		// 	return { loader: loadData, Component: Partners };
+		// },
 	},
 	{
 		path: "/test",
