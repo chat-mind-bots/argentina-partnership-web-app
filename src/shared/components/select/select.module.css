@@ -1,4 +1,13 @@
 .formSelect {
     width: 100%;
     margin-bottom: 10px;
+    text-transform: capitalize;
+}
+
+.formSelect > .ant-select-selection-item {
+    text-transform: capitalize;
+}
+
+.formSelect > .ant-select-item {
+    text-transform: capitalize;
 }

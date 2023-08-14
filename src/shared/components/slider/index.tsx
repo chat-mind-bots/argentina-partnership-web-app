@@ -4,7 +4,9 @@ import styles from "./slider.module.css";
 import { useTelegram } from "hooks/useTelegram";
 
 interface SliderProps {
-	steps: React.ReactElement[];
+	steps: React.ReactNode[];
+	setActiveStep: (cb: (value: number) => number) => void;
+	activeStep: number;
 	onSendData?: () => void;
 	isNextButtonDisabled?: boolean;
 	finishButtonText?: string;
@@ -16,9 +18,10 @@ const Slider = ({
 	finishButtonText,
 	isNextButtonDisabled,
 	onSendData,
+	activeStep,
 	finishText,
+	setActiveStep,
 }: SliderProps) => {
-	const [activeStep, setActiveStep] = React.useState(0);
 	const handleNext = () => {
 		setActiveStep((prevState) => prevState + 1);
 	};
@@ -36,11 +39,6 @@ const Slider = ({
 
 	return (
 		<div>
-			<Progress
-				size={"small"}
-				percent={Math.round((activeStep / steps.length) * 100)}
-				className={styles.progress}
-			/>
 			{steps.map((Step, index) => {
 				if (activeStep === index) {
 					return <div key={`active--step${index}`}>{Step}</div>;

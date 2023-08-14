@@ -31,9 +31,16 @@ const CreateBusinessForm = ({ categories }: BusinessFormProps) => {
 	const handleOnSend = () => {
 		return createBusiness(user.id, data);
 	};
+	const [maxSteps, setMaxSteps] = useState(0);
+	const [currentStep, setCurrentStep] = useState(0);
 	const InputTitle = (
 		<div>
-			<h2 className={styles.formHeader}>Введите название бизнеса:</h2>
+			<div className={styles.headerWrapper}>
+				<h2>Введите название бизнеса:</h2>
+				<div className={styles.stepper}>
+					{`${currentStep + 1} / ${maxSteps}`}
+				</div>
+			</div>
 			<InputText
 				className={styles.formInput}
 				value={data.title}
@@ -42,12 +49,21 @@ const CreateBusinessForm = ({ categories }: BusinessFormProps) => {
 				isEmptyCallback={setIsEmpty}
 				onChange={setData}
 			/>
+			<div className={styles.stepDescription}>
+				<div className={styles.stepDescriptionTitle}>Пример:</div>
+				<div>Додо пицца</div>
+			</div>
 		</div>
 	);
 
 	const Description = (
 		<div>
-			<h2 className={styles.formHeader}>Введите описание бизнеса:</h2>
+			<div className={styles.headerWrapper}>
+				<h2>Введите описание бизнеса:</h2>
+				<div className={styles.stepper}>
+					{`${currentStep + 1} / ${maxSteps}`}
+				</div>
+			</div>
 			<InputText
 				className={styles.formInput}
 				value={data.description}
@@ -79,7 +95,12 @@ const CreateBusinessForm = ({ categories }: BusinessFormProps) => {
 
 	const Categories = (
 		<div>
-			<h2 className={styles.formHeader}>Выберете категорию бизнеса:</h2>
+			<div className={styles.headerWrapper}>
+				<h2>Выберете категорию бизнеса:</h2>
+				<div className={styles.stepper}>
+					{`${currentStep + 1} / ${maxSteps}`}
+				</div>
+			</div>
 			<div>
 				<Select
 					showSearch
@@ -95,7 +116,12 @@ const CreateBusinessForm = ({ categories }: BusinessFormProps) => {
 
 	const Contacts = (
 		<div>
-			<h2 className={styles.formHeader}>Ваши контакты:</h2>
+			<div className={styles.headerWrapper}>
+				<h2>Ваши контакты:</h2>
+				<div className={styles.stepper}>
+					{`${currentStep + 1} / ${maxSteps}`}
+				</div>
+			</div>
 			<InputText
 				className={styles.formInput}
 				value={data.contacts}
@@ -109,7 +135,12 @@ const CreateBusinessForm = ({ categories }: BusinessFormProps) => {
 
 	const Address = (
 		<div>
-			<h2 className={styles.formHeader}>Ваши контакты:</h2>
+			<div className={styles.headerWrapper}>
+				<h2>Ваши контакты:</h2>
+				<div className={styles.stepper}>
+					{`${currentStep + 1} / ${maxSteps}`}
+				</div>
+			</div>
 			<InputText
 				className={styles.formInput}
 				value={data.address}
@@ -123,7 +154,12 @@ const CreateBusinessForm = ({ categories }: BusinessFormProps) => {
 
 	const Preview = (
 		<div>
-			<h2 className={styles.formHeader}>Ваши контакты:</h2>
+			<div className={styles.headerWrapper}>
+				<h2>Ваши контакты:</h2>
+				<div className={styles.stepper}>
+					{`${currentStep + 1} / ${maxSteps}`}
+				</div>
+			</div>
 			<InputText
 				className={styles.formInput}
 				value={data.preview}
@@ -145,14 +181,15 @@ const CreateBusinessForm = ({ categories }: BusinessFormProps) => {
 	];
 
 	useEffect(() => {
-		console.log(data);
-		console.log(categories);
-	}, [data]);
+		setMaxSteps(steps.length);
+	}, [steps]);
 
 	return (
 		<div className={styles.wrapper}>
 			<Slider
 				steps={steps}
+				activeStep={currentStep}
+				setActiveStep={setCurrentStep}
 				finishButtonText={"Сохранить"}
 				isNextButtonDisabled={isEmpty}
 				onSendData={handleOnSend}
