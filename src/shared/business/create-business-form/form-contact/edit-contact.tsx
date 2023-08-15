@@ -9,19 +9,20 @@ import { FormData } from "shared/business/create-business-form/form-contact/inde
 
 interface AddContactProps {
 	optionOnChange: (value: ContactsTypeEnum) => void;
-	// selectOption: string;
 	addValue: IContacts;
 	contactData: { [key: string]: FormData };
 	onChangeInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
-	onSave: () => void;
+	onSave: (value: number) => void;
+	editIndex: number;
 }
 
-const AddContact = ({
+const EditContact = ({
 	optionOnChange,
 	addValue,
 	onChangeInput,
 	onSave,
 	contactData,
+	editIndex,
 }: AddContactProps) => {
 	const options = [
 		{
@@ -49,13 +50,15 @@ const AddContact = ({
 			value: ContactsTypeEnum.PHONE,
 		},
 	];
+
 	return (
 		<div>
 			<div>
 				<Select
 					style={{ width: "100%" }}
 					options={options}
-					defaultValue={ContactsTypeEnum.TELEGRAM}
+					value={addValue.type}
+					defaultValue={addValue.type}
 					onChange={optionOnChange}
 				/>
 				<div>
@@ -70,12 +73,15 @@ const AddContact = ({
 						value={addValue.value}
 						placeholder={contactData[addValue.type].placeholder}
 						onChange={onChangeInput}
-					/>
+					></InputText>
 				</div>
 			</div>
-			{addValue.value && <Button onClick={onSave}>Сохранить</Button>}
+			<Button onClick={() => {}}>Отменить</Button>
+			{addValue.value && (
+				<Button onClick={() => onSave(editIndex)}>Сохранить</Button>
+			)}
 		</div>
 	);
 };
 
-export default AddContact;
+export default EditContact;

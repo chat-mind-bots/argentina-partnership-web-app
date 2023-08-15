@@ -63,6 +63,13 @@
     align-items: center;
 }
 
+.contactBefore {
+    color: var(--tg-theme-text-color);
+}
+
+.modalWrapper {
+    padding: 25px 16px;
+}
 
 .formSelect {
     width: 100%;
