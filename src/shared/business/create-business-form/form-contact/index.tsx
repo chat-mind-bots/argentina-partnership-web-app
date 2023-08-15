@@ -80,6 +80,13 @@ const FormContact = ({
 		});
 		clearInputs();
 	};
+	const handleOnCancel = () => {
+		setAddValue({
+			value: "",
+			type: ContactsTypeEnum.TELEGRAM_BOT,
+		});
+		setFormState("data");
+	};
 	const onSelectAddMenu = () => {
 		setFormState("addFiled");
 	};
@@ -152,6 +159,7 @@ const FormContact = ({
 				<EditContact
 					editIndex={editIndex}
 					contactData={contactData}
+					onCancel={handleOnCancel}
 					onSave={onSaveEdit}
 					optionOnChange={optionOnChange}
 					onChangeInput={onChangeInput}
