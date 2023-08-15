@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Slider from "shared/components/slider";
-import InputText from "shared/components/input/input-text";
 import styles from "./business-form.module.css";
 import { useTelegram } from "hooks/useTelegram";
 import { Category } from "shared/business/create-business-form/types/categories.dto";
-import Select from "shared/components/select";
 import { createBusiness } from "shared/business/create-business-form/services/data";
+
+import { IContacts } from "shared/business/create-business-form/types/create-business.interface";
+import FormContact from "shared/business/create-business-form/form-contact";
+import FormTitle from "shared/business/create-business-form/form-title";
+import FormDescription from "shared/business/create-business-form/form-description";
+import FormCategories from "shared/business/create-business-form/form-category";
 
 export interface BusinessFormProps {
 	categories: Category[];
@@ -24,57 +28,17 @@ const CreateBusinessForm = ({ categories }: BusinessFormProps) => {
 		description: "",
 		categoryName: "",
 		address: "",
-		contacts: "",
-		preview: "",
+		contacts: [] as IContacts[],
 	});
 	const [isEmpty, setIsEmpty] = useState(true);
+	const [hideButtons, setHideButtons] = useState(false);
 	const handleOnSend = () => {
 		return createBusiness(user.id, data);
 	};
 	const [maxSteps, setMaxSteps] = useState(0);
 	const [currentStep, setCurrentStep] = useState(0);
-	const InputTitle = (
-		<div>
-			<div className={styles.headerWrapper}>
-				<h2>Введите название бизнеса:</h2>
-				<div className={styles.stepper}>
-					{`${currentStep + 1} / ${maxSteps}`}
-				</div>
-			</div>
-			<InputText
-				className={styles.formInput}
-				value={data.title}
-				placeholder={"Название"}
-				fieldName={"title"}
-				isEmptyCallback={setIsEmpty}
-				onChange={setData}
-			/>
-			<div className={styles.stepDescription}>
-				<div className={styles.stepDescriptionTitle}>Пример:</div>
-				<div>Додо пицца</div>
-			</div>
-		</div>
-	);
 
-	const Description = (
-		<div>
-			<div className={styles.headerWrapper}>
-				<h2>Введите описание бизнеса:</h2>
-				<div className={styles.stepper}>
-					{`${currentStep + 1} / ${maxSteps}`}
-				</div>
-			</div>
-			<InputText
-				className={styles.formInput}
-				value={data.description}
-				placeholder={"Описание"}
-				fieldName={"description"}
-				isEmptyCallback={setIsEmpty}
-				onChange={setData}
-			/>
-		</div>
-	);
-	const onChange = (str: string) => {
+	const onChangeCategory = (str: string) => {
 		const index = categories.findIndex((value, index) => {
 			return value.title === str;
 		});
@@ -93,100 +57,71 @@ const CreateBusinessForm = ({ categories }: BusinessFormProps) => {
 			});
 		});
 
-	const Categories = (
-		<div>
-			<div className={styles.headerWrapper}>
-				<h2>Выберете категорию бизнеса:</h2>
-				<div className={styles.stepper}>
-					{`${currentStep + 1} / ${maxSteps}`}
-				</div>
-			</div>
-			<div>
-				<Select
-					showSearch
-					value={data.categoryName}
-					placeholder="Выберете категорию"
-					onChange={onChange}
-					isEmptyCallback={setIsEmpty}
-					options={dataCategory}
-				/>
-			</div>
-		</div>
-	);
-
-	const Contacts = (
-		<div>
-			<div className={styles.headerWrapper}>
-				<h2>Ваши контакты:</h2>
-				<div className={styles.stepper}>
-					{`${currentStep + 1} / ${maxSteps}`}
-				</div>
-			</div>
-			<InputText
-				className={styles.formInput}
-				value={data.contacts}
-				isEmptyCallback={setIsEmpty}
-				placeholder={"телефон"}
-				fieldName={"contacts"}
-				onChange={setData}
-			/>
-		</div>
-	);
-
-	const Address = (
-		<div>
-			<div className={styles.headerWrapper}>
-				<h2>Ваши контакты:</h2>
-				<div className={styles.stepper}>
-					{`${currentStep + 1} / ${maxSteps}`}
-				</div>
-			</div>
-			<InputText
-				className={styles.formInput}
-				value={data.address}
-				isEmptyCallback={setIsEmpty}
-				placeholder={"улица, дом"}
-				fieldName={"address"}
-				onChange={setData}
-			/>
-		</div>
-	);
-
-	const Preview = (
-		<div>
-			<div className={styles.headerWrapper}>
-				<h2>Ваши контакты:</h2>
-				<div className={styles.stepper}>
-					{`${currentStep + 1} / ${maxSteps}`}
-				</div>
-			</div>
-			<InputText
-				className={styles.formInput}
-				value={data.preview}
-				isEmptyCallback={setIsEmpty}
-				placeholder={"ссылка на фото"}
-				fieldName={"preview"}
-				onChange={setData}
-			/>
-		</div>
-	);
+	// const Address = (
+	// 	<div>
+	// 		<div className={styles.headerWrapper}>
+	// 			<h2>Ваши контакты:</h2>
+	// 			<div className={styles.stepper}>
+	// 				{`${currentStep + 1} / ${maxSteps}`}
+	// 			</div>
+	// 		</div>
+	// 		<InputText
+	// 			className={styles.formInput}
+	// 			value={data.address}
+	// 			isEmptyCallback={setIsEmpty}
+	// 			placeholder={"улица, дом"}
+	// 			fieldName={"address"}
+	// 			onChange={setData}
+	// 		/>
+	// 		<div className={styles.stepDescription}>
+	// 			<div className={styles.stepDescriptionTitle}>Пример описания:</div>
+	// 			<div>
+	// 				Пицца от 289 рублей. Быстрая бесплатная доставка домой и в офис.
+	// 				Показываем в прямом эфире, как готовим вашу пиццу.
+	// 			</div>
+	// 		</div>
+	// 	</div>
+	// );
 
 	const steps = [
-		InputTitle,
-		Description,
-		Categories,
-		Address,
-		Contacts,
-		Preview,
+		<FormTitle
+			currentStep={currentStep}
+			value={data.title}
+			onChange={setData}
+			isEmptyCallback={setIsEmpty}
+			maxSteps={maxSteps}
+		/>,
+		<FormDescription
+			currentStep={currentStep}
+			value={data.description}
+			onChange={setData}
+			isEmptyCallback={setIsEmpty}
+			maxSteps={maxSteps}
+		/>,
+		<FormCategories
+			dataCategory={dataCategory}
+			currentStep={currentStep}
+			value={data.categoryName}
+			onChange={onChangeCategory}
+			isEmptyCallback={setIsEmpty}
+			maxSteps={maxSteps}
+		/>,
+		<FormContact
+			maxSteps={maxSteps}
+			currentStep={currentStep}
+			values={data.contacts}
+			hideButtonsCallback={setHideButtons}
+			setData={setData}
+		/>,
 	];
-
+	console.log(data);
 	useEffect(() => {
 		setMaxSteps(steps.length);
 	}, [steps]);
-
 	return (
 		<div className={styles.wrapper}>
 			<Slider
+				hideButtons={hideButtons}
 				steps={steps}
 				activeStep={currentStep}
 				setActiveStep={setCurrentStep}

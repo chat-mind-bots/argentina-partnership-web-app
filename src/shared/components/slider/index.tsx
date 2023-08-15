@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Button, Progress } from "antd";
+import { Button } from "antd";
 import styles from "./slider.module.css";
 import { useTelegram } from "hooks/useTelegram";
 
@@ -7,6 +7,7 @@ interface SliderProps {
 	steps: React.ReactNode[];
 	setActiveStep: (cb: (value: number) => number) => void;
 	activeStep: number;
+	hideButtons: boolean;
 	onSendData?: () => void;
 	isNextButtonDisabled?: boolean;
 	finishButtonText?: string;
@@ -19,6 +20,7 @@ const Slider = ({
 	isNextButtonDisabled,
 	onSendData,
 	activeStep,
+	hideButtons,
 	finishText,
 	setActiveStep,
 }: SliderProps) => {
@@ -39,42 +41,52 @@ const Slider = ({
 
 	return (
 		<div>
-			{steps.map((Step, index) => {
+			{steps.map((step, index) => {
 				if (activeStep === index) {
-					return <div key={`active--step${index}`}>{Step}</div>;
+					return <div key={`active--step${index}`}>{step}</div>;
 				}
 			})}
 			{activeStep !== steps.length ? (
 				<div className={styles.wrapper}>
-					<Button
-						type={"primary"}
-						onClick={handleBack}
-						className={styles.primaryButton}
-						disabled={activeStep === 0}
-					>
-						Назад
-					</Button>
+					{!hideButtons && (
+						<Button
+							type={"primary"}
+							onClick={handleBack}
+							className={styles.primaryButton}
+							disabled={activeStep === 0}
+						>
+							Назад
+						</Button>
+					)}
 					{activeStep !== steps.length - 1 ? (
-						<Button
-							type={"primary"}
-							onClick={handleNext}
-							className={styles.primaryButton}
-							disabled={isNextButtonDisabled}
-						>
-							Далее
-						</Button>
+						<div style={{ width: "100%" }}>
+							{!hideButtons && (
+								<Button
+									type={"primary"}
+									onClick={handleNext}
+									className={styles.primaryButton}
+									disabled={isNextButtonDisabled}
+								>
+									Далее
+								</Button>
+							)}
+						</div>
 					) : (
-						<Button
-							type={"primary"}
-							onClick={() => {
-								onSendData?.call(this);
-								handleNext();
-							}}
-							className={styles.primaryButton}
-							disabled={isNextButtonDisabled}
-						>
-							{finishButtonText}
-						</Button>
+						<div style={{ width: "100%" }}>
+							{!hideButtons && (
+								<Button
+									type={"primary"}
+									onClick={() => {
+										onSendData?.call(this);
+										handleNext();
+									}}
+									className={styles.primaryButton}
+									disabled={isNextButtonDisabled}
+								>
+									{finishButtonText}
+								</Button>
+							)}
+						</div>
 					)}
 				</div>
 			) : (
