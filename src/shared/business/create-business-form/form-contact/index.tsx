@@ -6,6 +6,7 @@ import {
 } from "shared/business/create-business-form/types/create-business.interface";
 import Contacts from "shared/business/create-business-form/form-contact/contacts";
 import AddContact from "shared/business/create-business-form/form-contact/add-contact";
+import EditContact from "shared/business/create-business-form/form-contact/edit-contact";
 
 export interface FormContactProps {
 	currentStep: number;
@@ -34,9 +35,8 @@ const FormContact = ({
 	const [formState, setFormState] = useState<FormState>(
 		isEmptyValues ? "addFiled" : "data"
 	);
-	const [selectOption, setSelectOption] = useState("");
+	const [editIndex, setEditIndex] = useState(0);
 	const optionOnChange = (value: ContactsTypeEnum) => {
-		setSelectOption(value);
 		onSelectType(value);
 	};
 	const [addValue, setAddValue] = useState<IContacts>({
@@ -44,7 +44,7 @@ const FormContact = ({
 		type: ContactsTypeEnum.TELEGRAM_BOT,
 	});
 	const onSelectType = (type: ContactsTypeEnum) => {
-		setAddValue((prev: IContacts) => ({
+		setAddValue(() => ({
 			value: "",
 			type,
 		}));
@@ -56,22 +56,36 @@ const FormContact = ({
 			value,
 		}));
 	};
+	const clearInputs = () => {
+		setFormState("data");
+		setAddValue({ value: "", type: ContactsTypeEnum.TELEGRAM });
+		// setSelectOption("");
+	};
 	const onSave = () => {
 		const copyValues = [...values];
 		copyValues.push(addValue);
 		setData((prev: any) => {
 			return { ...prev, contacts: copyValues };
 		});
-		setFormState("data");
-		setAddValue({ value: "", type: ContactsTypeEnum.TELEGRAM });
-		setSelectOption("");
+		clearInputs();
+	};
+	const onSaveEdit = (index: number) => {
+		let copyValues = [...values];
+		copyValues[index] = {
+			type: addValue.type,
+			value: addValue.value,
+		};
+		setData((prev: any) => {
+			return { ...prev, contacts: copyValues };
+		});
+		clearInputs();
 	};
 	const onSelectAddMenu = () => {
 		setFormState("addFiled");
 	};
 	const contactData: { [key: string]: FormData } = {
 		tg_username: {
-			icon: <div>@</div>,
+			icon: <div className={styles.contactBefore}>@</div>,
 			placeholder: "Юзернейм",
 			title: "Телеграм",
 		},
@@ -87,12 +101,12 @@ const FormContact = ({
 			title: "Вебсайт",
 		},
 		phone: {
-			icon: <div>Phone</div>,
+			icon: <div>+</div>,
 			placeholder: "Номер телефона",
 			title: "Мобильный телефон",
 		},
 		whatsapp: {
-			icon: <div>WhatsApp</div>,
+			icon: <div>+</div>,
 			placeholder: "Номер телефона",
 			title: "WhatsApp",
 		},
@@ -119,6 +133,10 @@ const FormContact = ({
 					contactData={contactData}
 					values={values}
 					onSelectAddMenu={onSelectAddMenu}
+					setData={setData}
+					setFormState={setFormState}
+					setAddValue={setAddValue}
+					setEditIndex={setEditIndex}
 				/>
 			)}
 			{formState === "addFiled" && (
@@ -127,11 +145,19 @@ const FormContact = ({
 					addValue={addValue}
 					onChangeInput={onChangeInput}
 					optionOnChange={optionOnChange}
-					selectOption={selectOption}
 					onSave={onSave}
 				/>
 			)}
-			{formState === "editFiled" && <div>editFiled</div>}
+			{formState === "editFiled" && (
+				<EditContact
+					editIndex={editIndex}
+					contactData={contactData}
+					onSave={onSaveEdit}
+					optionOnChange={optionOnChange}
+					onChangeInput={onChangeInput}
+					addValue={addValue}
+				/>
+			)}
 		</div>
 	);
 };

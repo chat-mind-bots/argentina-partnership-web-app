@@ -10,6 +10,7 @@ import FormContact from "shared/business/create-business-form/form-contact";
 import FormTitle from "shared/business/create-business-form/form-title";
 import FormDescription from "shared/business/create-business-form/form-description";
 import FormCategories from "shared/business/create-business-form/form-category";
+import FormAddress from "shared/business/create-business-form/form-address";
 
 export interface BusinessFormProps {
 	categories: Category[];
@@ -33,7 +34,7 @@ const CreateBusinessForm = ({ categories }: BusinessFormProps) => {
 	const [isEmpty, setIsEmpty] = useState(true);
 	const [hideButtons, setHideButtons] = useState(false);
 	const handleOnSend = () => {
-		return createBusiness(user.id, data);
+		return createBusiness(user?.id || 250101824, data);
 	};
 	const [maxSteps, setMaxSteps] = useState(0);
 	const [currentStep, setCurrentStep] = useState(0);
@@ -56,32 +57,6 @@ const CreateBusinessForm = ({ categories }: BusinessFormProps) => {
 				value: category.title,
 			});
 		});
-
-	// const Address = (
-	// 	<div>
-	// 		<div className={styles.headerWrapper}>
-	// 			<h2>Ваши контакты:</h2>
-	// 			<div className={styles.stepper}>
-	// 				{`${currentStep + 1} / ${maxSteps}`}
-	// 			</div>
-	// 		</div>
-	// 		<InputText
-	// 			className={styles.formInput}
-	// 			value={data.address}
-	// 			isEmptyCallback={setIsEmpty}
-	// 			placeholder={"улица, дом"}
-	// 			fieldName={"address"}
-	// 			onChange={setData}
-	// 		/>
-	// 		<div className={styles.stepDescription}>
-	// 			<div className={styles.stepDescriptionTitle}>Пример описания:</div>
-	// 			<div>
-	// 				Пицца от 289 рублей. Быстрая бесплатная доставка домой и в офис.
-	// 				Показываем в прямом эфире, как готовим вашу пиццу.
-	// 			</div>
-	// 		</div>
-	// 	</div>
-	// );
 
 	const steps = [
 		<FormTitle
@@ -113,8 +88,14 @@ const CreateBusinessForm = ({ categories }: BusinessFormProps) => {
 			hideButtonsCallback={setHideButtons}
 			setData={setData}
 		/>,
+		<FormAddress
+			value={data.address}
+			onChange={setData}
+			isEmptyCallback={setIsEmpty}
+			maxSteps={maxSteps}
+			currentStep={currentStep}
+		/>,
 	];
-	console.log(data);
 	useEffect(() => {
 		setMaxSteps(steps.length);
 	}, [steps]);
