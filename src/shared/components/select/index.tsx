@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styles from "./select.module.css";
 import { Select as AntdSelect } from "antd";
 
@@ -8,7 +8,6 @@ export interface SelectProps {
 	onChange: (str: string) => void;
 	options: SelectOption[];
 	showSearch?: boolean;
-	isEmptyCallback: (value: boolean) => void;
 }
 
 export interface SelectOption {
@@ -16,20 +15,7 @@ export interface SelectOption {
 	value: string;
 }
 
-const Select = ({
-	value,
-	placeholder,
-	onChange,
-	options,
-	isEmptyCallback,
-}: SelectProps) => {
-	useEffect(() => {
-		if (value !== "") {
-			isEmptyCallback(false);
-		} else {
-			isEmptyCallback(true);
-		}
-	}, [value]);
+const Select = ({ value, placeholder, onChange, options }: SelectProps) => {
 	return (
 		<AntdSelect
 			showSearch

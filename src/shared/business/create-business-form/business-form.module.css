@@ -36,6 +36,34 @@
     white-space: nowrap;
 }
 
+.contactsWrapper {
+    padding: 0 16px;
+}
+.contactLine{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.contactHeader {
+    display: flex;
+    gap: 5px;
+}
+
+.contactType {
+    color: var(--tg-theme-hint-color);
+    font-size: 1.2rem;
+}
+
+.contactSettingsButton {
+    background-color: var(--tg-theme-button-color);
+    width: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
 .formSelect {
     width: 100%;
     margin-bottom: 10px;
