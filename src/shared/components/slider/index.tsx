@@ -1,14 +1,18 @@
-import React, { useEffect } from "react";
-import { Button, Progress } from "antd";
+import React, { useEffect, useState } from "react";
+import { Button } from "antd";
 import styles from "./slider.module.css";
 import { useTelegram } from "hooks/useTelegram";
 
 interface SliderProps {
-	steps: React.ReactElement[];
+	steps: React.ReactNode[];
+	setActiveStep: (cb: (value: number) => number) => void;
+	activeStep: number;
+	hideButtons: boolean;
 	onSendData?: () => void;
 	isNextButtonDisabled?: boolean;
 	finishButtonText?: string;
 	finishText?: string;
+	children?: React.ReactNode;
 }
 
 const Slider = ({
@@ -16,13 +20,26 @@ const Slider = ({
 	finishButtonText,
 	isNextButtonDisabled,
 	onSendData,
-	finishText,
+	activeStep,
+	hideButtons,
+	children,
+	setActiveStep,
 }: SliderProps) => {
-	const [activeStep, setActiveStep] = React.useState(0);
+	const { tg } = useTelegram();
+
+	const [loading, setLoading] = useState(false);
+
+	const enterLoading = async () => {
+		setLoading(true);
+		try {
+			const data = await onSendData?.call(this);
+			handleNext();
+		} catch (error) {}
+	};
+
 	const handleNext = () => {
 		setActiveStep((prevState) => prevState + 1);
 	};
-	const { tg } = useTelegram();
 	const handleBack = () => {
 		setActiveStep((prevState) => prevState - 1);
 	};
@@ -36,51 +53,56 @@ const Slider = ({
 
 	return (
 		<div>
-			<Progress
-				size={"small"}
-				percent={Math.round((activeStep / steps.length) * 100)}
-				className={styles.progress}
-			/>
-			{steps.map((Step, index) => {
+			{steps.map((step, index) => {
 				if (activeStep === index) {
-					return <div key={`active--step${index}`}>{Step}</div>;
+					return <div key={`active--step${index}`}>{step}</div>;
 				}
 			})}
 			{activeStep !== steps.length ? (
 				<div className={styles.wrapper}>
-					<Button
-						type={"primary"}
-						onClick={handleBack}
-						className={styles.primaryButton}
-						disabled={activeStep === 0}
-					>
-						Назад
-					</Button>
+					{!hideButtons && (
+						<Button
+							type={"primary"}
+							onClick={handleBack}
+							className={styles.primaryButton}
+							disabled={activeStep === 0}
+						>
+							Назад
+						</Button>
+					)}
 					{activeStep !== steps.length - 1 ? (
-						<Button
-							type={"primary"}
-							onClick={handleNext}
-							className={styles.primaryButton}
-							disabled={isNextButtonDisabled}
-						>
-							Далее
-						</Button>
+						<div style={{ width: "100%" }}>
+							{!hideButtons && (
+								<Button
+									type={"primary"}
+									onClick={handleNext}
+									className={styles.primaryButton}
+									disabled={isNextButtonDisabled}
+								>
+									Далее
+								</Button>
+							)}
+						</div>
 					) : (
-						<Button
-							type={"primary"}
-							onClick={() => {
-								onSendData?.call(this);
-								handleNext();
-							}}
-							className={styles.primaryButton}
-							disabled={isNextButtonDisabled}
-						>
-							{finishButtonText}
-						</Button>
+						<div style={{ width: "100%" }}>
+							{!hideButtons && (
+								<Button
+									type={"primary"}
+									onClick={async () => {
+										await enterLoading();
+									}}
+									className={styles.primaryButton}
+									disabled={isNextButtonDisabled}
+									loading={loading}
+								>
+									{finishButtonText}
+								</Button>
+							)}
+						</div>
 					)}
 				</div>
 			) : (
-				<div>{finishText}</div>
+				children
 			)}
 		</div>
 	);

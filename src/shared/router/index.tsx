@@ -5,7 +5,10 @@ import { JsonplaceholderResp, loadData } from "shared/business/data";
 // import Partners from "shared/partners";
 import Form from "shared/testForm";
 import { getCategories } from "shared/business/create-business-form/services/data";
-import { Category } from "shared/business/create-business-form/types/categories.dto";
+import {
+	CategoriesDto,
+	Category,
+} from "shared/business/create-business-form/dto/categories.dto";
 import PageLoader from "shared/components/page-loader";
 
 export const router = createBrowserRouter([
@@ -31,6 +34,7 @@ export const router = createBrowserRouter([
 			const data = useLoaderData() as Category[];
 			return <CreateBusinessForm categories={data} />;
 		},
+		errorElement: <div>Not found</div>,
 	},
 	{
 		path: "/partner/:userId/business/:businessId",

@@ -1,17 +1,95 @@
 .wrapper {
-    background-color: var(--tg-theme-bg-color);
-    margin: 20px 10px;
-    padding: 5px 10px;
+    /*background-color: var(--tg-theme-bg-color);*/
+    /*margin: 20px 10px;*/
+    /*padding: 5px 10px;*/
     border-radius: 5px;
 }
 
-.formHeader {
+.headerWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 26px 16px 8px;
     margin-bottom: 10px;
+}
+
+.formInnerWrapper{
+    padding: 0 16px;
+    margin-bottom: 10px;
+}
+
+.resultWrapper {
+    background-color: var(--tg-theme-bg-color);
+    margin: 20px 10px;
+    padding: 25px 10px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
 .formInput {
     margin-bottom: 5px;
+    padding: 15px 16px;
+    font-size: 1.6rem;
+    border-radius: 0;
 }
+
+.stepDescription {
+    color: var(--tg-theme-hint-color);
+    font-size: 1.5rem;
+    padding: 0 16px;
+}
+
+.stepDescriptionTitle {
+    font-weight: bold;
+}
+
+.stepper {
+    color: var(--tg-theme-hint-color);
+    white-space: nowrap;
+}
+
+.contactsWrapper {
+    padding: 0 16px;
+}
+.contactLine{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.contactHeader {
+    display: flex;
+    gap: 5px;
+}
+
+.contactType {
+    color: var(--tg-theme-hint-color);
+    font-size: 1.2rem;
+}
+
+.contactSettingsButton {
+    background-color: var(--tg-theme-button-color);
+    width: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contactBefore {
+    color: var(--tg-theme-text-color);
+}
+
+.modalWrapper {
+    padding: 25px 16px;
+}
+.formWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
 .formSelect {
     width: 100%;
     margin-bottom: 10px;

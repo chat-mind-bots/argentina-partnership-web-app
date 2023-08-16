@@ -1,45 +1,53 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Input } from "antd";
 
 interface InputTextProps {
 	onChange: React.Dispatch<React.SetStateAction<any>>;
 	value: string;
-	fieldName: string;
 	placeholder?: string;
+	addonBefore?: React.ReactNode;
+	addonAfter?: React.ReactNode;
 	className?: string;
-	isEmptyCallback: (value: boolean) => void;
+	type: "standard" | "numeric";
 }
 
 const InputText = ({
 	value,
 	placeholder,
 	onChange,
+	addonBefore,
+	addonAfter,
 	className,
-	fieldName,
-	isEmptyCallback,
+	type,
 }: InputTextProps) => {
-	const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		onChange((prevData: any) => ({
-			...prevData,
-			[fieldName]: event.target.value,
-		}));
-	};
-	useEffect(() => {
-		if (value !== "") {
-			isEmptyCallback(false);
-		} else {
-			isEmptyCallback(true);
-		}
-	}, [value]);
-
+	if (type === "numeric") {
+		const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+			const inputValue = e.target.value;
+			const reg = /^[0-9+]+$/;
+			if (reg.test(inputValue)) {
+				onChange(e);
+			}
+		};
+		return (
+			<Input
+				addonBefore={addonBefore}
+				addonAfter={addonAfter}
+				onChange={handleChange}
+				placeholder={placeholder}
+				value={value}
+				className={className}
+			/>
+		);
+	}
 	return (
 		<Input
-			onChange={handleOnChange}
+			addonBefore={addonBefore}
+			addonAfter={addonAfter}
+			onChange={onChange}
 			placeholder={placeholder}
 			value={value}
 			className={className}
 		/>
 	);
 };
-
 export default InputText;

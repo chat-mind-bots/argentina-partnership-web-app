@@ -1,11 +1,20 @@
 import React, { useEffect, useState } from "react";
 import Slider from "shared/components/slider";
-import InputText from "shared/components/input/input-text";
 import styles from "./business-form.module.css";
 import { useTelegram } from "hooks/useTelegram";
-import { Category } from "shared/business/create-business-form/types/categories.dto";
-import Select from "shared/components/select";
+import { Category } from "shared/business/create-business-form/dto/categories.dto";
 import { createBusiness } from "shared/business/create-business-form/services/data";
+
+import {
+	CreateBusiness,
+	IContacts,
+} from "shared/business/create-business-form/types/create-business.interface";
+import FormContact from "shared/business/create-business-form/form-contact";
+import FormTitle from "shared/business/create-business-form/form-title";
+import FormDescription from "shared/business/create-business-form/form-description";
+import FormCategories from "shared/business/create-business-form/form-category";
+import FormAddress from "shared/business/create-business-form/form-address";
+import FormResult from "shared/business/create-business-form/form-result";
 
 export interface BusinessFormProps {
 	categories: Category[];
@@ -18,47 +27,24 @@ export interface SelectProps {
 
 const CreateBusinessForm = ({ categories }: BusinessFormProps) => {
 	const { tg, user } = useTelegram();
-	// const categories = getCategories();
-	const [data, setData] = useState({
+	const [data, setData] = useState<CreateBusiness>({
 		title: "",
 		description: "",
 		categoryName: "",
-		address: "",
-		contacts: "",
-		preview: "",
+		address: {
+			isExist: false,
+		},
+		contacts: [] as IContacts[],
 	});
 	const [isEmpty, setIsEmpty] = useState(true);
-	const handleOnSend = () => {
-		return createBusiness(user.id, data);
+	const [hideButtons, setHideButtons] = useState(false);
+	const handleOnSend = async () => {
+		return createBusiness(user?.id, data);
 	};
-	const InputTitle = (
-		<div>
-			<h2 className={styles.formHeader}>Введите название бизнеса:</h2>
-			<InputText
-				className={styles.formInput}
-				value={data.title}
-				placeholder={"Название"}
-				fieldName={"title"}
-				isEmptyCallback={setIsEmpty}
-				onChange={setData}
-			/>
-		</div>
-	);
+	const [maxSteps, setMaxSteps] = useState(0);
+	const [currentStep, setCurrentStep] = useState(0);
 
-	const Description = (
-		<div>
-			<h2 className={styles.formHeader}>Введите описание бизнеса:</h2>
-			<InputText
-				className={styles.formInput}
-				value={data.description}
-				placeholder={"Описание"}
-				fieldName={"description"}
-				isEmptyCallback={setIsEmpty}
-				onChange={setData}
-			/>
-		</div>
-	);
-	const onChange = (str: string) => {
+	const onChangeCategory = (str: string) => {
 		const index = categories.findIndex((value, index) => {
 			return value.title === str;
 		});
@@ -77,87 +63,61 @@ const CreateBusinessForm = ({ categories }: BusinessFormProps) => {
 			});
 		});
 
-	const Categories = (
-		<div>
-			<h2 className={styles.formHeader}>Выберете категорию бизнеса:</h2>
-			<div>
-				<Select
-					showSearch
-					value={data.categoryName}
-					placeholder="Выберете категорию"
-					onChange={onChange}
-					isEmptyCallback={setIsEmpty}
-					options={dataCategory}
-				/>
-			</div>
-		</div>
-	);
-
-	const Contacts = (
-		<div>
-			<h2 className={styles.formHeader}>Ваши контакты:</h2>
-			<InputText
-				className={styles.formInput}
-				value={data.contacts}
-				isEmptyCallback={setIsEmpty}
-				placeholder={"телефон"}
-				fieldName={"contacts"}
-				onChange={setData}
-			/>
-		</div>
-	);
-
-	const Address = (
-		<div>
-			<h2 className={styles.formHeader}>Ваши контакты:</h2>
-			<InputText
-				className={styles.formInput}
-				value={data.address}
-				isEmptyCallback={setIsEmpty}
-				placeholder={"улица, дом"}
-				fieldName={"address"}
-				onChange={setData}
-			/>
-		</div>
-	);
-
-	const Preview = (
-		<div>
-			<h2 className={styles.formHeader}>Ваши контакты:</h2>
-			<InputText
-				className={styles.formInput}
-				value={data.preview}
-				isEmptyCallback={setIsEmpty}
-				placeholder={"ссылка на фото"}
-				fieldName={"preview"}
-				onChange={setData}
-			/>
-		</div>
-	);
-
 	const steps = [
-		InputTitle,
-		Description,
-		Categories,
-		Address,
-		Contacts,
-		Preview,
+		<FormTitle
+			currentStep={currentStep}
+			value={data.title}
+			onChange={setData}
+			isEmptyCallback={setIsEmpty}
+			maxSteps={maxSteps}
+		/>,
+		<FormDescription
+			currentStep={currentStep}
+			value={data.description}
+			onChange={setData}
+			isEmptyCallback={setIsEmpty}
+			maxSteps={maxSteps}
+		/>,
+		<FormCategories
+			dataCategory={dataCategory}
+			currentStep={currentStep}
+			value={data.categoryName}
+			onChange={onChangeCategory}
+			isEmptyCallback={setIsEmpty}
+			maxSteps={maxSteps}
+		/>,
+		<FormContact
+			maxSteps={maxSteps}
+			currentStep={currentStep}
+			values={data.contacts}
+			hideButtonsCallback={setHideButtons}
+			setData={setData}
+		/>,
+		<FormAddress
+			value={data.address}
+			maxSteps={maxSteps}
+			setData={setData}
+			isEmptyCallback={setIsEmpty}
+			currentStep={currentStep}
+		/>,
 	];
-
 	useEffect(() => {
-		console.log(data);
-		console.log(categories);
-	}, [data]);
-
+		setMaxSteps(steps.length);
+	}, [steps]);
 	return (
 		<div className={styles.wrapper}>
 			<Slider
+				hideButtons={hideButtons}
 				steps={steps}
+				activeStep={currentStep}
+				setActiveStep={setCurrentStep}
 				finishButtonText={"Сохранить"}
 				isNextButtonDisabled={isEmpty}
 				onSendData={handleOnSend}
 				finishText={"Бизнес был успешно создан"}
-			/>
+			>
+				<FormResult />
+			</Slider>
 		</div>
 	);
 };
