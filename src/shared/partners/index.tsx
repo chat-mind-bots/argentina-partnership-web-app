@@ -15,7 +15,7 @@ import { get } from "services/api";
 // }
 
 export function Component() {
-	const { user, close } = useTelegram();
+	const { user, close, tg } = useTelegram();
 	const [showQrPopup, closeQrPopup] = useScanQrPopup();
 	const showPopup = useShowPopup();
 
@@ -35,17 +35,17 @@ export function Component() {
 						if (data.status === "authorized") {
 							await showPopup({
 								message: "Код успешно активирован",
-							})
-								.then(close)
-								.catch(close);
+							});
+							// .then(close)
+							// .catch(close);
 							// });
 						} else {
 							await showPopup({
 								message:
 									"Код был актвирован ранее, или его срок действия истек. Просканируйте новый код",
-							})
-								.then(close)
-								.catch(close);
+							});
+							// .then(close)
+							// .catch(close);
 							// });
 						}
 					});
