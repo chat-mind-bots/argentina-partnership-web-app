@@ -8,7 +8,7 @@ import { getCategories } from "shared/business/create-business-form/services/dat
 import {
 	CategoriesDto,
 	Category,
-} from "shared/business/create-business-form/types/categories.dto";
+} from "shared/business/create-business-form/dto/categories.dto";
 
 export const router = createBrowserRouter([
 	{
@@ -33,6 +33,7 @@ export const router = createBrowserRouter([
 			const data = useLoaderData() as Category[];
 			return <CreateBusinessForm categories={data} />;
 		},
+		errorElement: <div>Not found</div>,
 	},
 	{
 		path: "/partner/:userId/business/:businessId",

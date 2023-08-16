@@ -1,3 +1,5 @@
+import { IAddress } from "shared/business/create-business-form/types/address.interface";
+
 export enum ContactsTypeEnum {
 	TELEGRAM = "tg_username",
 	TELEGRAM_BOT = "tg_bot",
@@ -13,10 +15,9 @@ export interface IContacts {
 }
 
 export interface CreateBusiness {
-	categoryName: string;
 	title: string;
-	description?: string;
-	contacts?: Array<IContacts>;
-	address?: string;
-	preview?: string;
+	categoryName: string;
+	description: string;
+	contacts: Array<IContacts>;
+	address: IAddress;
 }

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "antd";
 import styles from "./slider.module.css";
 import { useTelegram } from "hooks/useTelegram";
@@ -12,6 +12,7 @@ interface SliderProps {
 	isNextButtonDisabled?: boolean;
 	finishButtonText?: string;
 	finishText?: string;
+	children?: React.ReactNode;
 }
 
 const Slider = ({
@@ -21,13 +22,24 @@ const Slider = ({
 	onSendData,
 	activeStep,
 	hideButtons,
-	finishText,
+	children,
 	setActiveStep,
 }: SliderProps) => {
+	const { tg } = useTelegram();
+
+	const [loading, setLoading] = useState(false);
+
+	const enterLoading = async () => {
+		setLoading(true);
+		try {
+			const data = await onSendData?.call(this);
+			handleNext();
+		} catch (error) {}
+	};
+
 	const handleNext = () => {
 		setActiveStep((prevState) => prevState + 1);
 	};
-	const { tg } = useTelegram();
 	const handleBack = () => {
 		setActiveStep((prevState) => prevState - 1);
 	};
@@ -76,12 +88,12 @@ const Slider = ({
 							{!hideButtons && (
 								<Button
 									type={"primary"}
-									onClick={() => {
-										onSendData?.call(this);
-										handleNext();
+									onClick={async () => {
+										await enterLoading();
 									}}
 									className={styles.primaryButton}
 									disabled={isNextButtonDisabled}
+									loading={loading}
 								>
 									{finishButtonText}
 								</Button>
@@ -90,7 +102,7 @@ const Slider = ({
 					)}
 				</div>
 			) : (
-				<div>{finishText}</div>
+				children
 			)}
 		</div>
 	);

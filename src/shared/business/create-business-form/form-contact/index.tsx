@@ -96,7 +96,11 @@ const FormContact = ({
 			placeholder: "Юзернейм",
 			title: "Телеграм",
 		},
-		tg_bot: { icon: <div>@</div>, placeholder: "Никнейм", title: "Телеграм" },
+		tg_bot: {
+			icon: <div>@</div>,
+			placeholder: "Никнейм",
+			title: "Телеграм бот",
+		},
 		tg_channel: {
 			icon: <div>@</div>,
 			placeholder: "Юзернейм или ссылка",
@@ -130,7 +134,7 @@ const FormContact = ({
 	return (
 		<div>
 			<div className={styles.headerWrapper}>
-				<h2>Введите описание бизнеса:</h2>
+				<h2>Введите контактные данные бизнеса:</h2>
 				<div className={styles.stepper}>
 					{`${currentStep + 1} / ${maxSteps}`}
 				</div>

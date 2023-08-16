@@ -2,15 +2,19 @@ import React, { useEffect, useState } from "react";
 import Slider from "shared/components/slider";
 import styles from "./business-form.module.css";
 import { useTelegram } from "hooks/useTelegram";
-import { Category } from "shared/business/create-business-form/types/categories.dto";
+import { Category } from "shared/business/create-business-form/dto/categories.dto";
 import { createBusiness } from "shared/business/create-business-form/services/data";
 
-import { IContacts } from "shared/business/create-business-form/types/create-business.interface";
+import {
+	CreateBusiness,
+	IContacts,
+} from "shared/business/create-business-form/types/create-business.interface";
 import FormContact from "shared/business/create-business-form/form-contact";
 import FormTitle from "shared/business/create-business-form/form-title";
 import FormDescription from "shared/business/create-business-form/form-description";
 import FormCategories from "shared/business/create-business-form/form-category";
 import FormAddress from "shared/business/create-business-form/form-address";
+import FormResult from "shared/business/create-business-form/form-result";
 
 export interface BusinessFormProps {
 	categories: Category[];
@@ -23,18 +27,19 @@ export interface SelectProps {
 
 const CreateBusinessForm = ({ categories }: BusinessFormProps) => {
 	const { tg, user } = useTelegram();
-	// const categories = getCategories();
-	const [data, setData] = useState({
+	const [data, setData] = useState<CreateBusiness>({
 		title: "",
 		description: "",
 		categoryName: "",
-		address: "",
+		address: {
+			isExist: false,
+		},
 		contacts: [] as IContacts[],
 	});
 	const [isEmpty, setIsEmpty] = useState(true);
 	const [hideButtons, setHideButtons] = useState(false);
-	const handleOnSend = () => {
-		return createBusiness(user?.id || 250101824, data);
+	const handleOnSend = async () => {
+		return createBusiness(user?.id, data);
 	};
 	const [maxSteps, setMaxSteps] = useState(0);
 	const [currentStep, setCurrentStep] = useState(0);
@@ -90,9 +95,9 @@ const CreateBusinessForm = ({ categories }: BusinessFormProps) => {
 		/>,
 		<FormAddress
 			value={data.address}
-			onChange={setData}
-			isEmptyCallback={setIsEmpty}
 			maxSteps={maxSteps}
+			setData={setData}
+			isEmptyCallback={setIsEmpty}
 			currentStep={currentStep}
 		/>,
 	];
@@ -110,7 +115,9 @@ const CreateBusinessForm = ({ categories }: BusinessFormProps) => {
 				isNextButtonDisabled={isEmpty}
 				onSendData={handleOnSend}
 				finishText={"Бизнес был успешно создан"}
-			/>
+			>
+				<FormResult />
+			</Slider>
 		</div>
 	);
 };
