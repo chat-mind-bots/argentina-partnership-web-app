@@ -13,6 +13,20 @@
     margin-bottom: 10px;
 }
 
+.formInnerWrapper{
+    padding: 0 16px;
+    margin-bottom: 10px;
+}
+
+.resultWrapper {
+    background-color: var(--tg-theme-bg-color);
+    margin: 20px 10px;
+    padding: 25px 10px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
 
 .formInput {
     margin-bottom: 5px;
@@ -69,6 +83,11 @@
 
 .modalWrapper {
     padding: 25px 16px;
+}
+.formWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
 }
 
 .formSelect {

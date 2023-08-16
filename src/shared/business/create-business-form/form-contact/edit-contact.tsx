@@ -13,6 +13,7 @@ interface AddContactProps {
 	contactData: { [key: string]: FormData };
 	onChangeInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
 	onSave: (value: number) => void;
+	onCancel: () => void;
 	editIndex: number;
 }
 
@@ -22,6 +23,7 @@ const EditContact = ({
 	onChangeInput,
 	onSave,
 	contactData,
+	onCancel,
 	editIndex,
 }: AddContactProps) => {
 	const options = [
@@ -76,7 +78,7 @@ const EditContact = ({
 					></InputText>
 				</div>
 			</div>
-			<Button onClick={() => {}}>Отменить</Button>
+			<Button onClick={onCancel}>Отменить</Button>
 			{addValue.value && (
 				<Button onClick={() => onSave(editIndex)}>Сохранить</Button>
 			)}

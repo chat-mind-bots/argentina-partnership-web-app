@@ -35,6 +35,9 @@ const Contacts = ({
 		setModalIndex(index);
 		setIsModalOpen(true);
 	};
+	const closeModal = () => {
+		setIsModalOpen(false);
+	};
 
 	const handleOnDelete = (deleteIndex: number) => {
 		const filteredArray = values.filter(
@@ -79,14 +82,13 @@ const Contacts = ({
 					</div>
 				);
 			})}
-			<Modal open={isModalOpen} footer={null}>
-				{modalIndex}
+			<Modal open={isModalOpen} footer={null} onCancel={closeModal}>
 				<div className={styles.modalWrapper}>
-					<Button type={"dashed"} onClick={() => handleOnDelete(modalIndex)}>
-						Удалить контакт
-					</Button>
 					<Button type={"primary"} onClick={() => handleOnEdit(modalIndex)}>
 						Редактировать контакт
+					</Button>
+					<Button type={"dashed"} onClick={() => handleOnDelete(modalIndex)}>
+						Удалить контакт
 					</Button>
 				</div>
 			</Modal>
