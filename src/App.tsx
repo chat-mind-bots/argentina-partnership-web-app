@@ -5,11 +5,7 @@ import PageLoader from "shared/components/page-loader";
 import { WebAppProvider } from "@vkruglikov/react-telegram-web-app";
 
 function App() {
-	return (
-		<WebAppProvider>
-			<RouterProvider router={router} fallbackElement={<PageLoader />} />
-		</WebAppProvider>
-	);
+	return <RouterProvider router={router} fallbackElement={<PageLoader />} />;
 }
 
 export default App;
