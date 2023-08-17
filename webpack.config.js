@@ -1,9 +1,12 @@
 const path = require("path");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-// const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-// const Dotenv = require("dotenv-webpack");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
+const CompressionPlugin = require("compression-webpack-plugin");
+
+const BundleAnalyzerPlugin =
+	require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const webpack = require("webpack");
 
 module.exports = (env) => {
@@ -23,6 +26,11 @@ module.exports = (env) => {
 			historyApiFallback: {
 				disableDotRule: true,
 			},
+		},
+		optimization: {
+			minimizer: [
+				new UglifyJsPlugin({ uglifyOptions: { compress: {}, output: {} } }),
+			],
 		},
 		module: {
 			rules: [
@@ -62,9 +70,15 @@ module.exports = (env) => {
 			},
 		},
 		plugins: [
-			// new Dotenv(),
+			new CompressionPlugin({
+				algorithm: "gzip",
+				test: /\.(js|css|html)$/,
+				threshold: 10240,
+				minRatio: 0.8,
+			}),
+			// new BundleAnalyzerPlugin(),
 			new HtmlWebpackPlugin({
-				title: "Finance App",
+				title: "Partnership web-app",
 				template: "./public/index.html",
 			}),
 			new webpack.EnvironmentPlugin({ ...env }),

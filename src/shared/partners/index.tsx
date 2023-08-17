@@ -7,6 +7,7 @@ import {
 } from "@vkruglikov/react-telegram-web-app";
 import { useTelegram } from "hooks/useTelegram";
 import { get } from "services/api";
+import { Typography } from "antd";
 
 // export async function loader(): Promise<JsonplaceholderResp> {
 // 	const data = await fetch("https://jsonplaceholder.typicode.com/todos/1").then(
@@ -39,34 +40,33 @@ export function Component() {
 					const url = `user-codes/${code}`;
 					get<{
 						status: "authorized" | "reject";
-					}>(url, { query: { id: user.id } }).then(async (data) => {
-						if (data.status === "authorized") {
-							await showPopup({
-								message: "Код успешно активирован",
-							});
-							// .then(close)
-							// .catch(close);
-							// });
-						} else {
+					}>(url, { query: { id: user.id } })
+						.then(async (data) => {
+							if (data.status === "authorized") {
+								await showPopup({
+									message: "Код успешно активирован",
+								})
+									.then(close)
+									.catch(close);
+							} else {
+								await showPopup({
+									message:
+										"Код был актвирован ранее, или его срок действия истек. Просканируйте новый код",
+								})
+									.then(close)
+									.catch(close);
+							}
+						})
+						.catch(async () => {
 							await showPopup({
 								message:
-									"Код был актвирован ранее, или его срок действия истек. Просканируйте новый код",
-							});
-							// .then(close)
-							// .catch(close);
-							// });
-						}
-					});
-					// .catch(async () => {
-					// 	await showPopup({
-					// 		message:
-					// 			"Произошла ошибка, попробуйте позже, или поробуйте просканировать новый код",
-					// 	}).then(close);
-					// });
+									"Произошла ошибка, попробуйте позже, или поробуйте просканировать новый код",
+							}).then(close);
+						});
 				}
 			}
 		);
-	}, [showPopup, closeQrPopup]);
+	}, [showPopup, closeQrPopup, close, showQrPopup]);
 
 	return (
 		<WebAppProvider
@@ -74,6 +74,7 @@ export function Component() {
 				smoothButtonsTransition: true,
 			}}
 		>
+			<Typography>Отсканируйте QR-Код</Typography>
 			<MainButton onClick={startScan} text={"Сканировать QR-код"} />
 		</WebAppProvider>
 	);
