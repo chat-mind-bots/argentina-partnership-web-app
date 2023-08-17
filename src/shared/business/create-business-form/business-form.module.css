@@ -81,6 +81,10 @@
     color: var(--tg-theme-text-color);
 }
 
+.addressLabel {
+    color: var(--tg-theme-text-color);
+}
+
 .modalWrapper {
     padding: 25px 16px;
 }

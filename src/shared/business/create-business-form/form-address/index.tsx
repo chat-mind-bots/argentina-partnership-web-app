@@ -60,7 +60,10 @@ const FormAddress = ({
 				</div>
 			</div>
 			<div className={styles.formInnerWrapper}>
-				<Checkbox onChange={handleOnCheckboxChange}>
+				<Checkbox
+					onChange={handleOnCheckboxChange}
+					className={styles.addressLabel}
+				>
 					У вашего бизнеса есть адрес?
 				</Checkbox>
 			</div>
