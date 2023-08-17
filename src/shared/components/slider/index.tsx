@@ -11,7 +11,6 @@ interface SliderProps {
 	onSendData?: () => void;
 	isNextButtonDisabled?: boolean;
 	finishButtonText?: string;
-	finishText?: string;
 	children?: React.ReactNode;
 }
 
