@@ -20,45 +20,46 @@ export function Component() {
 	const showPopup = useShowPopup();
 
 	useEffect(() => {
-		showQrPopup(
-			{
-				text: "Наведите на QR код",
-			},
-			(text) => {
-				closeQrPopup();
-				if (text.includes("user-code-")) {
-					const code = text.split("user-code-")[1];
-					const url = `user-codes/${code}`;
-					get<{
-						status: "authorized" | "reject";
-					}>(url, { query: { id: user.id } }).then(async (data) => {
-						if (data.status === "authorized") {
-							await showPopup({
-								message: "Код успешно активирован",
-							});
-							// .then(close)
-							// .catch(close);
-							// });
-						} else {
-							await showPopup({
-								message:
-									"Код был актвирован ранее, или его срок действия истек. Просканируйте новый код",
-							});
-							// .then(close)
-							// .catch(close);
-							// });
-						}
-					});
-					// .catch(async () => {
-					// 	await showPopup({
-					// 		message:
-					// 			"Произошла ошибка, попробуйте позже, или поробуйте просканировать новый код",
-					// 	}).then(close);
-					// });
+		tg &&
+			showQrPopup(
+				{
+					text: "Наведите на QR код",
+				},
+				(text) => {
+					closeQrPopup();
+					if (text.includes("user-code-")) {
+						const code = text.split("user-code-")[1];
+						const url = `user-codes/${code}`;
+						get<{
+							status: "authorized" | "reject";
+						}>(url, { query: { id: user.id } }).then(async (data) => {
+							if (data.status === "authorized") {
+								await showPopup({
+									message: "Код успешно активирован",
+								});
+								// .then(close)
+								// .catch(close);
+								// });
+							} else {
+								await showPopup({
+									message:
+										"Код был актвирован ранее, или его срок действия истек. Просканируйте новый код",
+								});
+								// .then(close)
+								// .catch(close);
+								// });
+							}
+						});
+						// .catch(async () => {
+						// 	await showPopup({
+						// 		message:
+						// 			"Произошла ошибка, попробуйте позже, или поробуйте просканировать новый код",
+						// 	}).then(close);
+						// });
+					}
 				}
-			}
-		);
-	}, []);
+			);
+	}, [tg]);
 
 	// let data = useLoaderData() as string;
 	return <div>Scan code</div>;
