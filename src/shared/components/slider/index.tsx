@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button } from "antd";
 import styles from "./slider.module.css";
 import { useTelegram } from "hooks/useTelegram";
+import { BackButton, MainButton } from "@vkruglikov/react-telegram-web-app";
 
 interface SliderProps {
 	steps: React.ReactNode[];
@@ -52,6 +53,7 @@ const Slider = ({
 		};
 	}, [onSendData]);
 
+	const isLasStep = activeStep === steps.length - 1;
 	return (
 		<div>
 			{steps.map((step, index) => {
@@ -61,46 +63,14 @@ const Slider = ({
 			})}
 			{activeStep !== steps.length ? (
 				<div className={styles.wrapper}>
-					{!hideButtons && (
-						<Button
-							type={"primary"}
-							onClick={handleBack}
-							className={styles.primaryButton}
-							disabled={activeStep === 0 || !isValidLink}
-						>
-							Назад
-						</Button>
+					{!hideButtons && !(activeStep === 0 || !isValidLink) && (
+						<BackButton onClick={handleBack} />
 					)}
-					{activeStep !== steps.length - 1 ? (
-						<div style={{ width: "100%" }}>
-							{!hideButtons && (
-								<Button
-									type={"primary"}
-									onClick={handleNext}
-									className={styles.primaryButton}
-									disabled={isNextButtonDisabled || !isValidLink}
-								>
-									Далее
-								</Button>
-							)}
-						</div>
-					) : (
-						<div style={{ width: "100%" }}>
-							{!hideButtons && (
-								<Button
-									type={"primary"}
-									onClick={async () => {
-										await enterLoading();
-									}}
-									className={styles.primaryButton}
-									disabled={isNextButtonDisabled || !isValidLink}
-									loading={loading}
-								>
-									{finishButtonText}
-								</Button>
-							)}
-						</div>
-					)}
+					<MainButton
+						onClick={isLasStep ? async () => await enterLoading() : handleNext}
+						disabled={isNextButtonDisabled || !isValidLink}
+						text={isLasStep ? finishButtonText : "Далее"}
+					/>
 				</div>
 			) : (
 				children

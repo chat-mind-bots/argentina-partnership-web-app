@@ -2,9 +2,13 @@ import React, { useEffect, useState } from "react";
 import Slider from "shared/components/slider";
 import styles from "./business-form.module.css";
 import { useTelegram } from "hooks/useTelegram";
-import { Category } from "shared/business/create-business-form/dto/categories.dto";
+import {
+	CategoriesDto,
+	Category,
+} from "shared/business/create-business-form/dto/categories.dto";
 import {
 	createBusiness,
+	getCategories,
 	updateBusiness,
 } from "shared/business/create-business-form/services/data";
 
@@ -19,9 +23,15 @@ import FormDescription from "shared/business/create-business-form/form-descripti
 import FormCategories from "shared/business/create-business-form/form-category";
 import FormAddress from "shared/business/create-business-form/form-address";
 import FormResult from "shared/business/create-business-form/form-result";
+import { WebAppProvider } from "@vkruglikov/react-telegram-web-app";
+import { useLoaderData } from "react-router-dom";
+
+export async function loader(): Promise<CategoriesDto> {
+	const data = await getCategories();
+	return data;
+}
 
 export interface BusinessFormProps {
-	categories: Category[];
 	initialState?: Business;
 	businessId?: string;
 }
@@ -31,11 +41,7 @@ export interface SelectProps {
 	value: string;
 }
 
-const BusinessForm = ({
-	categories,
-	initialState,
-	businessId,
-}: BusinessFormProps) => {
+export function Component({ initialState, businessId }: BusinessFormProps) {
 	const { tg, user } = useTelegram();
 	const [data, setData] = useState<CreateBusiness>({
 		title: "",
@@ -58,6 +64,7 @@ const BusinessForm = ({
 	const [maxSteps, setMaxSteps] = useState(0);
 	const [currentStep, setCurrentStep] = useState(0);
 
+	const categories = useLoaderData() as Category[];
 	const onChangeCategory = (str: string) => {
 		const index = categories.findIndex((value, index) => {
 			return value.title === str;
@@ -133,21 +140,21 @@ const BusinessForm = ({
 		setMaxSteps(steps.length);
 	}, [steps]);
 	return (
-		<div className={styles.wrapper}>
-			<Slider
-				hideButtons={hideButtons}
-				steps={steps}
-				activeStep={currentStep}
-				isValidLink={isValidLink}
-				setActiveStep={setCurrentStep}
-				finishButtonText={"Сохранить"}
-				isNextButtonDisabled={isEmpty}
-				onSendData={handleOnSend}
-			>
-				<FormResult mode={businessId ? "update" : "create"} />
-			</Slider>
-		</div>
+		<WebAppProvider>
+			<div className={styles.wrapper}>
+				<Slider
+					hideButtons={hideButtons}
+					steps={steps}
+					activeStep={currentStep}
+					isValidLink={isValidLink}
+					setActiveStep={setCurrentStep}
+					finishButtonText={"Сохранить"}
+					isNextButtonDisabled={isEmpty}
+					onSendData={handleOnSend}
+				>
+					<FormResult mode={businessId ? "update" : "create"} />
+				</Slider>
+			</div>
+		</WebAppProvider>
 	);
-};
-
-export default BusinessForm;
+}
