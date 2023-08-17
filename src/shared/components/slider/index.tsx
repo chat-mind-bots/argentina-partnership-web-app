@@ -12,6 +12,7 @@ interface SliderProps {
 	isNextButtonDisabled?: boolean;
 	finishButtonText?: string;
 	children?: React.ReactNode;
+	isValidLink: boolean;
 }
 
 const Slider = ({
@@ -21,6 +22,7 @@ const Slider = ({
 	onSendData,
 	activeStep,
 	hideButtons,
+	isValidLink,
 	children,
 	setActiveStep,
 }: SliderProps) => {
@@ -64,7 +66,7 @@ const Slider = ({
 							type={"primary"}
 							onClick={handleBack}
 							className={styles.primaryButton}
-							disabled={activeStep === 0}
+							disabled={activeStep === 0 || !isValidLink}
 						>
 							Назад
 						</Button>
@@ -76,7 +78,7 @@ const Slider = ({
 									type={"primary"}
 									onClick={handleNext}
 									className={styles.primaryButton}
-									disabled={isNextButtonDisabled}
+									disabled={isNextButtonDisabled || !isValidLink}
 								>
 									Далее
 								</Button>
@@ -91,7 +93,7 @@ const Slider = ({
 										await enterLoading();
 									}}
 									className={styles.primaryButton}
-									disabled={isNextButtonDisabled}
+									disabled={isNextButtonDisabled || !isValidLink}
 									loading={loading}
 								>
 									{finishButtonText}
