@@ -97,27 +97,27 @@ const FormContact = ({
 			title: "Телеграм",
 		},
 		tg_bot: {
-			icon: <div>@</div>,
+			icon: <div className={styles.contactBefore}>@</div>,
 			placeholder: "Никнейм",
 			title: "Телеграм бот",
 		},
 		tg_channel: {
-			icon: <div>@</div>,
+			icon: <div className={styles.contactBefore}>@</div>,
 			placeholder: "Юзернейм или ссылка",
 			title: "Телеграм канал",
 		},
 		website: {
-			icon: <div>https://</div>,
+			icon: <div className={styles.contactBefore}>https://</div>,
 			placeholder: "Адрес сайта",
 			title: "Вебсайт",
 		},
 		phone: {
-			icon: <div>+</div>,
+			icon: <div className={styles.contactBefore}>+</div>,
 			placeholder: "Номер телефона",
 			title: "Мобильный телефон",
 		},
 		whatsapp: {
-			icon: <div>+</div>,
+			icon: <div className={styles.contactBefore}>+</div>,
 			placeholder: "Номер телефона",
 			title: "WhatsApp",
 		},

@@ -3,9 +3,13 @@ import Slider from "shared/components/slider";
 import styles from "./business-form.module.css";
 import { useTelegram } from "hooks/useTelegram";
 import { Category } from "shared/business/create-business-form/dto/categories.dto";
-import { createBusiness } from "shared/business/create-business-form/services/data";
+import {
+	createBusiness,
+	updateBusiness,
+} from "shared/business/create-business-form/services/data";
 
 import {
+	Business,
 	CreateBusiness,
 	IContacts,
 } from "shared/business/create-business-form/types/create-business.interface";
@@ -18,6 +22,8 @@ import FormResult from "shared/business/create-business-form/form-result";
 
 export interface BusinessFormProps {
 	categories: Category[];
+	initialState?: Business;
+	businessId?: string;
 }
 
 export interface SelectProps {
@@ -25,7 +31,11 @@ export interface SelectProps {
 	value: string;
 }
 
-const CreateBusinessForm = ({ categories }: BusinessFormProps) => {
+const BusinessForm = ({
+	categories,
+	initialState,
+	businessId,
+}: BusinessFormProps) => {
 	const { tg, user } = useTelegram();
 	const [data, setData] = useState<CreateBusiness>({
 		title: "",
@@ -38,7 +48,11 @@ const CreateBusinessForm = ({ categories }: BusinessFormProps) => {
 	});
 	const [isEmpty, setIsEmpty] = useState(true);
 	const [hideButtons, setHideButtons] = useState(false);
+	const [isValidLink, setIsValidLinkLink] = useState(true);
 	const handleOnSend = async () => {
+		if (businessId) {
+			return updateBusiness(user?.id, businessId, data);
+		}
 		return createBusiness(user?.id, data);
 	};
 	const [maxSteps, setMaxSteps] = useState(0);
@@ -62,6 +76,18 @@ const CreateBusinessForm = ({ categories }: BusinessFormProps) => {
 				value: category.title,
 			});
 		});
+
+	useEffect(() => {
+		if (initialState) {
+			setData({
+				title: initialState.title,
+				categoryName: initialState.category.title,
+				address: initialState.address,
+				contacts: initialState.contacts,
+				description: initialState.description,
+			});
+		}
+	}, [initialState]);
 
 	const steps = [
 		<FormTitle
@@ -95,7 +121,9 @@ const CreateBusinessForm = ({ categories }: BusinessFormProps) => {
 		/>,
 		<FormAddress
 			value={data.address}
+			isValidLink={isValidLink}
 			maxSteps={maxSteps}
+			setValidLink={setIsValidLinkLink}
 			setData={setData}
 			isEmptyCallback={setIsEmpty}
 			currentStep={currentStep}
@@ -110,16 +138,16 @@ const CreateBusinessForm = ({ categories }: BusinessFormProps) => {
 				hideButtons={hideButtons}
 				steps={steps}
 				activeStep={currentStep}
+				isValidLink={isValidLink}
 				setActiveStep={setCurrentStep}
 				finishButtonText={"Сохранить"}
 				isNextButtonDisabled={isEmpty}
 				onSendData={handleOnSend}
-				finishText={"Бизнес был успешно создан"}
 			>
-				<FormResult />
+				<FormResult mode={businessId ? "update" : "create"} />
 			</Slider>
 		</div>
 	);
 };
 
-export default CreateBusinessForm;
+export default BusinessForm;

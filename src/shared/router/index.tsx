@@ -1,10 +1,13 @@
 import { createBrowserRouter, useLoaderData } from "react-router-dom";
 import React from "react";
-import CreateBusinessForm from "shared/business/create-business-form";
+import BusinessForm from "shared/business/create-business-form";
 import { JsonplaceholderResp, loadData } from "shared/business/data";
 // import Partners from "shared/partners";
 import Form from "shared/testForm";
-import { getCategories } from "shared/business/create-business-form/services/data";
+import {
+	getBusiness,
+	getCategories,
+} from "shared/business/create-business-form/services/data";
 import {
 	CategoriesDto,
 	Category,
@@ -26,22 +29,47 @@ export const router = createBrowserRouter([
 			return <Form />;
 		},
 	},
-
 	{
 		path: "/create/business",
 		loader: () => getCategories(),
 		Component() {
 			const data = useLoaderData() as Category[];
-			return <CreateBusinessForm categories={data} />;
+			return <BusinessForm categories={data} />;
 		},
 		errorElement: <div>Not found</div>,
 	},
 	{
 		path: "/partner/:userId/business/:businessId",
-		loader: () => getCategories(),
+		loader: async ({ params }) => {
+			const categories = await getCategories();
+			const data = await getBusiness(`${params.businessId}`);
+			return { categories, data };
+		},
 		Component() {
 			const data = useLoaderData() as Category[];
 			return <div>List</div>;
+		},
+	},
+	{
+		path: "/partner/:userId/business/:businessId/update",
+		loader: async ({ params }) => {
+			const categories = await getCategories();
+			const data = await getBusiness(`${params.businessId}`);
+			const id = `${params.businessId}`;
+			return { categories, data, id };
+		},
+		Component() {
+			const data = useLoaderData();
+			return (
+				<BusinessForm
+					// @ts-ignore
+					categories={data["categories"]}
+					// @ts-ignore
+					initialState={data["data"]}
+					// @ts-ignore
+					businessId={data["id"]}
+				/>
+			);
 		},
 	},
 	{

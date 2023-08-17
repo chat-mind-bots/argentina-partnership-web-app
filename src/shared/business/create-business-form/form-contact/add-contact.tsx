@@ -6,6 +6,7 @@ import {
 } from "shared/business/create-business-form/types/create-business.interface";
 import { Button, Select } from "antd";
 import { FormData } from "shared/business/create-business-form/form-contact/index";
+import styles from "../business-form.module.css";
 
 interface AddContactProps {
 	optionOnChange: (value: ContactsTypeEnum) => void;
@@ -51,26 +52,33 @@ const AddContact = ({
 	];
 	return (
 		<div>
-			<div>
-				<Select
-					style={{ width: "100%" }}
-					options={options}
-					defaultValue={ContactsTypeEnum.TELEGRAM}
-					onChange={optionOnChange}
-				/>
+			<div className={styles.contactInputWrapper}>
 				<div>
-					<InputText
-						type={
-							addValue.type === ContactsTypeEnum.WHATSAPP ||
-							addValue.type === ContactsTypeEnum.PHONE
-								? "numeric"
-								: "standard"
-						}
-						addonBefore={contactData[addValue.type].icon}
-						value={addValue.value}
-						placeholder={contactData[addValue.type].placeholder}
-						onChange={onChangeInput}
+					<div className={styles.contactsWrapper}>Выберите тип контакта:</div>
+					<Select
+						style={{ width: "100%" }}
+						options={options}
+						defaultValue={ContactsTypeEnum.TELEGRAM}
+						onChange={optionOnChange}
+						className={styles.contactSelector}
 					/>
+				</div>
+				<div>
+					<div className={styles.contactsWrapper}>Введите контакт:</div>
+					<div>
+						<InputText
+							type={
+								addValue.type === ContactsTypeEnum.WHATSAPP ||
+								addValue.type === ContactsTypeEnum.PHONE
+									? "numeric"
+									: "standard"
+							}
+							addonBefore={contactData[addValue.type].icon}
+							value={addValue.value}
+							placeholder={contactData[addValue.type].placeholder}
+							onChange={onChangeInput}
+						/>
+					</div>
 				</div>
 			</div>
 			{addValue.value && <Button onClick={onSave}>Сохранить</Button>}
