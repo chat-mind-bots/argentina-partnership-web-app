@@ -48,6 +48,7 @@ const BusinessForm = ({
 	});
 	const [isEmpty, setIsEmpty] = useState(true);
 	const [hideButtons, setHideButtons] = useState(false);
+	const [isValidLink, setIsValidLinkLink] = useState(true);
 	const handleOnSend = async () => {
 		if (businessId) {
 			return updateBusiness(user?.id, businessId, data);
@@ -120,7 +121,9 @@ const BusinessForm = ({
 		/>,
 		<FormAddress
 			value={data.address}
+			isValidLink={isValidLink}
 			maxSteps={maxSteps}
+			setValidLink={setIsValidLinkLink}
 			setData={setData}
 			isEmptyCallback={setIsEmpty}
 			currentStep={currentStep}
@@ -135,6 +138,7 @@ const BusinessForm = ({
 				hideButtons={hideButtons}
 				steps={steps}
 				activeStep={currentStep}
+				isValidLink={isValidLink}
 				setActiveStep={setCurrentStep}
 				finishButtonText={"Сохранить"}
 				isNextButtonDisabled={isEmpty}

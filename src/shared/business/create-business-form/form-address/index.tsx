@@ -12,6 +12,8 @@ interface FormTitleProps {
 	value: IAddress;
 	setData: React.Dispatch<React.SetStateAction<CreateBusiness>>;
 	isEmptyCallback: (value: boolean) => void;
+	setValidLink: React.Dispatch<React.SetStateAction<boolean>>;
+	isValidLink: boolean;
 }
 
 const FormAddress = ({
@@ -20,7 +22,16 @@ const FormAddress = ({
 	value,
 	isEmptyCallback,
 	setData,
+	setValidLink,
+	isValidLink,
 }: FormTitleProps) => {
+	const handleValidateGoogleLink = (link: string) => {
+		if (link === "") {
+			return setValidLink(true);
+		}
+		const pattern = /^https:\/\/goo\.gl\/maps\/[a-zA-Z0-9]+$/;
+		setValidLink(pattern.test(link));
+	};
 	const handleOnChange = (
 		event:
 			| React.ChangeEvent<HTMLInputElement>
@@ -47,6 +58,7 @@ const FormAddress = ({
 			};
 		});
 	};
+
 	useEffect(() => {
 		if (value.isExist) isEmptyCallback(!value.addressLine);
 		if (!value.isExist) isEmptyCallback(false);
@@ -94,8 +106,14 @@ const FormAddress = ({
 							type={"standard"}
 							value={value.googleMapsLink || ""}
 							placeholder={"Ссылка на геолокацию"}
-							onChange={(event) => handleOnChange(event, "googleMapsLink")}
+							onChange={(event) => {
+								handleValidateGoogleLink(event.target.value);
+								handleOnChange(event, "googleMapsLink");
+							}}
 						/>
+						{!isValidLink && (
+							<div className={styles.error}>**Неправильно указана ссылка</div>
+						)}
 						<div className={styles.stepDescription}>
 							<div className={styles.stepDescriptionTitle}>Пример ссылки:</div>
 							<div>https://goo.gl/maps/uRJab2dZWwXDqSNs8</div>

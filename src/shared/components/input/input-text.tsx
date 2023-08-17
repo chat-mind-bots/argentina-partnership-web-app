@@ -4,11 +4,12 @@ import { Input } from "antd";
 interface InputTextProps {
 	onChange: React.Dispatch<React.SetStateAction<any>>;
 	value: string;
+	type: "standard" | "numeric";
 	placeholder?: string;
 	addonBefore?: React.ReactNode;
 	addonAfter?: React.ReactNode;
 	className?: string;
-	type: "standard" | "numeric";
+	status?: "error";
 }
 
 const InputText = ({
@@ -19,6 +20,7 @@ const InputText = ({
 	addonAfter,
 	className,
 	type,
+	status,
 }: InputTextProps) => {
 	if (type === "numeric") {
 		const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,6 +32,7 @@ const InputText = ({
 		};
 		return (
 			<Input
+				status={status}
 				addonBefore={addonBefore}
 				addonAfter={addonAfter}
 				onChange={handleChange}
