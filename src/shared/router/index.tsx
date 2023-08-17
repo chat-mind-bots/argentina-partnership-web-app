@@ -7,12 +7,12 @@ export const router = createBrowserRouter([
 		path: "partners",
 		lazy: () => import("../partners"),
 	},
-	{
-		path: "/test",
-		Component() {
-			return <Form />;
-		},
-	},
+	// {
+	// 	path: "/test",
+	// 	Component() {
+	// 		return <Form />;
+	// 	},
+	// },
 	{
 		path: "/create/business",
 		lazy: () => import("../business/create-business-form"),

@@ -70,6 +70,7 @@ const Slider = ({
 						onClick={isLasStep ? async () => await enterLoading() : handleNext}
 						disabled={isNextButtonDisabled || !isValidLink}
 						text={isLasStep ? finishButtonText : "Далее"}
+						progress={isLasStep ? loading : false}
 					/>
 				</div>
 			) : (

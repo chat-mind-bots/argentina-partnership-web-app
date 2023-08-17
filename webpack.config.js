@@ -29,8 +29,44 @@ module.exports = (env) => {
 		},
 		optimization: {
 			minimizer: [
-				new UglifyJsPlugin({ uglifyOptions: { compress: {}, output: {} } }),
+				new UglifyJsPlugin({
+					uglifyOptions: {
+						beautify: false,
+						comments: false,
+						compress: {
+							sequences: true,
+							booleans: true,
+							loops: true,
+							unused: true,
+							warnings: false,
+							drop_console: true,
+							unsafe: true,
+						},
+					},
+				}),
 			],
+			splitChunks: {
+				chunks: "async",
+				minSize: 20000,
+				minRemainingSize: 0,
+				minChunks: 1,
+				maxAsyncRequests: 30,
+				maxInitialRequests: 30,
+				enforceSizeThreshold: 50000,
+				cacheGroups: {
+					defaultVendors: {
+						test: /[\\/]node_modules[\\/]/,
+						priority: -10,
+						chunks: "all",
+						reuseExistingChunk: true,
+					},
+					default: {
+						minChunks: 2,
+						priority: -20,
+						reuseExistingChunk: true,
+					},
+				},
+			},
 		},
 		module: {
 			rules: [
