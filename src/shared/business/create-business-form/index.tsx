@@ -42,7 +42,7 @@ export interface SelectProps {
 }
 
 export function Component({ initialState, businessId }: BusinessFormProps) {
-	const { tg, user } = useTelegram();
+	const { user } = useTelegram();
 	const [data, setData] = useState<CreateBusiness>({
 		title: "",
 		description: "",
@@ -136,9 +136,11 @@ export function Component({ initialState, businessId }: BusinessFormProps) {
 			currentStep={currentStep}
 		/>,
 	];
+
 	useEffect(() => {
 		setMaxSteps(steps.length);
 	}, [steps]);
+
 	return (
 		<WebAppProvider>
 			<div className={styles.wrapper}>

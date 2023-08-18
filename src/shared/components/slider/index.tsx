@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { Button } from "antd";
+import React, { useState } from "react";
 import styles from "./slider.module.css";
 import { useTelegram } from "hooks/useTelegram";
 import { BackButton, MainButton } from "@vkruglikov/react-telegram-web-app";
@@ -45,13 +44,6 @@ const Slider = ({
 	const handleBack = () => {
 		setActiveStep((prevState) => prevState - 1);
 	};
-
-	useEffect(() => {
-		tg.onEvent("mainButtonClicked", onSendData);
-		return () => {
-			tg.offEvent("mainButtonClicked", onSendData);
-		};
-	}, [onSendData]);
 
 	const isLasStep = activeStep === steps.length - 1;
 	return (
