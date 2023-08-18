@@ -6,6 +6,10 @@ export function useTelegram() {
 		tg.close();
 	};
 
+	const onExpand = () => {
+		tg.expand();
+	};
+
 	const onToggleButton = () => {
 		if (tg.MainButton.isVisible) {
 			tg.MainButton.hide();
@@ -17,6 +21,7 @@ export function useTelegram() {
 	return {
 		onClose,
 		onToggleButton,
+		onExpand,
 		tg,
 		user: tg.initDataUnsafe?.user,
 		queryId: tg.initDataUnsafe?.query_id,

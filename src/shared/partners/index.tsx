@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useLayoutEffect } from "react";
 import {
 	MainButton,
 	useScanQrPopup,
@@ -28,6 +28,7 @@ export function Component() {
 
 	// let data = useLoaderData() as string;
 
+	useLayoutEffect(() => {});
 	const startScan = useCallback(() => {
 		showQrPopup(
 			{
@@ -59,8 +60,8 @@ export function Component() {
 						})
 						.catch(async (error) => {
 							await showPopup({
-								message: error.message,
-								// "Произошла ошибка, попробуйте позже, или поробуйте просканировать новый код",
+								message:
+									"Произошла ошибка, попробуйте позже, или поробуйте просканировать новый код",
 							}).then(onClose);
 						});
 				}
