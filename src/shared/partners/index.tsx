@@ -18,19 +18,13 @@ import { Typography } from "antd";
 // }
 
 export function Component() {
-	const { user, onClose } = useTelegram();
+	const { user, onClose, onExpand } = useTelegram();
 	const [showQrPopup, closeQrPopup] = useScanQrPopup();
 	const showPopup = useShowPopup();
 
-	// useEffect(() => {
-	//
-	// }, []);
-
-	// let data = useLoaderData() as string;
-
 	useLayoutEffect(() => {
-		startScan();
-	}, []);
+		onExpand();
+	}, [onExpand]);
 	const startScan = useCallback(() => {
 		showQrPopup(
 			{
