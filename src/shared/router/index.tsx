@@ -4,8 +4,8 @@ import Form from "shared/testForm";
 
 export const router = createBrowserRouter([
 	{
-		path: "partners",
-		lazy: () => import("../partners"),
+		path: "qr-check",
+		lazy: () => import("../qr-check"),
 	},
 	// {
 	// 	path: "/test",
