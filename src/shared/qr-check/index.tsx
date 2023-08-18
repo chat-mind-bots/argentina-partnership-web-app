@@ -7,15 +7,6 @@ import {
 } from "@vkruglikov/react-telegram-web-app";
 import { useTelegram } from "hooks/useTelegram";
 import { get } from "services/api";
-import { Typography } from "antd";
-
-// export async function loader(): Promise<JsonplaceholderResp> {
-// 	const data = await fetch("https://jsonplaceholder.typicode.com/todos/1").then(
-// 		(response) => response.json()
-// 	);
-// 	console.log("Finish");
-// 	return data;
-// }
 
 export function Component() {
 	const { user, onClose, onExpand } = useTelegram();
@@ -71,7 +62,6 @@ export function Component() {
 				smoothButtonsTransition: true,
 			}}
 		>
-			<Typography>Отсканируйте QR-Код</Typography>
 			<MainButton onClick={startScan} text={"Сканировать QR-код"} />
 		</WebAppProvider>
 	);
