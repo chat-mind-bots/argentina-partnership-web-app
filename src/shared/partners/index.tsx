@@ -18,7 +18,7 @@ import { Typography } from "antd";
 // }
 
 export function Component() {
-	const { user, close } = useTelegram();
+	const { user, onClose } = useTelegram();
 	const [showQrPopup, closeQrPopup] = useScanQrPopup();
 	const showPopup = useShowPopup();
 
@@ -46,27 +46,27 @@ export function Component() {
 								await showPopup({
 									message: "Код успешно активирован",
 								})
-									.then(close)
-									.catch(close);
+									.then(onClose)
+									.catch(onClose);
 							} else {
 								await showPopup({
 									message:
 										"Код был актвирован ранее, или его срок действия истек. Просканируйте новый код",
 								})
-									.then(close)
-									.catch(close);
+									.then(onClose)
+									.catch(onClose);
 							}
 						})
 						.catch(async (error) => {
 							await showPopup({
 								message: error.message,
 								// "Произошла ошибка, попробуйте позже, или поробуйте просканировать новый код",
-							}).then(close);
+							}).then(onClose);
 						});
 				}
 			}
 		);
-	}, [showPopup, closeQrPopup, close, showQrPopup]);
+	}, [showPopup, closeQrPopup, onClose, showQrPopup]);
 
 	return (
 		<WebAppProvider

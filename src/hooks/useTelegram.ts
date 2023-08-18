@@ -14,13 +14,9 @@ export function useTelegram() {
 		}
 	};
 
-	const closeWebApp = () => {
-		tg.onClose();
-	};
 	return {
 		onClose,
 		onToggleButton,
-		close: closeWebApp,
 		tg,
 		user: tg.initDataUnsafe?.user,
 		queryId: tg.initDataUnsafe?.query_id,
