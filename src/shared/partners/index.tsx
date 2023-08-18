@@ -57,10 +57,10 @@ export function Component() {
 									.catch(close);
 							}
 						})
-						.catch(async () => {
+						.catch(async (error) => {
 							await showPopup({
-								message:
-									"Произошла ошибка, попробуйте позже, или поробуйте просканировать новый код",
+								message: error.message,
+								// "Произошла ошибка, попробуйте позже, или поробуйте просканировать новый код",
 							}).then(close);
 						});
 				}
