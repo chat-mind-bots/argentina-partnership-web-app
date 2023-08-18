@@ -28,7 +28,9 @@ export function Component() {
 
 	// let data = useLoaderData() as string;
 
-	useLayoutEffect(() => {});
+	useLayoutEffect(() => {
+		startScan();
+	}, []);
 	const startScan = useCallback(() => {
 		showQrPopup(
 			{
