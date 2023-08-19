@@ -41,7 +41,7 @@ const FormContact = ({
 	};
 	const [addValue, setAddValue] = useState<IContacts>({
 		value: "",
-		type: ContactsTypeEnum.TELEGRAM_BOT,
+		type: ContactsTypeEnum.TELEGRAM,
 	});
 	const onSelectType = (type: ContactsTypeEnum) => {
 		setAddValue(() => ({
