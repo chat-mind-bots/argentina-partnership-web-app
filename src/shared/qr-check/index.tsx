@@ -16,6 +16,7 @@ export function Component() {
 	const [showQrPopup, closeQrPopup] = useScanQrPopup();
 	const showPopup = useShowPopup();
 	const [value, setValue] = useState("");
+	const [loading, setLoading] = useState(false);
 
 	useLayoutEffect(() => {
 		onExpand();
@@ -28,9 +29,13 @@ export function Component() {
 			status: "authorized" | "reject";
 		}> => {
 			const url = `user-codes/${code}`;
+			setLoading(true);
 			return await get<{
 				status: "authorized" | "reject";
-			}>(url, { query: { id: user.id } });
+			}>(url, { query: { id: user.id } }).then((data) => {
+				setLoading(false);
+				return data;
+			});
 		},
 		[user.id]
 	);
@@ -93,7 +98,11 @@ export function Component() {
 			}}
 		>
 			<div className={styles.body}>
-				<Typography.Title level={2} className={styles.title}>
+				<Typography.Title
+					level={2}
+					className={styles.title}
+					placeholder={"Введите код"}
+				>
 					Отсканируйте QR-код или введите код в поле ниже
 				</Typography.Title>
 				<InputText
@@ -111,6 +120,7 @@ export function Component() {
 			<MainButton
 				onClick={value ? () => checkByValue(value) : scanCode}
 				text={value ? "Проверить код" : "Сканировать QR-код"}
+				progress={value ? loading : false}
 			/>
 		</WebAppProvider>
 	);
