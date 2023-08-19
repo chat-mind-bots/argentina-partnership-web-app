@@ -120,7 +120,7 @@ export function Component() {
 			<MainButton
 				onClick={value ? () => checkByValue(value) : scanCode}
 				text={value ? "Проверить код" : "Сканировать QR-код"}
-				progress={value ? loading : false}
+				progress={loading}
 			/>
 		</WebAppProvider>
 	);
