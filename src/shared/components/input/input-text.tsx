@@ -10,6 +10,7 @@ interface InputTextProps {
 	addonAfter?: React.ReactNode;
 	className?: string;
 	status?: "error";
+	isTextArea?: boolean;
 }
 
 const InputText = ({
@@ -21,6 +22,7 @@ const InputText = ({
 	className,
 	type,
 	status,
+	isTextArea,
 }: InputTextProps) => {
 	if (type === "numeric") {
 		const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,7 +44,14 @@ const InputText = ({
 			/>
 		);
 	}
-	return (
+	return isTextArea ? (
+		<Input.TextArea
+			onChange={onChange}
+			placeholder={placeholder}
+			value={value}
+			className={className}
+		/>
+	) : (
 		<Input
 			addonBefore={addonBefore}
 			addonAfter={addonAfter}

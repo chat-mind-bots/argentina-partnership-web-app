@@ -40,6 +40,7 @@ const FormDescription = ({
 				value={value}
 				placeholder={"Описание"}
 				onChange={handleOnChange}
+				isTextArea={true}
 			/>
 			<div className={styles.stepDescription}>
 				<div className={styles.stepDescriptionTitle}>Пример:</div>
