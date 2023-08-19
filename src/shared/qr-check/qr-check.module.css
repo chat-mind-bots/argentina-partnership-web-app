@@ -1,10 +1,21 @@
 .body {
-	background-color: var(--tg-theme-button-color);
 	display: flex;
 	flex-direction: column;
 	gap: 15px;
 }
 
+.title {
+	padding: 26px 16px 8px;
+}
+
+.descriptionTitle {
+	font-weight: bold;
+}
+.description {
+	color: var(--tg-theme-hint-color);
+	font-size: 1.5rem;
+	padding: 0 16px;
+}
 .input {
 	padding: 15px 16px;
 	font-size: 1.6rem;

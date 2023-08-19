@@ -92,15 +92,22 @@ export function Component() {
 				smoothButtonsTransition: true,
 			}}
 		>
-			<Typography.Title level={2}>
-				Отсканируйте QR-код или введите код в поле ниже
-			</Typography.Title>
-			<InputText
-				className={styles.input}
-				value={value}
-				onChange={handleInput}
-				type={"standard"}
-			/>
+			<div className={styles.body}>
+				<Typography.Title level={2} className={styles.title}>
+					Отсканируйте QR-код или введите код в поле ниже
+				</Typography.Title>
+				<InputText
+					className={styles.input}
+					value={value}
+					onChange={handleInput}
+					type={"standard"}
+				/>
+				<div className={styles.description}>
+					<div className={styles.descriptionTitle}>Пример:</div>
+					<div>SaUMN9</div>
+				</div>
+			</div>
+
 			<MainButton
 				onClick={value ? () => checkByValue(value) : scanCode}
 				text={value ? "Проверить код" : "Сканировать QR-код"}
