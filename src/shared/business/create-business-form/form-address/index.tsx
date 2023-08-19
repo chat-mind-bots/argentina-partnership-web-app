@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import styles from "shared/business/create-business-form/business-form.module.css";
 import InputText from "shared/components/input/input-text";
 import { IAddress } from "shared/business/create-business-form/types/address.interface";
-import { Checkbox, Input } from "antd";
+import { Checkbox, Input, Typography } from "antd";
 import { CreateBusiness } from "shared/business/create-business-form/types/create-business.interface";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
 
@@ -66,7 +66,7 @@ const FormAddress = ({
 	return (
 		<div>
 			<div className={styles.headerWrapper}>
-				<h2>Ваш адрес:</h2>
+				<Typography.Title level={2}>Ваш адрес:</Typography.Title>
 				<div className={styles.stepper}>
 					{`${currentStep + 1} / ${maxSteps}`}
 				</div>
@@ -126,7 +126,7 @@ const FormAddress = ({
 						<Input.TextArea
 							className={styles.formInput}
 							value={value.comment || ""}
-							placeholder={"Ссылка на геолокацию"}
+							placeholder={"Введите описание"}
 							onChange={(event) => handleOnChange(event, "comment")}
 						/>
 						<div className={styles.stepDescription}>

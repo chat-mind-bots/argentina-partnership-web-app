@@ -1,6 +1,12 @@
 .body {
-    background-color: var(--tg-theme-button-color);
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+	background-color: var(--tg-theme-button-color);
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
+
+.input {
+	padding: 15px 16px;
+	font-size: 1.6rem;
+	border-radius: 0;
 }
