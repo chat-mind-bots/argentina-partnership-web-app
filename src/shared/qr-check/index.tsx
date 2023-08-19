@@ -98,11 +98,7 @@ export function Component() {
 			}}
 		>
 			<div className={styles.body}>
-				<Typography.Title
-					level={2}
-					className={styles.title}
-					placeholder={"Введите код"}
-				>
+				<Typography.Title level={2} className={styles.title}>
 					Отсканируйте QR-код или введите код в поле ниже
 				</Typography.Title>
 				<InputText
@@ -110,6 +106,7 @@ export function Component() {
 					value={value}
 					onChange={handleInput}
 					type={"standard"}
+					placeholder={"Введите код"}
 				/>
 				<div className={styles.description}>
 					<div className={styles.descriptionTitle}>Пример:</div>
