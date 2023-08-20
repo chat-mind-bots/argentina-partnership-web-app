@@ -25,6 +25,7 @@ import FormAddress from "shared/business/create-business-form/form-address";
 import FormResult from "shared/business/create-business-form/form-result";
 import { WebAppProvider } from "@vkruglikov/react-telegram-web-app";
 import { useLoaderData } from "react-router-dom";
+import FormPreview from "shared/business/create-business-form/form-preview";
 
 export async function loader(): Promise<CategoriesDto> {
 	const data = await getCategories();
@@ -51,6 +52,7 @@ export function Component({ initialState, businessId }: BusinessFormProps) {
 			isExist: false,
 		},
 		contacts: [] as IContacts[],
+		preview: "",
 	});
 	const [isEmpty, setIsEmpty] = useState(true);
 	const [hideButtons, setHideButtons] = useState(false);
@@ -92,10 +94,10 @@ export function Component({ initialState, businessId }: BusinessFormProps) {
 				address: initialState.address,
 				contacts: initialState.contacts,
 				description: initialState.description,
+				preview: initialState.preview,
 			});
 		}
 	}, [initialState]);
-
 	const steps = [
 		<FormTitle
 			currentStep={currentStep}
@@ -110,6 +112,11 @@ export function Component({ initialState, businessId }: BusinessFormProps) {
 			onChange={setData}
 			isEmptyCallback={setIsEmpty}
 			maxSteps={maxSteps}
+		/>,
+		<FormPreview
+			currentStep={currentStep}
+			maxSteps={maxSteps}
+			onChange={setData}
 		/>,
 		<FormCategories
 			dataCategory={dataCategory}

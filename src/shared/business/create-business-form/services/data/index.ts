@@ -17,3 +17,5 @@ export const updateBusiness = (
 	patch<CategoriesDto>(`business/${userId}/business/${businessId}`, {
 		body,
 	});
+
+export const uploadPhoto = () => post<any>(`file/image`, {});
