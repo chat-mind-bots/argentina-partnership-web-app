@@ -98,6 +98,7 @@ export function Component({ initialState, businessId }: BusinessFormProps) {
 			});
 		}
 	}, [initialState]);
+	console.log(data);
 	const steps = [
 		<FormPreview
 			currentStep={currentStep}

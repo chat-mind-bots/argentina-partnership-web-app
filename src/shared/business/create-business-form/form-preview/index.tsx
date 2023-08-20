@@ -23,7 +23,7 @@ const FormPreview = ({ currentStep, maxSteps, onChange }: FromPreviewProps) => {
 			);
 			onChange((prevData: any) => ({
 				...prevData,
-				preview: info.file.response.url,
+				preview: info.file.response.file._id,
 			}));
 		} else if (info.file.status === "error") {
 			message.error(`${info.file.name} что-то пошло не так.`);
