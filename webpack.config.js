@@ -3,6 +3,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
+const Dotenv = require("dotenv-webpack");
 
 // const BundleAnalyzerPlugin =
 // 	require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
@@ -106,6 +107,7 @@ module.exports = (env) => {
 			},
 		},
 		plugins: [
+			new Dotenv(),
 			new CompressionPlugin({
 				algorithm: "gzip",
 				test: /\.(js|css|html)$/,

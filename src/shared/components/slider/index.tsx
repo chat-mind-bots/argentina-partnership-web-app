@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "./slider.module.css";
 import { useTelegram } from "hooks/useTelegram";
 import { BackButton, MainButton } from "@vkruglikov/react-telegram-web-app";
+import * as process from "process";
 
 interface SliderProps {
 	steps: React.ReactNode[];
@@ -56,7 +57,32 @@ const Slider = ({
 			{activeStep !== steps.length ? (
 				<div className={styles.wrapper}>
 					{!hideButtons && !(activeStep === 0 || !isValidLink) && (
-						<BackButton onClick={handleBack} />
+						<>
+							{process.env.MODE === "LOCAL" ? (
+								<button onClick={handleBack}>Back</button>
+							) : (
+								<BackButton onClick={handleBack} />
+							)}
+						</>
+					)}
+					{process.env.MODE === "LOCAL" ? (
+						<button
+							onClick={
+								isLasStep ? async () => await enterLoading() : handleNext
+							}
+							disabled={isNextButtonDisabled || !isValidLink}
+						>
+							{isLasStep ? finishButtonText : "Далее"}
+						</button>
+					) : (
+						<MainButton
+							onClick={
+								isLasStep ? async () => await enterLoading() : handleNext
+							}
+							disabled={isNextButtonDisabled || !isValidLink}
+							text={isLasStep ? finishButtonText : "Далее"}
+							progress={isLasStep ? loading : false}
+						/>
 					)}
 					<MainButton
 						onClick={isLasStep ? async () => await enterLoading() : handleNext}
