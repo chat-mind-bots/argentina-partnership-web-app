@@ -6,6 +6,7 @@ import axios from "axios";
 import { useTelegram } from "hooks/useTelegram";
 import styles from "shared/business/create-business-form/business-form.module.css";
 import { CreateBusiness } from "shared/business/create-business-form/types/create-business.interface";
+import { uploadPhoto } from "shared/business/create-business-form/services/data";
 
 export interface FromPreviewProps {
 	currentStep: number;
@@ -33,21 +34,10 @@ const FormPreview = ({ currentStep, maxSteps, onChange }: FromPreviewProps) => {
 		try {
 			const formData = new FormData();
 			formData.append("file", file);
-			formData.append("userId", user?.id);
-			const response = await axios.post(
-				`${process.env.BASE_URL}/api/file/image`,
-				formData,
-				{
-					headers: {
-						"Content-Type": "multipart/form-data",
-					},
-				}
-			);
-
-			// Handle the response
-			if (response.data) {
-				onSuccess(response.data, file);
-				console.log(response);
+			formData.append("userId", "250101824");
+			const response = await uploadPhoto(formData);
+			if (response) {
+				onSuccess(response, file);
 			} else {
 				onError("Upload failed");
 			}

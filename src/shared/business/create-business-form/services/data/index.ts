@@ -1,6 +1,7 @@
 import { get, patch, post } from "services/api";
 import { CreateBusiness } from "shared/business/create-business-form/types/create-business.interface";
 import { CategoriesDto } from "shared/business/create-business-form/dto/categories.dto";
+import { UploadFileBody } from "shared/business/create-business-form/types/upload-file.interface";
 
 export const getBusiness = (id: string) => get<any>(`business/${id}`, {});
 
@@ -18,4 +19,10 @@ export const updateBusiness = (
 		body,
 	});
 
-export const uploadPhoto = () => post<any>(`file/image`, {});
+export const uploadPhoto = (body: FormData) =>
+	post<any>(`file/image`, {
+		body,
+		headers: {
+			"Content-Type": "multipart/form-data",
+		},
+	});

@@ -99,6 +99,11 @@ export function Component({ initialState, businessId }: BusinessFormProps) {
 		}
 	}, [initialState]);
 	const steps = [
+		<FormPreview
+			currentStep={currentStep}
+			maxSteps={maxSteps}
+			onChange={setData}
+		/>,
 		<FormTitle
 			currentStep={currentStep}
 			value={data.title}
@@ -112,11 +117,6 @@ export function Component({ initialState, businessId }: BusinessFormProps) {
 			onChange={setData}
 			isEmptyCallback={setIsEmpty}
 			maxSteps={maxSteps}
-		/>,
-		<FormPreview
-			currentStep={currentStep}
-			maxSteps={maxSteps}
-			onChange={setData}
 		/>,
 		<FormCategories
 			dataCategory={dataCategory}
