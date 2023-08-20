@@ -34,7 +34,7 @@ const FormPreview = ({ currentStep, maxSteps, onChange }: FromPreviewProps) => {
 		try {
 			const formData = new FormData();
 			formData.append("file", file);
-			formData.append("userId", user?.id);
+			formData.append("userId", `${user?.id}`);
 			const response = await uploadPhoto(formData);
 			if (response) {
 				onSuccess(response, file);
