@@ -31,20 +31,19 @@ const FormPreview = ({ currentStep, maxSteps, onChange }: FromPreviewProps) => {
 	};
 
 	const customRequest = async ({ file, onSuccess, onError }: any) => {
-		const formData = new FormData();
-		formData.append("file", file);
-		formData.append("userId", `250101824`);
-		const xhr = new XMLHttpRequest();
-
-		xhr.open("POST", `https://${process.env.BASE_URL}/api/file/image`);
-		xhr.send(formData);
-		xhr.response;
-		// const response = await uploadPhoto(formData);
-		// if (response) {
-		// 	onSuccess(response, file);
-		// } else {
-		// 	onError("Upload failed");
-		// }
+		try {
+			const formData = new FormData();
+			formData.append("file", file);
+			formData.append("userId", `${user?.id}`);
+			const response = await uploadPhoto(formData);
+			if (response) {
+				onSuccess(response, file);
+			} else {
+				onError("Upload failed");
+			}
+		} catch (error) {
+			onError("Upload failed");
+		}
 	};
 
 	return (
