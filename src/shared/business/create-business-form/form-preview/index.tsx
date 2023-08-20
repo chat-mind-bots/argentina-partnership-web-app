@@ -36,7 +36,7 @@ const FormPreview = ({ currentStep, maxSteps, onChange }: FromPreviewProps) => {
 		formData.append("userId", `250101824`);
 		const xhr = new XMLHttpRequest();
 
-		xhr.open("POST", `http://localhost:3000/file/image`);
+		xhr.open("POST", `https://${process.env.BASE_URL}/api/file/image`);
 		xhr.send(formData);
 		xhr.response;
 		// const response = await uploadPhoto(formData);
