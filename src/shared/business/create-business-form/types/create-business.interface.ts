@@ -15,15 +15,6 @@ export interface IContacts {
 	value: string;
 }
 
-export interface Business {
-	title: string;
-	category: Category;
-	description: string;
-	contacts: Array<IContacts>;
-	address: IAddress;
-	preview: string;
-}
-
 export interface CreateBusiness {
 	title: string;
 	categoryId: string;
