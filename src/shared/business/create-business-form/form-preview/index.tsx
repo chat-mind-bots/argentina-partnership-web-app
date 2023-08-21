@@ -2,7 +2,6 @@ import React from "react";
 import { Button, message, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { UploadChangeParam } from "antd/es/upload/interface";
-import axios from "axios";
 import { useTelegram } from "hooks/useTelegram";
 import styles from "shared/business/create-business-form/business-form.module.css";
 import { CreateBusiness } from "shared/business/create-business-form/types/create-business.interface";
@@ -16,6 +15,7 @@ export interface FromPreviewProps {
 
 const FormPreview = ({ currentStep, maxSteps, onChange }: FromPreviewProps) => {
 	const { user } = useTelegram();
+	const allowedImageFormats = ["image/jpeg", "image/png"];
 	const handleOnChange = (info: UploadChangeParam) => {
 		if (info.file.status === "done") {
 			message.success(
@@ -32,6 +32,12 @@ const FormPreview = ({ currentStep, maxSteps, onChange }: FromPreviewProps) => {
 
 	const customRequest = async ({ file, onSuccess, onError }: any) => {
 		try {
+			if (!allowedImageFormats.includes(file.type)) {
+				onError(
+					"Invalid file format. Please upload an image (JPEG, PNG, GIF)."
+				);
+				return;
+			}
 			const formData = new FormData();
 			formData.append("file", file);
 			formData.append("userId", `${user?.id}`);
