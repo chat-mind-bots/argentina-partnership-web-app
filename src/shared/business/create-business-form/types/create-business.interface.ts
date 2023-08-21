@@ -26,7 +26,7 @@ export interface Business {
 
 export interface CreateBusiness {
 	title: string;
-	categoryName: string;
+	categoryId: string;
 	description: string;
 	contacts: Array<IContacts>;
 	address: IAddress;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Slider from "shared/components/slider";
 import styles from "./business-form.module.css";
 import { useTelegram } from "hooks/useTelegram";
@@ -15,7 +15,6 @@ import {
 import {
 	Business,
 	CreateBusiness,
-	IContacts,
 } from "shared/business/create-business-form/types/create-business.interface";
 import FormContact from "shared/business/create-business-form/form-contact";
 import FormTitle from "shared/business/create-business-form/form-title";
@@ -45,15 +44,16 @@ export interface SelectProps {
 export function Component({ initialState, businessId }: BusinessFormProps) {
 	const { user } = useTelegram();
 	const [data, setData] = useState<CreateBusiness>({
-		title: "",
-		description: "",
-		categoryName: "",
-		address: {
+		title: initialState?.title ?? "",
+		description: initialState?.description ?? "",
+		categoryId: initialState?.category._id ?? "",
+		address: initialState?.address ?? {
 			isExist: false,
 		},
-		contacts: [] as IContacts[],
-		preview: "",
+		contacts: initialState?.contacts ?? [],
+		preview: initialState?.preview ?? "",
 	});
+
 	const [isEmpty, setIsEmpty] = useState(true);
 	const [hideButtons, setHideButtons] = useState(false);
 	const [isValidLink, setIsValidLinkLink] = useState(true);
@@ -67,38 +67,21 @@ export function Component({ initialState, businessId }: BusinessFormProps) {
 	const [currentStep, setCurrentStep] = useState(0);
 
 	const categories = useLoaderData() as Category[];
-	const onChangeCategory = (str: string) => {
-		const index = categories.findIndex((value, index) => {
-			return value.title === str;
+	const onChangeCategory = (categoryId: string) => {
+		setData((value) => {
+			return { ...value, categoryId };
 		});
-		if (index > -1) {
-			setData((value) => {
-				return { ...value, categoryName: categories[index].title };
-			});
-		}
 	};
-	const dataCategory: SelectProps[] = [];
-	if (categories)
-		categories.map((category) => {
-			dataCategory.push({
-				label: category.title,
-				value: category.title,
-			});
-		});
 
-	useEffect(() => {
-		if (initialState) {
-			setData({
-				title: initialState.title,
-				categoryName: initialState.category.title,
-				address: initialState.address,
-				contacts: initialState.contacts,
-				description: initialState.description,
-				preview: initialState.preview,
-			});
-		}
-	}, [initialState]);
-	console.log(data);
+	const dataCategory: SelectProps[] = useMemo(
+		() =>
+			categories.map((category) => ({
+				label: category.title,
+				value: category._id,
+			})),
+		[categories]
+	);
+
 	const steps = [
 		<FormTitle
 			currentStep={currentStep}
@@ -122,7 +105,7 @@ export function Component({ initialState, businessId }: BusinessFormProps) {
 		<FormCategories
 			dataCategory={dataCategory}
 			currentStep={currentStep}
-			value={data.categoryName}
+			value={data.categoryId}
 			onChange={onChangeCategory}
 			isEmptyCallback={setIsEmpty}
 			maxSteps={maxSteps}
