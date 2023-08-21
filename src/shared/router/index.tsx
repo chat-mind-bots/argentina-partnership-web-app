@@ -29,29 +29,10 @@ export const router = createBrowserRouter([
 	// 		return <div>List</div>;
 	// 	},
 	// },
-	// {
-	// 	path: "/partner/:userId/business/:businessId/update",
-	// 	loader: async ({ params }) => {
-	// 		const categories = await getCategories();
-	// 		const data = await getBusiness(`${params.businessId}`);
-	// 		const id = `${params.businessId}`;
-	// 		return { categories, data, id };
-	// 	},
-	// 	Component() {
-	// 		const data = useLoaderData();
-	// 		return (
-	// 			<></>
-	// 			// <BusinessForm
-	// 			// 	// @ts-ignore
-	// 			// 	categories={data["categories"]}
-	// 			// 	// @ts-ignore
-	// 			// 	initialState={data["data"]}
-	// 			// 	// @ts-ignore
-	// 			// 	businessId={data["id"]}
-	// 			// />
-	// 		);
-	// 	},
-	// },
+	{
+		path: "/partner/:userId/business/:businessId/update",
+		lazy: () => import("../business/create-business-form"),
+	},
 	{
 		path: "*",
 		Component() {

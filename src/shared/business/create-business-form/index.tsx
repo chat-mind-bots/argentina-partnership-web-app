@@ -2,20 +2,15 @@ import React, { useEffect, useMemo, useState } from "react";
 import Slider from "shared/components/slider";
 import styles from "./business-form.module.css";
 import { useTelegram } from "hooks/useTelegram";
-import {
-	CategoriesDto,
-	Category,
-} from "shared/business/create-business-form/dto/categories.dto";
+import { Category } from "shared/business/create-business-form/dto/categories.dto";
 import {
 	createBusiness,
+	getBusiness,
 	getCategories,
 	updateBusiness,
 } from "shared/business/create-business-form/services/data";
 
-import {
-	Business,
-	CreateBusiness,
-} from "shared/business/create-business-form/types/create-business.interface";
+import { CreateBusiness } from "shared/business/create-business-form/types/create-business.interface";
 import FormContact from "shared/business/create-business-form/form-contact";
 import FormTitle from "shared/business/create-business-form/form-title";
 import FormDescription from "shared/business/create-business-form/form-description";
@@ -25,15 +20,22 @@ import FormResult from "shared/business/create-business-form/form-result";
 import { WebAppProvider } from "@vkruglikov/react-telegram-web-app";
 import { useLoaderData } from "react-router-dom";
 import FormPreview from "shared/business/create-business-form/form-preview";
+import { Business } from "shared/business/create-business-form/dto/business.dto";
 
-export async function loader(): Promise<CategoriesDto> {
-	const data = await getCategories();
-	return data;
+export interface ILoader {
+	categories: Category[];
+	business?: Business;
+	businessId?: string;
 }
 
-export interface BusinessFormProps {
-	initialState?: Business;
-	businessId?: string;
+export async function loader({ params }: any): Promise<ILoader> {
+	const categories = await getCategories();
+	if (params.businessId) {
+		const business = await getBusiness(`${params.businessId}`);
+		const businessId = `${params.businessId}`;
+		return { categories, business, businessId };
+	}
+	return { categories };
 }
 
 export interface SelectProps {
@@ -41,17 +43,19 @@ export interface SelectProps {
 	value: string;
 }
 
-export function Component({ initialState, businessId }: BusinessFormProps) {
+export function Component() {
 	const { user } = useTelegram();
+	const { categories, business, businessId } = useLoaderData() as ILoader;
+	console.log(categories);
 	const [data, setData] = useState<CreateBusiness>({
-		title: initialState?.title ?? "",
-		description: initialState?.description ?? "",
-		categoryId: initialState?.category._id ?? "",
-		address: initialState?.address ?? {
+		title: business?.title ?? "",
+		description: business?.description ?? "",
+		categoryId: business?.category._id ?? "",
+		address: business?.address ?? {
 			isExist: false,
 		},
-		contacts: initialState?.contacts ?? [],
-		preview: initialState?.preview ?? "",
+		contacts: business?.contacts ?? [],
+		preview: business?.preview._id ?? "",
 	});
 
 	const [isEmpty, setIsEmpty] = useState(true);
@@ -66,7 +70,6 @@ export function Component({ initialState, businessId }: BusinessFormProps) {
 	const [maxSteps, setMaxSteps] = useState(0);
 	const [currentStep, setCurrentStep] = useState(0);
 
-	const categories = useLoaderData() as Category[];
 	const onChangeCategory = (categoryId: string) => {
 		setData((value) => {
 			return { ...value, categoryId };
@@ -81,7 +84,7 @@ export function Component({ initialState, businessId }: BusinessFormProps) {
 			})),
 		[categories]
 	);
-
+	console.log(data);
 	const steps = [
 		<FormTitle
 			currentStep={currentStep}
@@ -101,6 +104,7 @@ export function Component({ initialState, businessId }: BusinessFormProps) {
 			currentStep={currentStep}
 			maxSteps={maxSteps}
 			onChange={setData}
+			value={data.preview}
 		/>,
 		<FormCategories
 			dataCategory={dataCategory}

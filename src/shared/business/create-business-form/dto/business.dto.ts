@@ -1,9 +1,14 @@
 import { IAddress } from "shared/business/create-business-form/types/address.interface";
+import { Category } from "shared/business/create-business-form/dto/categories.dto";
+import { IContacts } from "shared/business/create-business-form/types/create-business.interface";
+import { PreviewDto } from "shared/business/create-business-form/dto/preview.dto";
 
 export interface Business {
 	_id: string;
 	title: string;
-	description?: string;
+	category: Category;
+	description: string;
+	contacts: Array<IContacts>;
 	address: IAddress;
-	categoryId: string;
+	preview: PreviewDto;
 }
