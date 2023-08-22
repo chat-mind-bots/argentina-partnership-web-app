@@ -77,7 +77,7 @@ module.exports = (env) => {
 					use: ["style-loader", "css-loader", "less-loader"],
 				},
 				{
-					test: /\.(woff|woff2|otf|ttf|eot|png|jpg|jpeg|gif|svg)$/i,
+					test: /\.(woff|woff2|otf|ttf|eot|png|jpg|jpeg|gif)$/i,
 					use: {
 						loader: "file-loader",
 						options: {
@@ -88,7 +88,17 @@ module.exports = (env) => {
 				},
 				{
 					test: /\.svg$/,
-					use: ["@svgr/webpack"],
+					use: [
+						{
+							loader: "babel-loader",
+						},
+						{
+							loader: "react-svg-loader",
+							options: {
+								jsx: true, // true outputs JSX tags
+							},
+						},
+					],
 				},
 				{
 					test: /\.(js|ts)x?$/,
