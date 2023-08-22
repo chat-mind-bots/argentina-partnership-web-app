@@ -1,18 +1,15 @@
 import { createBrowserRouter } from "react-router-dom";
 import React from "react";
-import Form from "shared/testForm";
 
 export const router = createBrowserRouter([
 	{
 		path: "qr-check",
 		lazy: () => import("../qr-check"),
 	},
-	// {
-	// 	path: "/test",
-	// 	Component() {
-	// 		return <Form />;
-	// 	},
-	// },
+	{
+		path: "home",
+		lazy: () => import("../home"),
+	},
 	{
 		path: "/create/business",
 		lazy: () => import("../business/create-business-form"),

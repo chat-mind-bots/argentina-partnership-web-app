@@ -21,6 +21,7 @@ module.exports = (env) => {
 		},
 		devServer: {
 			port: 3001,
+			allowedHosts: "all",
 			static: {
 				directory: path.resolve(__dirname, "./build"),
 			},
@@ -76,7 +77,7 @@ module.exports = (env) => {
 					use: ["style-loader", "css-loader", "less-loader"],
 				},
 				{
-					test: /\.(woff|woff2|otf|ttf|eot|png|jpg|jpeg|gif)$/i,
+					test: /\.(woff|woff2|otf|ttf|eot|png|jpg|jpeg|gif|svg)$/i,
 					use: {
 						loader: "file-loader",
 						options: {
@@ -117,7 +118,7 @@ module.exports = (env) => {
 			// new BundleAnalyzerPlugin(),
 			new HtmlWebpackPlugin({
 				title: "Partnership web-app",
-				template: "./public/index.html",
+				template: "./src/public/index.html",
 			}),
 			new webpack.EnvironmentPlugin({ ...env }),
 			new CleanWebpackPlugin(),

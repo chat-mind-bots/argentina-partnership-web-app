@@ -27,11 +27,6 @@ h2 {
 	font-size: 1.8rem;
 }
 
-code {
-	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-		monospace;
-}
-
 body {
 	background-color: var(--tg-theme-secondary-bg-color);
 	color: var(--tg-theme-text-color);
