@@ -68,6 +68,10 @@
     background-color: var(--tg-theme-bg-color);
 }
 
+.icon > svg{
+    color: var(--tg-theme-button-text-color);
+    display: flex;
+}
 
 .uploadWrapper {
     width: 100%;

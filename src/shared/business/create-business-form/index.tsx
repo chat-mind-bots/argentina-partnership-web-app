@@ -61,10 +61,20 @@ export function Component() {
 	const [hideButtons, setHideButtons] = useState(false);
 	const [isValidLink, setIsValidLinkLink] = useState(true);
 	const handleOnSend = async () => {
+		const sendData: CreateBusiness = {
+			...data,
+			address: data.address.isExist
+				? {
+						...data.address,
+				  }
+				: {
+						isExist: data.address.isExist,
+				  },
+		};
 		if (businessId) {
-			return updateBusiness(user?.id, businessId, data);
+			return updateBusiness(user?.id, businessId, sendData);
 		}
-		return createBusiness(user?.id, data);
+		return createBusiness(user?.id, sendData);
 	};
 	const [maxSteps, setMaxSteps] = useState(0);
 	const [currentStep, setCurrentStep] = useState(0);
@@ -117,6 +127,7 @@ export function Component() {
 		<FormContact
 			maxSteps={maxSteps}
 			currentStep={currentStep}
+			isEmptyCallback={setIsEmpty}
 			values={data.contacts}
 			hideButtonsCallback={setHideButtons}
 			setData={setData}

@@ -14,6 +14,7 @@ export interface FormContactProps {
 	values: Array<IContacts>;
 	hideButtonsCallback?: (value: boolean) => void;
 	setData: React.Dispatch<React.SetStateAction<any>>;
+	isEmptyCallback: (value: boolean) => void;
 }
 
 export interface FormData {
@@ -29,6 +30,7 @@ const FormContact = ({
 	maxSteps,
 	values,
 	hideButtonsCallback,
+	isEmptyCallback,
 	setData,
 }: FormContactProps) => {
 	const isEmptyValues = values.length === 0;
@@ -131,6 +133,9 @@ const FormContact = ({
 			hideButtonsCallback(true);
 		}
 	}, [formState]);
+	useEffect(() => {
+		isEmptyCallback(!values.length);
+	}, [values]);
 	return (
 		<div>
 			<div className={styles.headerWrapper}>

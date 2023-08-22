@@ -53,6 +53,7 @@ const FormAddress = ({
 			return {
 				...prev,
 				address: {
+					...prev.address,
 					isExist: event.target.checked,
 				},
 			};
@@ -75,6 +76,7 @@ const FormAddress = ({
 				<Checkbox
 					onChange={handleOnCheckboxChange}
 					className={styles.addressLabel}
+					checked={value.isExist}
 				>
 					У вашего бизнеса есть адрес?
 				</Checkbox>
