@@ -110,7 +110,7 @@ module.exports = (env) => {
 			],
 		},
 		resolve: {
-			extensions: [".tsx", ".ts", ".js", ".jsx", "less", "css", "scss"],
+			extensions: [".tsx", ".ts", ".js", ".jsx", ".less", ".css", ".scss"],
 			modules: ["node_modules", "src"],
 			alias: {
 				process: "process/browser",

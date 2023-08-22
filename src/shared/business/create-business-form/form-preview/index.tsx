@@ -15,6 +15,7 @@ export interface FromPreviewProps {
 	maxSteps: number;
 	onChange: React.Dispatch<React.SetStateAction<CreateBusiness>>;
 	value?: string;
+	isEmptyCallback: (value: boolean) => void;
 }
 
 const FormPreview = ({
@@ -22,6 +23,7 @@ const FormPreview = ({
 	maxSteps,
 	onChange,
 	value,
+	isEmptyCallback,
 }: FromPreviewProps) => {
 	const { user } = useTelegram();
 
@@ -30,9 +32,28 @@ const FormPreview = ({
 	const handleOnRemove = () => {
 		onChange((prevData: any) => ({
 			...prevData,
-			preview: "",
+			preview: undefined,
 		}));
 	};
+
+	const onChangeUpload = (info: UploadChangeParam) => {
+		if (info.file.status === "uploading") {
+			setDefaultList([
+				{
+					uid: info.file.uid, // or use some unique identifier
+					name: info.file.fileName || "uploading",
+					status: "uploading",
+					url: `loading`,
+				},
+			]);
+		}
+		if (info.file.status === "done") {
+			message.success(`${info.file.name} file uploaded successfully`);
+		} else if (info.file.status === "error") {
+			message.error(`${info.file.name} file upload failed.`);
+		}
+	};
+
 	const customRequest = async ({ file, onSuccess, onError }: any) => {
 		try {
 			if (!allowedImageFormats.includes(file.type)) {
@@ -41,7 +62,7 @@ const FormPreview = ({
 			}
 			const formData = new FormData();
 			formData.append("file", file);
-			formData.append("userId", `${user?.id}`);
+			formData.append("userId", `250101824`);
 			const response = await uploadPhoto(formData);
 			if (response) {
 				onSuccess(response, file);
@@ -75,7 +96,9 @@ const FormPreview = ({
 		}
 		fetchData();
 	}, [value]);
-
+	useEffect(() => {
+		isEmptyCallback(false);
+	}, [value]);
 	return (
 		<div>
 			<div className={styles.headerWrapper}>
@@ -84,15 +107,18 @@ const FormPreview = ({
 					{`${currentStep + 1} / ${maxSteps}`}
 				</div>
 			</div>
-			<Upload
-				fileList={defaultList}
-				customRequest={customRequest}
-				onRemove={handleOnRemove}
-				maxCount={1}
-				listType={"picture"}
-			>
-				<Button icon={<UploadOutlined />}>Click to Upload</Button>
-			</Upload>
+			<div className={styles.uploadInput}>
+				<Upload
+					fileList={defaultList}
+					onChange={onChangeUpload}
+					customRequest={customRequest}
+					onRemove={handleOnRemove}
+					maxCount={1}
+					listType={"picture"}
+				>
+					<Button icon={<UploadOutlined />}>Click to Upload</Button>
+				</Upload>
+			</div>
 		</div>
 	);
 };

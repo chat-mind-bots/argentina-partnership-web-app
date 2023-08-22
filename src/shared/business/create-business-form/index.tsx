@@ -54,7 +54,7 @@ export function Component() {
 			isExist: false,
 		},
 		contacts: business?.contacts ?? [],
-		preview: business?.preview._id ?? "",
+		preview: business?.preview?._id ?? undefined,
 	});
 
 	const [isEmpty, setIsEmpty] = useState(true);
@@ -102,6 +102,7 @@ export function Component() {
 		<FormPreview
 			currentStep={currentStep}
 			maxSteps={maxSteps}
+			isEmptyCallback={setIsEmpty}
 			onChange={setData}
 			value={data.preview}
 		/>,
