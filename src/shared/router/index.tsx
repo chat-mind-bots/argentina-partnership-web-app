@@ -8,7 +8,7 @@ export const router = createBrowserRouter([
 	},
 	{
 		path: "home",
-		lazy: () => import("../home"),
+		lazy: () => import("shared/home/components"),
 	},
 	{
 		path: "/create/business",

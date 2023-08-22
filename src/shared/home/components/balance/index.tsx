@@ -1,14 +1,24 @@
-import React from "react";
-import styles from "shared/home/balance/balance.module.less";
+import React, { FC, useMemo } from "react";
+import styles from "shared/home/components/balance/balance.module.less";
+import { splitNumber } from "services/splitNumber";
 
-const Balance = () => {
+interface IOwnProps {
+	amount: number;
+}
+
+const Balance: FC<IOwnProps> = ({ amount }) => {
+	const { wholePart, hundredths } = useMemo(
+		() => splitNumber(amount),
+		[amount]
+	);
+
 	return (
 		<div className={styles.balanceWrapper}>
 			<div className={styles.balanceTitle}>Баланс</div>
 			<div className={styles.amountWrapper}>
-				<span className={styles.amountMain}>0</span>
+				<span className={styles.amountMain}>{wholePart}</span>
 				<span className={styles.amountPortion}>,</span>
-				<span className={styles.amountPortion}>00</span>
+				<span className={styles.amountPortion}>{hundredths}</span>
 				<button className={styles.plusButton}>
 					<svg
 						width="23"

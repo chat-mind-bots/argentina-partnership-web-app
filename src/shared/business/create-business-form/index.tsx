@@ -46,7 +46,6 @@ export interface SelectProps {
 export function Component() {
 	const { user } = useTelegram();
 	const { categories, business, businessId } = useLoaderData() as ILoader;
-	console.log(categories);
 	const [data, setData] = useState<CreateBusiness>({
 		title: business?.title ?? "",
 		description: business?.description ?? "",
