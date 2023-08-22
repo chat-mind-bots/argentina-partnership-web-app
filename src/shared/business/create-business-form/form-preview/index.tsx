@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, message, Upload } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
+import { DeleteOutlined, UploadOutlined } from "@ant-design/icons";
 import { UploadChangeParam, UploadFile } from "antd/es/upload/interface";
 import { useTelegram } from "hooks/useTelegram";
 import styles from "shared/business/create-business-form/business-form.module.css";
@@ -110,6 +110,10 @@ const FormPreview = ({
 			<div className={styles.uploadInput}>
 				<Upload
 					fileList={defaultList}
+					showUploadList={{
+						showRemoveIcon: true,
+						removeIcon: <DeleteOutlined className={styles.icon} />,
+					}}
 					onChange={onChangeUpload}
 					customRequest={customRequest}
 					onRemove={handleOnRemove}
