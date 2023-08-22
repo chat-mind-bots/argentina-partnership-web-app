@@ -57,7 +57,7 @@ export function Component() {
 		preview: business?.preview?._id ?? undefined,
 	});
 
-	const [isEmpty, setIsEmpty] = useState(true);
+	const [isEmpty, setIsEmpty] = useState(false);
 	const [hideButtons, setHideButtons] = useState(false);
 	const [isValidLink, setIsValidLinkLink] = useState(true);
 	const handleOnSend = async () => {
@@ -135,7 +135,7 @@ export function Component() {
 	useEffect(() => {
 		setMaxSteps(steps.length);
 	}, [steps]);
-
+	console.log(currentStep);
 	return (
 		<WebAppProvider>
 			<div className={styles.wrapper}>

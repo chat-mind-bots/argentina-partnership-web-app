@@ -58,31 +58,8 @@ const Slider = ({
 				<div className={styles.wrapper}>
 					{!hideButtons && !(activeStep === 0 || !isValidLink) && (
 						<>
-							{process.env.MODE === "LOCAL" ? (
-								<button onClick={handleBack}>Back</button>
-							) : (
-								<BackButton onClick={handleBack} />
-							)}
+							<BackButton onClick={handleBack} />
 						</>
-					)}
-					{process.env.MODE === "LOCAL" ? (
-						<button
-							onClick={
-								isLasStep ? async () => await enterLoading() : handleNext
-							}
-							disabled={isNextButtonDisabled || !isValidLink}
-						>
-							{isLasStep ? finishButtonText : "Далее"}
-						</button>
-					) : (
-						<MainButton
-							onClick={
-								isLasStep ? async () => await enterLoading() : handleNext
-							}
-							disabled={isNextButtonDisabled || !isValidLink}
-							text={isLasStep ? finishButtonText : "Далее"}
-							progress={isLasStep ? loading : false}
-						/>
 					)}
 					<MainButton
 						onClick={isLasStep ? async () => await enterLoading() : handleNext}
