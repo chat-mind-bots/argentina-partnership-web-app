@@ -62,7 +62,7 @@ const FormPreview = ({
 			}
 			const formData = new FormData();
 			formData.append("file", file);
-			formData.append("userId", `250101824`);
+			formData.append("userId", user?.id);
 			const response = await uploadPhoto(formData);
 			if (response) {
 				onSuccess(response, file);
