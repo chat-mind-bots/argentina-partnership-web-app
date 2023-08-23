@@ -21,5 +21,5 @@ export interface CreateBusiness {
 	description: string;
 	contacts: Array<IContacts>;
 	address: IAddress;
-	preview: string;
+	preview?: string;
 }
