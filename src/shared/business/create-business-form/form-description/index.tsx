@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import styles from "shared/business/create-business-form/business-form.module.css";
 import InputText from "shared/components/input/input-text";
+import ContentLayout from "shared/components/content-layout";
+import StepCounter from "shared/components/step-counter";
 
 interface FormDescriptionProps {
 	currentStep: number;
@@ -25,31 +27,32 @@ const FormDescription = ({
 	};
 	useEffect(() => {
 		isEmptyCallback(!value);
-	}, [value]);
+	}, [isEmptyCallback, value]);
+
 	return (
-		<div>
-			<div className={styles.headerWrapper}>
-				<h2>Введите описание бизнеса:</h2>
-				<div className={styles.stepper}>
-					{`${currentStep + 1} / ${maxSteps}`}
-				</div>
-			</div>
+		<ContentLayout
+			headerPrimary={"Введите описание бизнеса:"}
+			headerSecondary={
+				<StepCounter currentStep={currentStep} maxSteps={maxSteps} />
+			}
+		>
 			<InputText
 				type={"standard"}
-				className={styles.formInput}
 				value={value}
 				placeholder={"Описание"}
 				onChange={handleOnChange}
 				isTextArea={true}
+				description={
+					<div className={styles.stepDescription}>
+						<div className={styles.stepDescriptionTitle}>Пример:</div>
+						<div>
+							Пицца от 289 рублей. Быстрая бесплатная доставка домой и в офис.
+							Показываем в прямом эфире, как готовим вашу пиццу.
+						</div>
+					</div>
+				}
 			/>
-			<div className={styles.stepDescription}>
-				<div className={styles.stepDescriptionTitle}>Пример:</div>
-				<div>
-					Пицца от 289 рублей. Быстрая бесплатная доставка домой и в офис.
-					Показываем в прямом эфире, как готовим вашу пиццу.
-				</div>
-			</div>
-		</div>
+		</ContentLayout>
 	);
 };
 

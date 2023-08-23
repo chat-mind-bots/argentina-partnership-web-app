@@ -1,5 +1,6 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { Input } from "antd";
+import styles from "./input-text.module.less";
 
 interface InputTextProps {
 	onChange: React.Dispatch<React.SetStateAction<any>>;
@@ -11,6 +12,7 @@ interface InputTextProps {
 	className?: string;
 	status?: "error";
 	isTextArea?: boolean;
+	description?: ReactNode;
 }
 
 const InputText = ({
@@ -23,6 +25,7 @@ const InputText = ({
 	type,
 	status,
 	isTextArea,
+	description,
 }: InputTextProps) => {
 	if (type === "numeric") {
 		const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,26 +43,31 @@ const InputText = ({
 				onChange={handleChange}
 				placeholder={placeholder}
 				value={value}
-				className={className}
+				className={`${styles.formInput} ${className ?? ""}`}
 			/>
 		);
 	}
-	return isTextArea ? (
-		<Input.TextArea
-			onChange={onChange}
-			placeholder={placeholder}
-			value={value}
-			className={className}
-		/>
-	) : (
-		<Input
-			addonBefore={addonBefore}
-			addonAfter={addonAfter}
-			onChange={onChange}
-			placeholder={placeholder}
-			value={value}
-			className={className}
-		/>
+	return (
+		<>
+			{isTextArea ? (
+				<Input.TextArea
+					onChange={onChange}
+					placeholder={placeholder}
+					value={value}
+					className={className}
+				/>
+			) : (
+				<Input
+					addonBefore={addonBefore}
+					addonAfter={addonAfter}
+					onChange={onChange}
+					placeholder={placeholder}
+					value={value}
+					className={className}
+				/>
+			)}
+			{description}
+		</>
 	);
 };
 export default InputText;

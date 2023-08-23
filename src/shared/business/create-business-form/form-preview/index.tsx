@@ -9,6 +9,8 @@ import {
 	getImage,
 	uploadPhoto,
 } from "shared/business/create-business-form/services/data";
+import ContentLayout from "shared/components/content-layout";
+import StepCounter from "shared/components/step-counter";
 
 export interface FromPreviewProps {
 	currentStep: number;
@@ -96,17 +98,18 @@ const FormPreview = ({
 		}
 		fetchData();
 	}, [value]);
+
 	useEffect(() => {
 		isEmptyCallback(false);
-	}, [value]);
+	}, [isEmptyCallback, value]);
+
 	return (
-		<div>
-			<div className={styles.headerWrapper}>
-				<h2>Загрузите фотографию вашего бизнеса:</h2>
-				<div className={styles.stepper}>
-					{`${currentStep + 1} / ${maxSteps}`}
-				</div>
-			</div>
+		<ContentLayout
+			headerPrimary={"Загрузите фотографию вашего бизнеса:"}
+			headerSecondary={
+				<StepCounter currentStep={currentStep} maxSteps={maxSteps} />
+			}
+		>
 			<div className={styles.uploadInput}>
 				<Upload
 					fileList={defaultList}
@@ -123,7 +126,7 @@ const FormPreview = ({
 					<Button icon={<UploadOutlined />}>Click to Upload</Button>
 				</Upload>
 			</div>
-		</div>
+		</ContentLayout>
 	);
 };
 

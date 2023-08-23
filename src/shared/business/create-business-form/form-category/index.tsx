@@ -1,6 +1,7 @@
-import styles from "shared/business/create-business-form/business-form.module.css";
 import Select, { SelectOption } from "shared/components/select";
 import React, { useEffect } from "react";
+import ContentLayout from "shared/components/content-layout";
+import StepCounter from "shared/components/step-counter";
 
 export interface FormCategoriesProps {
 	currentStep: number;
@@ -21,25 +22,23 @@ const FormCategories = ({
 }: FormCategoriesProps) => {
 	useEffect(() => {
 		isEmptyCallback(!value);
-	}, [value]);
+	}, [isEmptyCallback, value]);
+
 	return (
-		<div>
-			<div className={styles.headerWrapper}>
-				<h2>Выберете категорию бизнеса:</h2>
-				<div className={styles.stepper}>{`${
-					currentStep + 1
-				} / ${maxSteps}`}</div>
-			</div>
-			<div>
-				<Select
-					showSearch
-					value={value}
-					placeholder="Выберете категорию"
-					onChange={onChange}
-					options={dataCategory}
-				/>
-			</div>
-		</div>
+		<ContentLayout
+			headerPrimary={"Выберете категорию бизнеса:"}
+			headerSecondary={
+				<StepCounter currentStep={currentStep} maxSteps={maxSteps} />
+			}
+		>
+			<Select
+				showSearch
+				value={value}
+				placeholder="Выберете категорию"
+				onChange={onChange}
+				options={dataCategory}
+			/>
+		</ContentLayout>
 	);
 };
 

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styles from "./slider.module.css";
-import { useTelegram } from "hooks/useTelegram";
 import { BackButton, MainButton } from "@vkruglikov/react-telegram-web-app";
 
 interface SliderProps {
@@ -19,21 +18,17 @@ const Slider = ({
 	steps,
 	finishButtonText,
 	isNextButtonDisabled,
-	onSendData,
 	activeStep,
 	hideButtons,
 	isValidLink,
 	children,
 	setActiveStep,
 }: SliderProps) => {
-	const { tg } = useTelegram();
-
 	const [loading, setLoading] = useState(false);
 
 	const enterLoading = async () => {
 		setLoading(true);
 		try {
-			const data = await onSendData?.call(this);
 			handleNext();
 		} catch (error) {}
 	};
@@ -52,6 +47,7 @@ const Slider = ({
 				if (activeStep === index) {
 					return <div key={`active--step${index}`}>{step}</div>;
 				}
+				return <></>;
 			})}
 			{activeStep !== steps.length ? (
 				<div className={styles.wrapper}>

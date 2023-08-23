@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import styles from "shared/business/create-business-form/business-form.module.css";
 import InputText from "shared/components/input/input-text";
+import ContentLayout from "shared/components/content-layout";
+import StepCounter from "shared/components/step-counter";
 
 interface FormTitleProps {
 	onChange: React.Dispatch<React.SetStateAction<any>>;
@@ -23,29 +25,31 @@ const FormTitle = ({
 			title: event.target.value,
 		}));
 	};
+
 	useEffect(() => {
 		isEmptyCallback(!value);
-	}, [value]);
+	}, [isEmptyCallback, value]);
+
 	return (
-		<div>
-			<div className={styles.headerWrapper}>
-				<h2>Введите название бизнеса:</h2>
-				<div className={styles.stepper}>
-					{`${currentStep + 1} / ${maxSteps}`}
-				</div>
-			</div>
+		<ContentLayout
+			headerPrimary={"Введите название бизнеса:"}
+			headerSecondary={
+				<StepCounter currentStep={currentStep} maxSteps={maxSteps} />
+			}
+		>
 			<InputText
-				className={styles.formInput}
 				type={"standard"}
 				value={value}
 				placeholder={"Название"}
 				onChange={handleOnChange}
+				description={
+					<div className={styles.stepDescription}>
+						<div className={styles.stepDescriptionTitle}>Пример:</div>
+						<div>Додо пицца</div>
+					</div>
+				}
 			/>
-			<div className={styles.stepDescription}>
-				<div className={styles.stepDescriptionTitle}>Пример:</div>
-				<div>Додо пицца</div>
-			</div>
-		</div>
+		</ContentLayout>
 	);
 };
 

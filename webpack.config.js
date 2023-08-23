@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
 const Dotenv = require("dotenv-webpack");
+// const BrotliPlugin = require("brotli-webpack-plugin");
 
 // const BundleAnalyzerPlugin =
 // 	require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
@@ -119,6 +120,12 @@ module.exports = (env) => {
 		},
 		plugins: [
 			new Dotenv(),
+			// new BrotliPlugin({
+			// 	asset: '[path].br[query]',
+			// 	test: /\.(js|css|html|svg)$/,
+			// 	threshold: 10240,
+			// 	minRatio: 0.8
+			// }),
 			new CompressionPlugin({
 				algorithm: "gzip",
 				test: /\.(js|css|html)$/,

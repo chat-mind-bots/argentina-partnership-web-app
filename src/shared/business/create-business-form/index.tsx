@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState, lazy, Suspense } from "react";
 import Slider from "shared/components/slider";
 import styles from "./business-form.module.css";
 import { useTelegram } from "hooks/useTelegram";
@@ -11,16 +11,35 @@ import {
 } from "shared/business/create-business-form/services/data";
 
 import { CreateBusiness } from "shared/business/create-business-form/types/create-business.interface";
-import FormContact from "shared/business/create-business-form/form-contact";
-import FormTitle from "shared/business/create-business-form/form-title";
-import FormDescription from "shared/business/create-business-form/form-description";
-import FormCategories from "shared/business/create-business-form/form-category";
-import FormAddress from "shared/business/create-business-form/form-address";
 import FormResult from "shared/business/create-business-form/form-result";
 import { WebAppProvider } from "@vkruglikov/react-telegram-web-app";
 import { useLoaderData } from "react-router-dom";
-import FormPreview from "shared/business/create-business-form/form-preview";
 import { Business } from "shared/business/create-business-form/dto/business.dto";
+import PageLoader from "shared/components/page-loader";
+
+const FormContact = lazy(
+	() => import("shared/business/create-business-form/form-contact")
+);
+
+const FormTitle = lazy(
+	() => import("shared/business/create-business-form/form-title")
+);
+
+const FormDescription = lazy(
+	() => import("shared/business/create-business-form/form-description")
+);
+
+const FormCategories = lazy(
+	() => import("shared/business/create-business-form/form-category")
+);
+
+const FormAddress = lazy(
+	() => import("shared/business/create-business-form/form-address")
+);
+
+const FormPreview = lazy(
+	() => import("shared/business/create-business-form/form-preview")
+);
 
 export interface ILoader {
 	categories: Category[];
@@ -93,60 +112,72 @@ export function Component() {
 			})),
 		[categories]
 	);
-	console.log(data);
+
 	const steps = [
-		<FormTitle
-			currentStep={currentStep}
-			value={data.title}
-			onChange={setData}
-			isEmptyCallback={setIsEmpty}
-			maxSteps={maxSteps}
-		/>,
-		<FormDescription
-			currentStep={currentStep}
-			value={data.description}
-			onChange={setData}
-			isEmptyCallback={setIsEmpty}
-			maxSteps={maxSteps}
-		/>,
-		<FormPreview
-			currentStep={currentStep}
-			maxSteps={maxSteps}
-			isEmptyCallback={setIsEmpty}
-			onChange={setData}
-			value={data.preview}
-		/>,
-		<FormCategories
-			dataCategory={dataCategory}
-			currentStep={currentStep}
-			value={data.categoryId}
-			onChange={onChangeCategory}
-			isEmptyCallback={setIsEmpty}
-			maxSteps={maxSteps}
-		/>,
-		<FormContact
-			maxSteps={maxSteps}
-			currentStep={currentStep}
-			isEmptyCallback={setIsEmpty}
-			values={data.contacts}
-			hideButtonsCallback={setHideButtons}
-			setData={setData}
-		/>,
-		<FormAddress
-			value={data.address}
-			isValidLink={isValidLink}
-			maxSteps={maxSteps}
-			setValidLink={setIsValidLinkLink}
-			setData={setData}
-			isEmptyCallback={setIsEmpty}
-			currentStep={currentStep}
-		/>,
+		<Suspense fallback={<PageLoader />}>
+			<FormTitle
+				currentStep={currentStep}
+				value={data.title}
+				onChange={setData}
+				isEmptyCallback={setIsEmpty}
+				maxSteps={maxSteps}
+			/>
+		</Suspense>,
+		<Suspense fallback={<PageLoader />}>
+			<FormDescription
+				currentStep={currentStep}
+				value={data.description}
+				onChange={setData}
+				isEmptyCallback={setIsEmpty}
+				maxSteps={maxSteps}
+			/>
+		</Suspense>,
+		<Suspense fallback={<PageLoader />}>
+			<FormPreview
+				currentStep={currentStep}
+				maxSteps={maxSteps}
+				isEmptyCallback={setIsEmpty}
+				onChange={setData}
+				value={data.preview}
+			/>
+		</Suspense>,
+		<Suspense fallback={<PageLoader />}>
+			<FormCategories
+				dataCategory={dataCategory}
+				currentStep={currentStep}
+				value={data.categoryId}
+				onChange={onChangeCategory}
+				isEmptyCallback={setIsEmpty}
+				maxSteps={maxSteps}
+			/>
+		</Suspense>,
+		<Suspense fallback={<PageLoader />}>
+			<FormContact
+				maxSteps={maxSteps}
+				currentStep={currentStep}
+				isEmptyCallback={setIsEmpty}
+				values={data.contacts}
+				hideButtonsCallback={setHideButtons}
+				setData={setData}
+			/>
+		</Suspense>,
+		<Suspense fallback={<PageLoader />}>
+			<FormAddress
+				value={data.address}
+				isValidLink={isValidLink}
+				maxSteps={maxSteps}
+				setValidLink={setIsValidLinkLink}
+				setData={setData}
+				isEmptyCallback={setIsEmpty}
+				currentStep={currentStep}
+			/>
+		</Suspense>,
 	];
 
 	useEffect(() => {
 		setMaxSteps(steps.length);
 	}, [steps]);
-	console.log(currentStep);
+
 	return (
 		<WebAppProvider>
 			<div className={styles.wrapper}>

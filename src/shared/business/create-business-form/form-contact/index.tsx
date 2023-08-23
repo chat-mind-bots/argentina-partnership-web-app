@@ -7,6 +7,8 @@ import {
 import Contacts from "shared/business/create-business-form/form-contact/contacts";
 import AddContact from "shared/business/create-business-form/form-contact/add-contact";
 import EditContact from "shared/business/create-business-form/form-contact/edit-contact";
+import StepCounter from "shared/components/step-counter";
+import ContentLayout from "shared/components/content-layout";
 
 export interface FormContactProps {
 	currentStep: number;
@@ -135,15 +137,15 @@ const FormContact = ({
 	}, [formState]);
 	useEffect(() => {
 		isEmptyCallback(!values.length);
-	}, [values]);
+	}, [isEmptyCallback, values]);
+
 	return (
-		<div>
-			<div className={styles.headerWrapper}>
-				<h2>Введите контактные данные бизнеса:</h2>
-				<div className={styles.stepper}>
-					{`${currentStep + 1} / ${maxSteps}`}
-				</div>
-			</div>
+		<ContentLayout
+			headerPrimary={"Введите контактные данные бизнеса:"}
+			headerSecondary={
+				<StepCounter currentStep={currentStep} maxSteps={maxSteps} />
+			}
+		>
 			{formState === "data" && (
 				<Contacts
 					contactData={contactData}
@@ -175,7 +177,7 @@ const FormContact = ({
 					addValue={addValue}
 				/>
 			)}
-		</div>
+		</ContentLayout>
 	);
 };
 
