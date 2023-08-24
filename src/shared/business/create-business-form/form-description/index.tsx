@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import styles from "shared/business/create-business-form/business-form.module.css";
 import InputText from "shared/components/input/input-text";
 import ContentLayout from "shared/components/content-layout";
 import StepCounter from "shared/components/step-counter";
+import Description from "shared/components/description";
 
 interface FormDescriptionProps {
 	currentStep: number;
@@ -43,13 +43,13 @@ const FormDescription = ({
 				onChange={handleOnChange}
 				isTextArea={true}
 				description={
-					<div className={styles.stepDescription}>
-						<div className={styles.stepDescriptionTitle}>Пример:</div>
-						<div>
-							Пицца от 289 рублей. Быстрая бесплатная доставка домой и в офис.
-							Показываем в прямом эфире, как готовим вашу пиццу.
-						</div>
-					</div>
+					<Description
+						primary={"Пример:"}
+						secondary={
+							"Пицца от 289 рублей. Быстрая бесплатная доставка домой и в офис.\n" +
+							"\t\t\t\t\t\t\tПоказываем в прямом эфире, как готовим вашу пиццу."
+						}
+					/>
 				}
 			/>
 		</ContentLayout>

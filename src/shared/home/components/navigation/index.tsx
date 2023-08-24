@@ -9,7 +9,6 @@ import Card from "shared/components/card";
 import { useNavigate } from "react-router-dom";
 
 const Navigation = () => {
-	//qr-generate
 	const navigate = useNavigate();
 	return (
 		<Card title={"Возможности пллатформы"}>
@@ -46,7 +45,7 @@ const Navigation = () => {
 				}
 			>
 				<div className={`${styles.content} ${styles.last}`}>
-					<span>Сгенерировать QR-код</span>
+					<span>Показать QR-код</span>
 					<AngleRight />
 				</div>
 			</NavigationButton>

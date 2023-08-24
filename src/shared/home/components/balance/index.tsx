@@ -1,7 +1,8 @@
-import React, { FC, useMemo } from "react";
+import React, { FC, useCallback, useMemo } from "react";
 import styles from "shared/home/components/balance/balance.module.less";
 import Plus from "public/assets/icons/plus.svg";
 import { splitNumber } from "services/splitNumber";
+import { useNavigate } from "react-router-dom";
 
 interface IOwnProps {
 	amount: number;
@@ -13,6 +14,12 @@ const Balance: FC<IOwnProps> = ({ amount }) => {
 		[amount]
 	);
 
+	const navigation = useNavigate();
+
+	const toTopUp = useCallback(() => {
+		navigation("/top-up");
+	}, [navigation]);
+
 	return (
 		<div className={styles.balanceWrapper}>
 			<div className={styles.balanceTitle}>Баланс</div>
@@ -23,7 +30,7 @@ const Balance: FC<IOwnProps> = ({ amount }) => {
 				<span className={`${styles.amountPortion} ${styles.amountPortionLast}`}>
 					$
 				</span>
-				<button className={styles.plusButton}>
+				<button className={styles.plusButton} onClick={toTopUp}>
 					<Plus />
 				</button>
 			</div>

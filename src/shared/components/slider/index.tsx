@@ -19,6 +19,7 @@ const Slider = ({
 	finishButtonText,
 	isNextButtonDisabled,
 	activeStep,
+	onSendData,
 	hideButtons,
 	isValidLink,
 	children,
@@ -29,6 +30,7 @@ const Slider = ({
 	const enterLoading = async () => {
 		setLoading(true);
 		try {
+			const data = await onSendData?.call(this);
 			handleNext();
 		} catch (error) {}
 	};

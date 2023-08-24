@@ -80,6 +80,7 @@ export function Component() {
 	const [hideButtons, setHideButtons] = useState(false);
 	const [isValidLink, setIsValidLinkLink] = useState(true);
 	const handleOnSend = async () => {
+		console.log("ONSEND");
 		const sendData: CreateBusiness = {
 			...data,
 			address: data.address.isExist

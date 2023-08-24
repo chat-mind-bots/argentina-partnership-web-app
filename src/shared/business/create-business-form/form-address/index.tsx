@@ -7,6 +7,7 @@ import { CreateBusiness } from "shared/business/create-business-form/types/creat
 import { CheckboxChangeEvent } from "antd/es/checkbox";
 import StepCounter from "shared/components/step-counter";
 import ContentLayout from "shared/components/content-layout";
+import Description from "shared/components/description";
 
 interface FormTitleProps {
 	currentStep: number;
@@ -97,12 +98,10 @@ const FormAddress = ({
 								placeholder={"Адрес"}
 								onChange={(event) => handleOnChange(event, "addressLine")}
 							/>
-							<div className={styles.stepDescription}>
-								<div className={styles.stepDescriptionTitle}>
-									Пример адреса:
-								</div>
-								<div>Cerrito 628, C1010AAN CABA</div>
-							</div>
+							<Description
+								primary={"Пример адреса:"}
+								secondary={"Cerrito 628, C1010AAN CABA"}
+							/>
 						</div>
 						<div>
 							<div className={styles.formInnerWrapper}>
@@ -121,12 +120,10 @@ const FormAddress = ({
 							{!isValidLink && (
 								<div className={styles.error}>**Неправильно указана ссылка</div>
 							)}
-							<div className={styles.stepDescription}>
-								<div className={styles.stepDescriptionTitle}>
-									Пример ссылки:
-								</div>
-								<div>https://goo.gl/maps/uRJab2dZWwXDqSNs8</div>
-							</div>
+							<Description
+								primary={"Пример ссылки:"}
+								secondary={"https://goo.gl/maps/uRJab2dZWwXDqSNs8"}
+							/>
 						</div>
 						<div>
 							<div className={styles.formInnerWrapper}>
@@ -138,17 +135,15 @@ const FormAddress = ({
 								placeholder={"Введите описание"}
 								onChange={(event) => handleOnChange(event, "comment")}
 							/>
-							<div className={styles.stepDescription}>
-								<div className={styles.stepDescriptionTitle}>
-									Пример описания:
-								</div>
-								<div>
-									Пройдя по Cerrito, вы заметите характерные архитектурные
-									детали и стильное оформление кафе. Окна заведения украшены
-									витражами в тематике танго, а фасад украшен яркой мозаикой,
-									напоминающей о богатой культурной истории страны.
-								</div>
-							</div>
+							<Description
+								primary={"Пример описания:"}
+								secondary={
+									"Пройдя по Cerrito, вы заметите характерные архитектурные\n" +
+									"\t\t\t\t\t\t\t\t\tдетали и стильное оформление кафе. Окна заведения украшены\n" +
+									"\t\t\t\t\t\t\t\t\tвитражами в тематике танго, а фасад украшен яркой мозаикой,\n" +
+									"\t\t\t\t\t\t\t\t\tнапоминающей о богатой культурной истории страны."
+								}
+							/>
 						</div>
 					</div>
 				)}

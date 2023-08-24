@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import styles from "shared/business/create-business-form/business-form.module.css";
 import InputText from "shared/components/input/input-text";
 import ContentLayout from "shared/components/content-layout";
 import StepCounter from "shared/components/step-counter";
+import Description from "shared/components/description";
 
 interface FormTitleProps {
 	onChange: React.Dispatch<React.SetStateAction<any>>;
@@ -43,10 +43,7 @@ const FormTitle = ({
 				placeholder={"Название"}
 				onChange={handleOnChange}
 				description={
-					<div className={styles.stepDescription}>
-						<div className={styles.stepDescriptionTitle}>Пример:</div>
-						<div>Додо пицца</div>
-					</div>
+					<Description primary={"Пример:"} secondary={"Додо пицца"} />
 				}
 			/>
 		</ContentLayout>

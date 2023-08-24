@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import styles from "./select.module.css";
 import { Select as AntdSelect } from "antd";
 
@@ -15,7 +15,7 @@ export interface SelectOption {
 	value: string;
 }
 
-const Select = ({ value, placeholder, onChange, options }: SelectProps) => {
+const Select: FC<SelectProps> = ({ value, placeholder, onChange, options }) => {
 	return (
 		<AntdSelect
 			showSearch

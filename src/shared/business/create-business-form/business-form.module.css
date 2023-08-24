@@ -63,16 +63,6 @@
 	height: 20px;
 }
 
-.stepDescription {
-	color: var(--tg-theme-hint-color);
-	font-size: 1.5rem;
-	padding: 0 16px;
-}
-
-.stepDescriptionTitle {
-	font-weight: bold;
-}
-
 .stepper {
 	color: var(--tg-theme-hint-color);
 	white-space: nowrap;

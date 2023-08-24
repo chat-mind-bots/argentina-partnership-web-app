@@ -31,20 +31,23 @@ const InputText = ({
 		const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 			const inputValue = e.target.value;
 			const reg = /^[0-9+]+$/;
-			if (reg.test(inputValue)) {
+			if (reg.test(inputValue) || inputValue === "") {
 				onChange(e);
 			}
 		};
 		return (
-			<Input
-				status={status}
-				addonBefore={addonBefore}
-				addonAfter={addonAfter}
-				onChange={handleChange}
-				placeholder={placeholder}
-				value={value}
-				className={`${styles.formInput} ${className ?? ""}`}
-			/>
+			<>
+				<Input
+					status={status}
+					addonBefore={addonBefore}
+					addonAfter={addonAfter}
+					onChange={handleChange}
+					placeholder={placeholder}
+					value={value}
+					className={`${styles.formInput} ${className ?? ""}`}
+				/>
+				{description}
+			</>
 		);
 	}
 	return (
