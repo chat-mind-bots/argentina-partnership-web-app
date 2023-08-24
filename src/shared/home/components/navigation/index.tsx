@@ -2,12 +2,16 @@ import React from "react";
 import styles from "shared/home/components/navigation/navigation.module.less";
 import Business from "public/assets/icons/business.svg";
 import AngleRight from "public/assets/icons/angle-right.svg";
+import Qr from "public/assets/icons/qr.svg";
 import NavigationButton from "shared/home/components/navigation/navigation-button";
+import Card from "shared/components/card";
+import { useNavigate } from "react-router-dom";
 
 const Navigation = () => {
+	//qr-generate
+	const navigate = useNavigate();
 	return (
-		<div className={styles.wrapper}>
-			<div className={styles.title}>Возможности пллатформы</div>
+		<Card title={"Возможности пллатформы"}>
 			<NavigationButton
 				logo={
 					<div className={styles.logo}>
@@ -16,11 +20,24 @@ const Navigation = () => {
 				}
 			>
 				<div className={styles.content}>
-					<span>Посмотреть список бизнесов</span>
+					<span>Посмотреть список акций</span>
 					<AngleRight />
 				</div>
 			</NavigationButton>
-		</div>
+			<NavigationButton
+				onClick={() => navigate("/qr-generate")}
+				logo={
+					<div className={styles.logo}>
+						<Qr />
+					</div>
+				}
+			>
+				<div className={`${styles.content} ${styles.last}`}>
+					<span>Сгенерировать QR-код</span>
+					<AngleRight />
+				</div>
+			</NavigationButton>
+		</Card>
 	);
 };
 

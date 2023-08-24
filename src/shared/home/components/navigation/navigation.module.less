@@ -1,19 +1,6 @@
-.wrapper {
-  width: 100%;
-  border-radius: 16px;
-  background-color: var(--tg-theme-bg-color);
-  display: flex;
-  flex-direction: column;
-}
 
-.title {
-  padding: 17px 16px 5px;
-  text-transform: uppercase;
-  font-size: 13px;
-  font-weight: 400;
-  line-height: 18px;
-  color: var(--tg-theme-hint-color);
-}
+
+
 
 .logo   {
   background: var(--tg-theme-button-color);
@@ -30,6 +17,10 @@
     height: 28px;
     width: auto;
 
+    rect {
+      stroke: white;
+    }
+
     path {
       fill: white;
     }
@@ -39,7 +30,15 @@
 .content {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: 10px;
+  height: 100%;
+  width: 100%;
+  border-bottom: 1px solid var(--tg-theme-hint-color);
+
+  &.last {
+    border-bottom: none;
+  }
 
 
   span{}

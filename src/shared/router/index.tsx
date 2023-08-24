@@ -4,7 +4,11 @@ import React from "react";
 export const router = createBrowserRouter([
 	{
 		path: "qr-check",
-		lazy: () => import("../qr-check"),
+		lazy: () => import("../qr-code/qr-check"),
+	},
+	{
+		path: "qr-generate",
+		lazy: () => import("../qr-code/qr-generate"),
 	},
 	{
 		path: "home",

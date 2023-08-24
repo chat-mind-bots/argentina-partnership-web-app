@@ -7,8 +7,8 @@ import {
 } from "@vkruglikov/react-telegram-web-app";
 import { useTelegram } from "hooks/useTelegram";
 import { get } from "services/api";
-import styles from "./qr-check.module.css";
-import InputText from "../components/input/input-text";
+import styles from "shared/qr-code/qr-check/qr-check.module.css";
+import InputText from "shared/components/input/input-text";
 import ContentLayout from "shared/components/content-layout";
 
 export function Component() {
@@ -32,7 +32,7 @@ export function Component() {
 			setLoading(true);
 			return await get<{
 				status: "authorized" | "reject";
-			}>(url, { query: { id: user.id } }).then((data) => {
+			}>(url, { query: { userId: user.id } }).then((data) => {
 				setLoading(false);
 				return data;
 			});
