@@ -1,10 +1,23 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, {
+	Suspense,
+	useCallback,
+	useEffect,
+	useMemo,
+	useState,
+} from "react";
 import { post } from "services/api";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import {
+	Await,
+	defer,
+	useAsyncValue,
+	useLoaderData,
+	useNavigate,
+} from "react-router-dom";
 import { Buffer } from "buffer";
 import ContentLayout from "shared/components/content-layout";
 import styles from "./qr-henearte.module.less";
 import { BackButton, MainButton } from "@vkruglikov/react-telegram-web-app";
+import PageLoader from "shared/components/page-loader";
 
 interface QrCodeResponse {
 	codeDocument: {
@@ -18,10 +31,11 @@ interface QrCodeResponse {
 	};
 	qrCode: Buffer;
 }
-export async function loader(): Promise<QrCodeResponse> {
+
+export async function loader() {
 	// @ts-ignore
 	const tg = window.Telegram.WebApp;
-	const data = await post<QrCodeResponse>("user-codes", {
+	const dataQRPromise = post<QrCodeResponse>("user-codes", {
 		query: {
 			userId: tg.initDataUnsafe?.user.id,
 			light: tg.themeParams.secondary_bg_color,
@@ -29,12 +43,11 @@ export async function loader(): Promise<QrCodeResponse> {
 		},
 	});
 
-	return data;
+	return defer({ dataQR: dataQRPromise });
 }
 
-export function Component() {
-	const { codeDocument, qrCode } = useLoaderData() as QrCodeResponse;
-
+export function QRCodeGenerate() {
+	const { codeDocument, qrCode } = useAsyncValue() as QrCodeResponse;
 	const [imageURL, setImageURL] = useState("");
 	const [[diffDays, diffH, diffM, diffS], setDiff] = useState([0, 0, 0, 0]);
 	const [tick, setTick] = useState(false);
@@ -95,5 +108,16 @@ export function Component() {
 				<MainButton onClick={refreshPage} text={"Загрузить новый QR-код"} />
 			)}
 		</ContentLayout>
+	);
+}
+
+export function Component() {
+	const data = useLoaderData() as { dataQR: QrCodeResponse };
+	return (
+		<Suspense fallback={<PageLoader />}>
+			<Await resolve={data.dataQR}>
+				<QRCodeGenerate />
+			</Await>
+		</Suspense>
 	);
 }
