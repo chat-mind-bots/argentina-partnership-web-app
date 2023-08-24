@@ -1,11 +1,17 @@
-import React, { useCallback, useState } from "react";
+import React, { Suspense, useCallback, useState } from "react";
 import {
 	BackButton,
 	MainButton,
 	useShowPopup,
 	WebAppProvider,
 } from "@vkruglikov/react-telegram-web-app";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import {
+	Await,
+	defer,
+	useAsyncValue,
+	useLoaderData,
+	useNavigate,
+} from "react-router-dom";
 import ContentLayout from "shared/components/content-layout";
 import InputText from "shared/components/input/input-text";
 import Description from "shared/components/description";
@@ -16,15 +22,16 @@ import { CurrenciesEnum } from "shared/top-up/interfaces/currencies.enum";
 import Select from "shared/components/select";
 import { networkOptions } from "shared/top-up/services/network-options";
 import { NetworksEnum } from "shared/top-up/interfaces/networks.enum";
+import PageLoader from "shared/components/page-loader";
 
-export async function loader(): Promise<any> {
+export async function loader() {
 	// @ts-ignore
 	const user = window.Telegram.WebApp.initDataUnsafe?.user;
-
-	return get<User>(`user/${user.id}`, {});
+	const userDataPromise = get<User>(`user/${user.id}`, {});
+	return defer({ userDataPromise });
 }
 
-export function Component() {
+function TopUp() {
 	const [value, setValue] = useState<{
 		amount: string;
 		network?: NetworksEnum;
@@ -34,7 +41,7 @@ export function Component() {
 	const [progress, setProgress] = useState(false);
 
 	const showPopup = useShowPopup();
-	const data = useLoaderData() as User;
+	const data = useAsyncValue() as User;
 
 	const sendPayment = useCallback(
 		(amount: number, network: NetworksEnum) => {
@@ -72,6 +79,7 @@ export function Component() {
 		setValue({ ...value, network: network as NetworksEnum });
 	};
 
+	// @ts-ignore
 	return (
 		<WebAppProvider>
 			<ContentLayout headerPrimary={"Пополнить баланс"}>
@@ -109,5 +117,16 @@ export function Component() {
 				/>
 			)}
 		</WebAppProvider>
+	);
+}
+
+export function Component() {
+	const data = useLoaderData() as { userDataPromise: User };
+	return (
+		<Suspense fallback={<PageLoader />}>
+			<Await resolve={data.userDataPromise}>
+				<TopUp />
+			</Await>
+		</Suspense>
 	);
 }
