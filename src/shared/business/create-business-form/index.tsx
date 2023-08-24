@@ -13,7 +13,7 @@ import {
 import { CreateBusiness } from "shared/business/create-business-form/types/create-business.interface";
 import FormResult from "shared/business/create-business-form/form-result";
 import { WebAppProvider } from "@vkruglikov/react-telegram-web-app";
-import { useLoaderData } from "react-router-dom";
+import { Await, defer, useAsyncValue, useLoaderData } from "react-router-dom";
 import { Business } from "shared/business/create-business-form/dto/business.dto";
 import PageLoader from "shared/components/page-loader";
 
@@ -47,14 +47,24 @@ export interface ILoader {
 	businessId?: string;
 }
 
-export async function loader({ params }: any): Promise<ILoader> {
-	const categories = await getCategories();
-	if (params.businessId) {
-		const business = await getBusiness(`${params.businessId}`);
-		const businessId = `${params.businessId}`;
-		return { categories, business, businessId };
+export async function loader({
+	params: { businessId },
+}: {
+	params: { businessId?: string };
+}) {
+	const categoriesDataPromise = getCategories();
+	if (businessId) {
+		const businessDataPromise = getBusiness(`${businessId}`);
+		const data = Promise.all([
+			categoriesDataPromise,
+			businessDataPromise,
+			businessId,
+		]);
+		return defer({
+			data,
+		});
 	}
-	return { categories };
+	return defer({ data: Promise.all([categoriesDataPromise]) });
 }
 
 export interface SelectProps {
@@ -62,9 +72,13 @@ export interface SelectProps {
 	value: string;
 }
 
-export function Component() {
+function CreateBusinessForm() {
 	const { user } = useTelegram();
-	const { categories, business, businessId } = useLoaderData() as ILoader;
+	const [categories, business, businessId] = useAsyncValue() as [
+		Category[],
+		Business | undefined,
+		string | undefined,
+	];
 	const [data, setData] = useState<CreateBusiness>({
 		title: business?.title ?? "",
 		description: business?.description ?? "",
@@ -196,5 +210,18 @@ export function Component() {
 				</Slider>
 			</div>
 		</WebAppProvider>
+	);
+}
+
+export function Component() {
+	const data = useLoaderData() as {
+		data: [Category[], Business | undefined, string | undefined];
+	};
+	return (
+		<Suspense fallback={<PageLoader />}>
+			<Await resolve={data.data}>
+				<CreateBusinessForm />
+			</Await>
+		</Suspense>
 	);
 }
