@@ -65,8 +65,8 @@ const History = () => {
 				limit: 10,
 				offset: filters.page * 10,
 				userId: user._id,
-				status: filters.status,
-				currency: filters.currency,
+				status: filters.status ? filters.status : undefined,
+				currency: filters.currency ? filters.currency : undefined,
 			},
 		})
 			.then((data) => {
