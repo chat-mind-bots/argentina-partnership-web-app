@@ -1,0 +1,23 @@
+.logo {
+    width: 100%;
+    border-radius: 50%;
+}
+
+.businessNavigation {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.businessCategoryWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contentWrapper {
+    background-color: var(--tg-theme-bg-color);
+    padding: 30px 28px 20px;
+    font-size: 1.6rem;
+    border-radius: 9px;
+}

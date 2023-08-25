@@ -1,0 +1,93 @@
+import React, { useState } from "react";
+import { getBusiness } from "shared/business/create-business-form/services/data";
+import { Await, defer, useAsyncValue, useLoaderData } from "react-router-dom";
+import { Business } from "shared/business/create-business-form/dto/business.dto";
+import PageLoader from "shared/components/page-loader";
+import { Suspense } from "react";
+import Header from "shared/components/header";
+import styles from "./business-card.module.css";
+import RoundButton from "shared/business/business-card/components/round-button";
+import Description from "shared/business/business-card/components/description";
+import AddressBlock from "shared/business/business-card/components/address";
+import Contacts from "shared/business/business-card/components/contacts";
+import {
+	AlignCenterOutlined,
+	ContactsOutlined,
+	HomeOutlined,
+} from "@ant-design/icons";
+
+export async function loader({
+	params: { businessId },
+}: {
+	params: { businessId?: string };
+}) {
+	const data = getBusiness(`${businessId}`);
+	return defer({ data });
+}
+
+function BusinessCard() {
+	const { preview, address, contacts, title, category, description } =
+		useAsyncValue() as Business;
+	const [active, setActive] = useState(0);
+
+	const components = [
+		{
+			value: <Description>{description}</Description>,
+			title: "Описание",
+			icon: <AlignCenterOutlined />,
+		},
+		{
+			value: <AddressBlock address={address} />,
+			title: "Адрес",
+			icon: <HomeOutlined />,
+		},
+		{
+			value: <Contacts contacts={contacts}></Contacts>,
+			title: "Контакты",
+			icon: <ContactsOutlined />,
+		},
+	];
+	return (
+		<div>
+			<Header
+				title={title}
+				fillBackground
+				logo={
+					preview ? (
+						<img
+							src={`https://${preview.domain}/${preview.bucket}/${preview.key}`}
+							alt={preview.key}
+							className={styles.logo}
+						/>
+					) : undefined
+				}
+			/>
+			<div className={styles.businessNavigation}>
+				{components.map((component, index) => {
+					return (
+						<RoundButton
+							title={component.title}
+							callBack={() => setActive(index)}
+							logo={component.icon}
+							key={`raw-button-${component.title}`}
+						/>
+					);
+				})}
+			</div>
+			<div className={styles.contentWrapper}>{components[active].value}</div>
+		</div>
+	);
+}
+
+export function Component() {
+	const data = useLoaderData() as {
+		data: Business;
+	};
+	return (
+		<Suspense fallback={<PageLoader />}>
+			<Await resolve={data.data}>
+				<BusinessCard />
+			</Await>
+		</Suspense>
+	);
+}
