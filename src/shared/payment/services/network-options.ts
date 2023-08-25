@@ -1,5 +1,5 @@
 import { SelectOption } from "shared/components/select";
-import { NetworksEnum } from "shared/top-up/interfaces/networks.enum";
+import { NetworksEnum } from "shared/payment/interfaces/networks.enum";
 
 export const networkOptions: SelectOption[] = [
 	{ label: "Tron (TRC20)", value: NetworksEnum.TRC20 },

@@ -2,8 +2,8 @@ import { get, post } from "services/api";
 import {
 	PaymentInterface,
 	CreatePaymentInterface,
-} from "shared/top-up/interfaces/payment.interface";
-import { GetPaymentDto } from "shared/top-up/interfaces/get-payment.dto";
+} from "shared/payment/interfaces/payment.interface";
+import { GetPaymentDto } from "shared/payment/interfaces/get-payment.dto";
 
 export const createPayment = (userId: string, body: CreatePaymentInterface) =>
 	post<PaymentInterface>("payment", { body, query: { userId } });

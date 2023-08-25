@@ -15,8 +15,12 @@ export const router = createBrowserRouter([
 		lazy: () => import("shared/home/components"),
 	},
 	{
+		path: "my-payments",
+		lazy: () => import("shared/payment/components/history"),
+	},
+	{
 		path: "top-up",
-		lazy: () => import("shared/top-up/components"),
+		lazy: () => import("shared/payment/components/top-up"),
 	},
 	{
 		path: "/create/business",

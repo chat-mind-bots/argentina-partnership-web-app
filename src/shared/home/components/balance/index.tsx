@@ -3,6 +3,7 @@ import styles from "shared/home/components/balance/balance.module.less";
 import Plus from "public/assets/icons/plus.svg";
 import { splitNumber } from "services/splitNumber";
 import { useNavigate } from "react-router-dom";
+import Header from "shared/components/header";
 
 interface IOwnProps {
 	amount: number;
@@ -21,8 +22,7 @@ const Balance: FC<IOwnProps> = ({ amount }) => {
 	}, [navigation]);
 
 	return (
-		<div className={styles.balanceWrapper}>
-			<div className={styles.balanceTitle}>Баланс</div>
+		<Header title={"Баланс"}>
 			<div className={styles.amountWrapper}>
 				<span className={styles.amountMain}>{wholePart}</span>
 				<span className={styles.amountPortion}>,</span>
@@ -34,7 +34,7 @@ const Balance: FC<IOwnProps> = ({ amount }) => {
 					<Plus />
 				</button>
 			</div>
-		</div>
+		</Header>
 	);
 };
 

@@ -11,9 +11,7 @@ function App() {
 		tg.setHeaderColor(tg.themeParams.secondary_bg_color);
 	}, [tg]);
 
-	return (
-		<RouterProvider router={router} fallbackElement={<div>Loading...</div>} />
-	);
+	return <RouterProvider router={router} fallbackElement={<PageLoader />} />;
 }
 
 export default App;

@@ -12,17 +12,19 @@ import {
 	useLoaderData,
 	useNavigate,
 } from "react-router-dom";
+import History from "public/assets/icons/history.svg";
 import ContentLayout from "shared/components/content-layout";
 import InputText from "shared/components/input/input-text";
 import Description from "shared/components/description";
 import { get } from "services/api";
 import { User } from "shared/home/interfaces/user.interface";
-import { createPayment } from "shared/top-up/services/data";
-import { CurrenciesEnum } from "shared/top-up/interfaces/currencies.enum";
+import { createPayment } from "shared/payment/services/data";
+import { CurrenciesEnum } from "shared/payment/interfaces/currencies.enum";
 import Select from "shared/components/select";
-import { networkOptions } from "shared/top-up/services/network-options";
-import { NetworksEnum } from "shared/top-up/interfaces/networks.enum";
+import { networkOptions } from "shared/payment/services/network-options";
+import { NetworksEnum } from "shared/payment/interfaces/networks.enum";
 import PageLoader from "shared/components/page-loader";
+import styles from "shared/payment/components/top-up/top-up.module.less";
 
 export async function loader() {
 	// @ts-ignore
@@ -71,6 +73,10 @@ function TopUp() {
 		navigation("/home");
 	}, [navigation]);
 
+	const toHistory = useCallback(() => {
+		navigation("/my-payments");
+	}, [navigation]);
+
 	const handleAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setValue({ ...value, amount: event.target.value });
 	};
@@ -82,7 +88,14 @@ function TopUp() {
 	// @ts-ignore
 	return (
 		<WebAppProvider>
-			<ContentLayout headerPrimary={"Пополнить баланс"}>
+			<ContentLayout
+				headerPrimary={"Пополнить баланс"}
+				headerSecondary={
+					<button className={styles.historyButton} onClick={toHistory}>
+						<History />
+					</button>
+				}
+			>
 				<InputText
 					type={"numeric"}
 					value={value.amount}
@@ -97,12 +110,20 @@ function TopUp() {
 						/>
 					}
 				/>
+			</ContentLayout>
+			<ContentLayout headerPrimary={"Выберите сеть"}>
 				<Select
 					options={networkOptions}
 					value={value.network as string}
 					placeholder={"Выберете сеть"}
 					onChange={handleNetwork}
 					showSearch={true}
+					description={
+						<Description
+							primary={"Выберите сеть, в которой будет произведен платеж"}
+							secondary={"Например: Tron (TRC20)"}
+						/>
+					}
 				/>
 			</ContentLayout>
 			<BackButton onClick={toHome} />

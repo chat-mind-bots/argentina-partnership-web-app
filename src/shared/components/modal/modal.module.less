@@ -1,0 +1,48 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--tg-theme-bg-color);
+  transition: opacity 0.3s, transform 0.3s;
+  transform: translateY(100%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  opacity: 0;
+
+  &Header {
+    margin: 10px 20px 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 60px;
+  }
+
+  &Content {
+    margin: 0 20px;
+    display: block;
+  }
+}
+
+.closeButton {
+  height: 45px;
+  width: 45px;
+  padding: 5px 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    height: 100%;
+    path {
+      fill: var(--tg-theme-button-text-color);
+    }
+  }
+}
+.open {
+  opacity: 1;
+  transform: translateY(0);
+}
+
