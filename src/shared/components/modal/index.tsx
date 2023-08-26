@@ -6,9 +6,10 @@ import styles from "./modal.module.less";
 interface IOwnProps {
 	children: ReactNode;
 	isOpen: boolean;
+	title?: string;
 	onClose(): void;
 }
-const Modal: FC<IOwnProps> = ({ children, isOpen, onClose }) => {
+const Modal: FC<IOwnProps> = ({ children, isOpen, onClose, title }) => {
 	const closeModal = () => {
 		onClose();
 	};
@@ -16,6 +17,7 @@ const Modal: FC<IOwnProps> = ({ children, isOpen, onClose }) => {
 	return ReactDOM.createPortal(
 		<div className={`${styles.modal} ${isOpen ? styles.open : ""}`}>
 			<div className={styles.modalHeader}>
+				<span>{title}</span>
 				<button className={styles.closeButton} onClick={closeModal}>
 					<Close />
 				</button>

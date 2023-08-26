@@ -145,7 +145,13 @@ const History = () => {
 					</div>
 				}
 			>
-				{loading ? <PageLoader /> : payments.map(PaymentCard)}
+				{loading ? (
+					<PageLoader />
+				) : (
+					payments.map((payment) => (
+						<PaymentCard {...payment} key={`payment-card--${payment._id}`} />
+					))
+				)}
 				{emptyResult && <NothingFound />}
 			</Card>
 
