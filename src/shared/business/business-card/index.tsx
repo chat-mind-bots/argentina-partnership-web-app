@@ -51,7 +51,7 @@ function BusinessCard() {
 		<div>
 			<Header
 				title={title}
-				fillBackground
+				fillBackground={!!preview}
 				logo={
 					preview ? (
 						<img
@@ -59,7 +59,9 @@ function BusinessCard() {
 							alt={preview.key}
 							className={styles.logo}
 						/>
-					) : undefined
+					) : (
+						<div className={styles.noLogo}>Без логотипа</div>
+					)
 				}
 			/>
 			<div className={styles.businessNavigation}>

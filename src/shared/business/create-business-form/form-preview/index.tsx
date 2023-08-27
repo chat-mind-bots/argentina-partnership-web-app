@@ -105,7 +105,7 @@ const FormPreview = ({
 
 	return (
 		<ContentLayout
-			headerPrimary={"Загрузите фотографию вашего бизнеса:"}
+			headerPrimary={"Загрузите логотип вашего бизнеса:"}
 			headerSecondary={
 				<StepCounter currentStep={currentStep} maxSteps={maxSteps} />
 			}

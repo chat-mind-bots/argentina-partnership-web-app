@@ -32,8 +32,9 @@ const FormAddress = ({
 		if (link === "") {
 			return setValidLink(true);
 		}
-		const pattern = /^https:\/\/goo\.gl\/maps\/[a-zA-Z0-9]+$/;
-		setValidLink(pattern.test(link));
+		const desktopPattern = /^https:\/\/goo\.gl\/maps\/[a-zA-Z0-9]+$/;
+		const mobilePattern = /^https:\/\/maps\.app\.goo\.gl\/[a-zA-Z0-9]+$/;
+		setValidLink(desktopPattern.test(link) || mobilePattern.test(link));
 	};
 	const handleOnChange = (
 		event:
@@ -122,7 +123,11 @@ const FormAddress = ({
 							)}
 							<Description
 								primary={"Пример ссылки:"}
-								secondary={"https://goo.gl/maps/uRJab2dZWwXDqSNs8"}
+								secondary={
+									"https://goo.gl/maps/uRJab2dZWwXDqSNs8" +
+									"\n" +
+									"https://maps.app.goo.gl/rKkUebJYqFiNpP8J7"
+								}
 							/>
 						</div>
 						<div>
