@@ -34,17 +34,17 @@ function BusinessCard() {
 		{
 			value: <Description>{description}</Description>,
 			title: "Описание",
-			icon: <AlignCenterOutlined />,
+			icon: <AlignCenterOutlined className={styles.icon} />,
 		},
 		{
 			value: <AddressBlock address={address} />,
 			title: "Адрес",
-			icon: <HomeOutlined />,
+			icon: <HomeOutlined className={styles.icon} />,
 		},
 		{
 			value: <Contacts contacts={contacts}></Contacts>,
 			title: "Контакты",
-			icon: <ContactsOutlined />,
+			icon: <ContactsOutlined className={styles.icon} />,
 		},
 	];
 	return (
