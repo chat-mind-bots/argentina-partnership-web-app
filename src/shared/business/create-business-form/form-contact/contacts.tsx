@@ -52,7 +52,6 @@ const Contacts = ({
 		}
 	};
 	const handleOnEdit = (editIndex: number) => {
-		console.log("index", editIndex);
 		setEditIndex(editIndex);
 		setAddValue(values[editIndex]);
 		setFormState("editFiled");

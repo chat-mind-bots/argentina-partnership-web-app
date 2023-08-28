@@ -11,6 +11,10 @@
 	font-size: 1.8rem;
 }
 
+.formRadioGroup > div > label{
+	color: var(--tg-theme-text-color);
+}
+
 .error {
 	color: #f44336;
 	padding: 5px 16px;
