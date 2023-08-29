@@ -8,10 +8,17 @@ import { message } from "antd";
 import ConfirmationForm from "shared/payment/components/payment/confirmation-form";
 
 interface IOwnProps {
+	paymentId: string;
+	userId: string;
 	method: NetworksEnum;
-	amount: number;
+	onClose(): void;
 }
-const PayInstruction: FC<IOwnProps> = ({ method, amount }) => {
+const PayInstruction: FC<IOwnProps> = ({
+	method,
+	userId,
+	paymentId,
+	onClose,
+}) => {
 	const successMessage = (text: string) => {
 		message.success(text);
 	};
@@ -53,7 +60,11 @@ const PayInstruction: FC<IOwnProps> = ({ method, amount }) => {
 					Вам нужно либо загрузить скриншот об ссупешной оплате, либо вставить
 					ваш TxId в текстовое поле
 				</p>
-				<ConfirmationForm />
+				<ConfirmationForm
+					paymentId={paymentId}
+					onClose={onClose}
+					userId={userId}
+				/>
 			</div>
 		</ContentLayout>
 	);

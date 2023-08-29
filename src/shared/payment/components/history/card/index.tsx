@@ -11,7 +11,9 @@ import PageLoader from "shared/components/page-loader";
 
 const Info = lazy(() => import("shared/payment/components/payment/info"));
 
-const Card: FC<PaymentInterface> = (payment) => {
+const Card: FC<PaymentInterface & { userId: string; reLoad(): void }> = (
+	payment
+) => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const handleModal = () => {
@@ -48,7 +50,13 @@ const Card: FC<PaymentInterface> = (payment) => {
 			>
 				{isOpen && (
 					<Suspense fallback={<PageLoader />}>
-						<Info {...payment} />
+						<Info
+							{...payment}
+							onClose={() => {
+								handleModal();
+								payment.reLoad();
+							}}
+						/>
 					</Suspense>
 				)}
 			</Modal>
