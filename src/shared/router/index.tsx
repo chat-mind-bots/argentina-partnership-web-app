@@ -35,6 +35,10 @@ export const router = createBrowserRouter([
 		lazy: () => import("shared/business/create-business-form"),
 	},
 	{
+		path: "/partners",
+		lazy: () => import("shared/business/list"),
+	},
+	{
 		path: "*",
 		Component() {
 			return <div>Not found</div>;
