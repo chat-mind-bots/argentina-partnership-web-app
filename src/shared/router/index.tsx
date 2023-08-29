@@ -26,7 +26,10 @@ export const router = createBrowserRouter([
 		path: "/create/business",
 		lazy: () => import("shared/business/create-business-form"),
 	},
-
+	{
+		path: "/partner/:userId/business/:businessId/",
+		lazy: () => import("shared/business/business-card"),
+	},
 	{
 		path: "/partner/:userId/business/:businessId/update",
 		lazy: () => import("shared/business/create-business-form"),

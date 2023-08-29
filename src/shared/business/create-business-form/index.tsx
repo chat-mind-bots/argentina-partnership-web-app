@@ -16,6 +16,7 @@ import { WebAppProvider } from "@vkruglikov/react-telegram-web-app";
 import { Await, defer, useAsyncValue, useLoaderData } from "react-router-dom";
 import { Business } from "shared/business/create-business-form/dto/business.dto";
 import PageLoader from "shared/components/page-loader";
+import FormAvgCheck from "shared/business/create-business-form/form-avg-check";
 
 const FormContact = lazy(
 	() => import("shared/business/create-business-form/form-contact")
@@ -88,13 +89,13 @@ function CreateBusinessForm() {
 		},
 		contacts: business?.contacts ?? [],
 		preview: business?.preview?._id ?? undefined,
+		avgCheck: business?.avgCheck ?? 0,
 	});
 
 	const [isEmpty, setIsEmpty] = useState(false);
 	const [hideButtons, setHideButtons] = useState(false);
 	const [isValidLink, setIsValidLinkLink] = useState(true);
 	const handleOnSend = async () => {
-		console.log("ONSEND");
 		const sendData: CreateBusiness = {
 			...data,
 			address: data.address.isExist
@@ -185,6 +186,15 @@ function CreateBusinessForm() {
 				setData={setData}
 				isEmptyCallback={setIsEmpty}
 				currentStep={currentStep}
+			/>
+		</Suspense>,
+		<Suspense>
+			<FormAvgCheck
+				value={data.avgCheck}
+				maxSteps={maxSteps}
+				currentStep={currentStep}
+				isEmptyCallback={setIsEmpty}
+				setData={setData}
 			/>
 		</Suspense>,
 	];

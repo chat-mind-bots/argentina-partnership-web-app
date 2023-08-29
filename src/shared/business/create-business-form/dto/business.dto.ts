@@ -11,4 +11,5 @@ export interface Business {
 	contacts: Array<IContacts>;
 	address: IAddress;
 	preview: PreviewDto;
+	avgCheck: number;
 }

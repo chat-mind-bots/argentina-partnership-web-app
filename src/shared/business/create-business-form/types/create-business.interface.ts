@@ -1,5 +1,4 @@
 import { IAddress } from "shared/business/create-business-form/types/address.interface";
-import { Category } from "shared/business/create-business-form/dto/categories.dto";
 
 export enum ContactsTypeEnum {
 	TELEGRAM = "tg_username",
@@ -21,5 +20,6 @@ export interface CreateBusiness {
 	description: string;
 	contacts: Array<IContacts>;
 	address: IAddress;
+	avgCheck: number;
 	preview?: string;
 }
