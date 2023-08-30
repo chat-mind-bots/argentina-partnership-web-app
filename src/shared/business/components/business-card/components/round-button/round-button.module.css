@@ -6,6 +6,10 @@
     height: 20px;
     padding: 7px;
     border-radius: 100px;
+    background: var(--tg-theme-hint-color);
+}
+
+.active {
     background: var(--tg-theme-button-color);
 }
 
