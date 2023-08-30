@@ -1,12 +1,11 @@
 import React, { FC, useCallback, useState } from "react";
-import styles from "./confirmation-form.module.less";
 import ContentLayout from "shared/components/content-layout";
 import Description from "shared/components/description";
 import InputText from "shared/components/input/input-text";
 import { MainButton } from "@vkruglikov/react-telegram-web-app";
 import { message } from "antd";
 import { patch } from "services/api";
-import { useTelegram } from "hooks/useTelegram";
+import UploadPhoto from "shared/components/upload-photo";
 
 interface IOwnProps {
 	paymentId: string;
@@ -15,6 +14,7 @@ interface IOwnProps {
 }
 const ConfirmationForm: FC<IOwnProps> = ({ paymentId, userId, onClose }) => {
 	const [txId, setTxId] = useState("");
+	const [photo, setPhoto] = useState<string | undefined>();
 
 	const handleTxId = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setTxId(event.target.value);
@@ -23,7 +23,7 @@ const ConfirmationForm: FC<IOwnProps> = ({ paymentId, userId, onClose }) => {
 	const sendConfirmation = useCallback(() => {
 		patch(`payment/to-review/${paymentId}`, {
 			query: { userId },
-			body: { data: { txId } },
+			body: { data: { txId, photo } },
 		})
 			.then(() => {
 				message.success("Данные успешно подтверждены");
@@ -51,7 +51,12 @@ const ConfirmationForm: FC<IOwnProps> = ({ paymentId, userId, onClose }) => {
 						/>
 					}
 				/>
-				{txId && (
+				<UploadPhoto
+					onChange={(url) => {
+						setPhoto(url);
+					}}
+				/>
+				{(txId || photo) && (
 					<MainButton
 						text={"Отправить подтверждение оплаты"}
 						onClick={sendConfirmation}
