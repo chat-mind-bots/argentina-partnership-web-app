@@ -1,4 +1,4 @@
-import { IAddress } from "shared/business/components/create-business-form/types/address.interface";
+import { IAddress } from "shared/business/interfaces/address.interface";
 
 export enum ContactsTypeEnum {
 	TELEGRAM = "tg_username",

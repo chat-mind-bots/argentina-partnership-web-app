@@ -1,19 +1,52 @@
 import React, { Suspense } from "react";
 import PageLoader from "shared/components/page-loader";
-import { Await } from "react-router-dom";
+import { Await, defer, useAsyncValue, useLoaderData } from "react-router-dom";
+import { getBusinesses } from "shared/business/data";
+import { Business } from "shared/business/dto/business.dto";
+import { BusinessesDto } from "shared/business/dto/businesses.dto";
+import ContentLayout from "shared/components/content-layout";
+import styles from "./list.module.less";
+import History from "public/assets/icons/history.svg";
 
-export async function loader() {}
+export async function loader() {
+	const data = getBusinesses({ offset: 0, limit: 15 });
+	return defer({ data });
+}
 
 const BusinessList = () => {
-	return <div>BusinessList</div>;
+	const data = useAsyncValue() as BusinessesDto;
+	return (
+		<div>
+			<ContentLayout
+				headerPrimary={"Наши партнеры:"}
+				headerSecondary={
+					<div className={styles.buttonWrapper}>
+						<button className={styles.filterButton}>
+							<History />
+						</button>
+						<span>Фильтры</span>
+					</div>
+				}
+			>
+				<div className={styles.contentWrapper}>
+					{data.data.map((business) => (
+						<div>{business.title}</div>
+					))}
+				</div>
+			</ContentLayout>
+		</div>
+	);
 };
 
 export const Component = () => {
+	const data = useLoaderData() as {
+		data: Business[];
+	};
 	return (
 		<Suspense fallback={<PageLoader />}>
-			{/*<Await>*/}
-			<BusinessList />
-			{/*</Await>*/}
+			<Await resolve={data.data}>
+				<BusinessList />
+			</Await>
 		</Suspense>
 	);
 };

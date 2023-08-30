@@ -1,13 +1,15 @@
 import { get, patch, post } from "services/api";
-import { CreateBusiness } from "shared/business/components/create-business-form/types/create-business.interface";
-import { Category } from "shared/business/components/create-business-form/dto/categories.dto";
-import { Business } from "shared/business/components/create-business-form/dto/business.dto";
-import { PreviewDto } from "shared/business/components/create-business-form/dto/preview.dto";
+import { CreateBusiness } from "shared/business/interfaces/create-business.interface";
+import { Category } from "shared/business/dto/categories.dto";
+import { Business } from "shared/business/dto/business.dto";
+import { PreviewDto } from "shared/business/dto/preview.dto";
+import { GetBusinessesInterface } from "shared/business/interfaces/query/get-businesses.interface";
+import { BusinessesDto } from "shared/business/dto/businesses.dto";
 
 export const getBusiness = (id: string) => get<Business>(`business/${id}`, {});
 
-export const getBusinesses = (id: string) =>
-	get<Business>(`business/${id}`, {});
+export const getBusinesses = (query: GetBusinessesInterface) =>
+	get<BusinessesDto>(`business`, { query: { ...query } });
 
 export const createBusiness = (userId: number, body: CreateBusiness) =>
 	post<Business>(`business`, { body, query: { userId } });

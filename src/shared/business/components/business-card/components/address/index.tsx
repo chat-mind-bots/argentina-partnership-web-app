@@ -1,6 +1,6 @@
 import React from "react";
-import { IAddress } from "shared/business/create-business-form/types/address.interface";
 import styles from "./address.module.css";
+import { IAddress } from "shared/business/interfaces/address.interface";
 
 interface AddressProps {
 	address: IAddress;

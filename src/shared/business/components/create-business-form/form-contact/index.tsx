@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import styles from "shared/business/create-business-form/business-form.module.css";
+import styles from "shared/business/components/create-business-form/business-form.module.css";
 import {
 	ContactsTypeEnum,
 	IContacts,
-} from "shared/business/components/create-business-form/types/create-business.interface";
+} from "shared/business/interfaces/create-business.interface";
 import Contacts from "shared/business/components/create-business-form/form-contact/contacts";
 import AddContact from "shared/business/components/create-business-form/form-contact/add-contact";
 import EditContact from "shared/business/components/create-business-form/form-contact/edit-contact";

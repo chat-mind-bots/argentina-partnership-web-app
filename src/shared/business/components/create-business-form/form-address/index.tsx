@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import styles from "shared/business/create-business-form/business-form.module.css";
+import styles from "shared/business/components/create-business-form/business-form.module.css";
 import InputText from "shared/components/input/input-text";
-import { IAddress } from "shared/business/components/create-business-form/types/address.interface";
+import { IAddress } from "shared/business/interfaces/address.interface";
 import { Checkbox, Input } from "antd";
-import { CreateBusiness } from "shared/business/components/create-business-form/types/create-business.interface";
+import { CreateBusiness } from "shared/business/interfaces/create-business.interface";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
 import StepCounter from "shared/components/step-counter";
 import ContentLayout from "shared/components/content-layout";

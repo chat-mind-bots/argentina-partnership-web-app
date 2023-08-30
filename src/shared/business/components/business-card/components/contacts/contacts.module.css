@@ -10,3 +10,7 @@
     border-bottom: 1px solid var(--tg-theme-hint-color);
     padding-bottom: 10px;
 }
+
+.label {
+    color: var(--tg-theme-hint-color);
+}

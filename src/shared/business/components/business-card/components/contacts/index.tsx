@@ -1,9 +1,9 @@
 import React from "react";
+import styles from "./contacts.module.css";
 import {
 	ContactsTypeEnum,
 	IContacts,
-} from "shared/business/create-business-form/types/create-business.interface";
-import styles from "./contacts.module.css";
+} from "shared/business/interfaces/create-business.interface";
 
 interface ContactsProps {
 	contacts: IContacts[];

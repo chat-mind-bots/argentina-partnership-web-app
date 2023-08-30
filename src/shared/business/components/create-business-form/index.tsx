@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState, lazy, Suspense } from "react";
 import Slider from "shared/components/slider";
 import styles from "./business-form.module.css";
 import { useTelegram } from "hooks/useTelegram";
-import { Category } from "shared/business/components/create-business-form/dto/categories.dto";
+import { Category } from "shared/business/dto/categories.dto";
 import {
 	createBusiness,
 	getBusiness,
@@ -10,11 +10,11 @@ import {
 	updateBusiness,
 } from "shared/business/data";
 
-import { CreateBusiness } from "shared/business/components/create-business-form/types/create-business.interface";
+import { CreateBusiness } from "shared/business/interfaces/create-business.interface";
 import FormResult from "shared/business/components/create-business-form/form-result";
 import { WebAppProvider } from "@vkruglikov/react-telegram-web-app";
 import { Await, defer, useAsyncValue, useLoaderData } from "react-router-dom";
-import { Business } from "shared/business/components/create-business-form/dto/business.dto";
+import { Business } from "shared/business/dto/business.dto";
 import PageLoader from "shared/components/page-loader";
 import FormAvgCheck from "shared/business/components/create-business-form/form-avg-check";
 

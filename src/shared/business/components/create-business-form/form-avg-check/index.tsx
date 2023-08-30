@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import StepCounter from "shared/components/step-counter";
 import ContentLayout from "shared/components/content-layout";
-import { CreateBusiness } from "shared/business/components/create-business-form/types/create-business.interface";
-import styles from "shared/business/create-business-form/business-form.module.css";
+import { CreateBusiness } from "shared/business/interfaces/create-business.interface";
+import styles from "shared/business/components/create-business-form/business-form.module.css";
 import { Radio, RadioChangeEvent, Space } from "antd";
-import { AvgCheckEnum } from "shared/business/components/create-business-form/types/avg-check.type";
+import { AvgCheckEnum } from "shared/business/types/avg-check.type";
 import Description from "shared/components/description";
 
 interface FormAvgCheckProps {
@@ -46,9 +46,9 @@ const FormAvgCheck = ({
 				<div className={styles.formInnerWrapper}>
 					<Radio.Group value={value} onChange={handleOnClick}>
 						<Space direction={"vertical"} className={styles.formRadioGroup}>
-							<Radio value={AvgCheckEnum.LOW}>до 5$</Radio>
-							<Radio value={AvgCheckEnum.MIDDLE}>от 5$ до 10$</Radio>
-							<Radio value={AvgCheckEnum.HIGH}>от 10$ и выше</Radio>
+							<Radio value={AvgCheckEnum.LOW}>$</Radio>
+							<Radio value={AvgCheckEnum.MIDDLE}>$$</Radio>
+							<Radio value={AvgCheckEnum.HIGH}>$$$</Radio>
 						</Space>
 					</Radio.Group>
 				</div>

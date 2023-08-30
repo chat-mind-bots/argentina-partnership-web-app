@@ -1,12 +1,12 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
-import styles from "shared/business/create-business-form/business-form.module.css";
+import styles from "shared/business/components/create-business-form/business-form.module.css";
 import { Button } from "antd";
 import { SettingOutlined } from "@ant-design/icons";
 import {
 	FormData,
 	FormState,
 } from "shared/business/components/create-business-form/form-contact/index";
-import { IContacts } from "shared/business/components/create-business-form/types/create-business.interface";
+import { IContacts } from "shared/business/interfaces/create-business.interface";
 import Modal from "antd/es/modal/Modal";
 
 interface IContactsProps {

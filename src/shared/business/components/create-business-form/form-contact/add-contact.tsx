@@ -3,7 +3,7 @@ import InputText from "shared/components/input/input-text";
 import {
 	ContactsTypeEnum,
 	IContacts,
-} from "shared/business/components/create-business-form/types/create-business.interface";
+} from "shared/business/interfaces/create-business.interface";
 import { Button, Select } from "antd";
 import { FormData } from "shared/business/components/create-business-form/form-contact/index";
 import styles from "../business-form.module.css";

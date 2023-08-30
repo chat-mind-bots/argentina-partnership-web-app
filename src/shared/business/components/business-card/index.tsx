@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { getBusiness } from "shared/business/data";
 import { Await, defer, useAsyncValue, useLoaderData } from "react-router-dom";
-import { Business } from "shared/business/components/create-business-form/dto/business.dto";
+import { Business } from "shared/business/dto/business.dto";
 import PageLoader from "shared/components/page-loader";
 import { Suspense } from "react";
 import Header from "shared/components/header";
