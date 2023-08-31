@@ -3,10 +3,7 @@ import styles from "./upload-photo.module.less";
 import { Button, message, Upload } from "antd";
 import { DeleteOutlined, UploadOutlined } from "@ant-design/icons";
 import { UploadChangeParam, UploadFile } from "antd/es/upload/interface";
-import {
-	getImage,
-	uploadPhoto,
-} from "shared/business/create-business-form/services/data";
+import { getImage, uploadPhoto } from "shared/business/data";
 import { useTelegram } from "hooks/useTelegram";
 
 const allowedImageFormats = ["image/jpeg", "image/png"];
