@@ -25,4 +25,39 @@
 
 .contentWrapper {
   padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cardWrapper {
+  padding: 4px 0 2px;
+}
+
+.activeAvgCheck {
+  color: #30C02D;
+}
+
+.cardDescription {
+  display: flex;
+  gap: 5px;
+  font-size: 1.6rem;
+  color: var(--tg-theme-hint-color);
+}
+
+.logoWrapper {
+  overflow: hidden;
+  position: relative;
+  padding-top: 59%;
+  border-radius: 20px;
+}
+
+.logo {
+  top: 0;
+  width: 100%;
+  border-radius: 20px;
+  bottom: 0;
+  margin: auto;
+  position: absolute;
+  pointer-events: none;
 }

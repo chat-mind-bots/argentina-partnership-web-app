@@ -7,6 +7,7 @@ import { BusinessesDto } from "shared/business/dto/businesses.dto";
 import ContentLayout from "shared/components/content-layout";
 import styles from "./list.module.less";
 import History from "public/assets/icons/history.svg";
+import BusinessMiniCard from "shared/business/components/list/components/business-mini-card";
 
 export async function loader() {
 	const data = getBusinesses({ offset: 0, limit: 15 });
@@ -29,8 +30,14 @@ const BusinessList = () => {
 				}
 			>
 				<div className={styles.contentWrapper}>
-					{data.data.map((business) => (
-						<div>{business.title}</div>
+					{data.data.map(({ title, preview, avgCheck, category }) => (
+						<BusinessMiniCard
+							title={title}
+							category={category.title}
+							avgCheck={avgCheck}
+							preview={`https://${preview.domain}/${preview.bucket}/${preview.key}`}
+							key={`mini-card--${title}`}
+						/>
 					))}
 				</div>
 			</ContentLayout>
