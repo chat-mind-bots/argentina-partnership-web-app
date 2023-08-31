@@ -12,6 +12,7 @@ export interface PaymentInterface extends CreatePaymentInterface {
 	status: PaymentStatusEnum;
 	user: string;
 	balance: string;
+	data?: object;
 	createdAt: Date;
 	updatedAt: Date;
 }

@@ -57,6 +57,9 @@ const History = () => {
 
 	const navigation = useNavigate();
 
+	const reLoad = () => {
+		setFilters({ page: 0 });
+	};
 	useEffect(() => {
 		setLoading(true);
 		setEmptyResult(false);
@@ -149,7 +152,12 @@ const History = () => {
 					<PageLoader />
 				) : (
 					payments.map((payment) => (
-						<PaymentCard {...payment} key={`payment-card--${payment._id}`} />
+						<PaymentCard
+							{...payment}
+							reLoad={reLoad}
+							key={`payment-card--${payment._id}`}
+							userId={user._id}
+						/>
 					))
 				)}
 				{emptyResult && <NothingFound />}

@@ -9,7 +9,9 @@ import { getPaymentStatusService } from "shared/payment/services/get-payment-sta
 import { PaymentStatusEnum } from "shared/payment/interfaces/payment-statuses.enum";
 import PayInstruction from "shared/payment/components/payment/pay-instruction";
 
-const Info: FC<PaymentInterface> = (payment) => {
+const Info: FC<PaymentInterface & { onClose(): void; userId: string }> = (
+	payment
+) => {
 	return (
 		<div className={styles.list}>
 			<div className={styles.row}>
@@ -38,7 +40,12 @@ const Info: FC<PaymentInterface> = (payment) => {
 				</span>
 			</div>
 			{payment.status === PaymentStatusEnum.PENDING && payment.method && (
-				<PayInstruction amount={payment.amount} method={payment.method} />
+				<PayInstruction
+					paymentId={payment._id}
+					onClose={payment.onClose}
+					method={payment.method}
+					userId={payment.userId}
+				/>
 			)}
 		</div>
 	);

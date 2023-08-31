@@ -8,6 +8,7 @@ import { CreateBusiness } from "shared/business/interfaces/create-business.inter
 import { getImage, uploadPhoto } from "shared/business/data";
 import ContentLayout from "shared/components/content-layout";
 import StepCounter from "shared/components/step-counter";
+import UploadPhoto from "shared/components/upload-photo";
 
 export interface FromPreviewProps {
 	currentStep: number;
