@@ -24,15 +24,19 @@ export const router = createBrowserRouter([
 	},
 	{
 		path: "/create/business",
-		lazy: () => import("shared/business/create-business-form"),
+		lazy: () => import("shared/business/components/create-business-form"),
 	},
 	{
 		path: "/partner/:userId/business/:businessId/",
-		lazy: () => import("shared/business/business-card"),
+		lazy: () => import("shared/business/components/business-card"),
 	},
 	{
 		path: "/partner/:userId/business/:businessId/update",
-		lazy: () => import("shared/business/create-business-form"),
+		lazy: () => import("shared/business/components/create-business-form"),
+	},
+	{
+		path: "/partners",
+		lazy: () => import("shared/business/components/list"),
 	},
 	{
 		path: "*",

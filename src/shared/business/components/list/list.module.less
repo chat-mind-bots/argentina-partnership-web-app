@@ -1,0 +1,63 @@
+.filterButton {
+  height: 24px;
+  width: 24px;
+  background: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+
+
+  svg {
+    height: 100%;
+    width: 100%;
+    path {
+      fill: var(--tg-theme-text-color);
+    }
+  }
+}
+
+.buttonWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.2rem;
+}
+
+.contentWrapper {
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cardWrapper {
+  padding: 4px 0 2px;
+}
+
+.activeAvgCheck {
+  color: #30C02D;
+}
+
+.cardDescription {
+  display: flex;
+  gap: 5px;
+  font-size: 1.6rem;
+  color: var(--tg-theme-hint-color);
+}
+
+.logoWrapper {
+  overflow: hidden;
+  position: relative;
+  padding-top: 59%;
+  border-radius: 20px;
+}
+
+.logo {
+  top: 0;
+  width: 100%;
+  border-radius: 20px;
+  bottom: 0;
+  margin: auto;
+  position: absolute;
+  pointer-events: none;
+}
