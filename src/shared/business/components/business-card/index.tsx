@@ -26,7 +26,7 @@ export async function loader({
 }
 
 function BusinessCard() {
-	const { preview, address, contacts, title, category, description } =
+	const { preview, address, contacts, title, category, description, avgCheck } =
 		useAsyncValue() as Business;
 	const [active, setActive] = useState(0);
 
@@ -42,7 +42,7 @@ function BusinessCard() {
 			icon: <HomeOutlined className={styles.icon} />,
 		},
 		{
-			value: <Contacts contacts={contacts}></Contacts>,
+			value: <Contacts contacts={contacts} />,
 			title: "Контакты",
 			icon: <ContactsOutlined className={styles.icon} />,
 		},
@@ -50,7 +50,26 @@ function BusinessCard() {
 	return (
 		<div>
 			<Header
-				title={title}
+				title={
+					<div>
+						<div>{title}</div>
+						<div className={styles.avgCheck}>
+							{Array(3)
+								.fill(0)
+								.map((_, index) => {
+									return (
+										<span
+											className={
+												index <= avgCheck ? styles.activeAvgCheck : undefined
+											}
+										>
+											$
+										</span>
+									);
+								})}
+						</div>
+					</div>
+				}
 				fillBackground={!!preview}
 				logo={
 					preview ? (
@@ -71,6 +90,7 @@ function BusinessCard() {
 							title={component.title}
 							callBack={() => setActive(index)}
 							logo={component.icon}
+							isActive={active === index}
 							key={`raw-button-${component.title}`}
 						/>
 					);

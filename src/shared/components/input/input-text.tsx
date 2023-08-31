@@ -35,6 +35,7 @@ const InputText = ({
 				onChange(e);
 			}
 		};
+
 		return (
 			<>
 				<Input
@@ -49,6 +50,10 @@ const InputText = ({
 				{description}
 			</>
 		);
+	}
+	const regLink = /^(http|https):\/\//;
+	if (value.match(regLink)) {
+		value = value.replace(regLink, "");
 	}
 	return (
 		<>

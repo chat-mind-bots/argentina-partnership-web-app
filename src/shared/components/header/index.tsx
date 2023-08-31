@@ -3,7 +3,7 @@ import styles from "./header.module.less";
 
 interface IOwnProps {
 	children?: ReactNode;
-	title: string;
+	title: ReactNode | string;
 	logo?: ReactNode;
 	fillBackground?: boolean;
 }

@@ -1,5 +1,10 @@
 import React from "react";
-import styles from "./contacts.module.css";
+import styles from "shared/business/components/business-card/components/contacts/contacts.module.less";
+import Telegram from "public/assets/icons/telegram.svg";
+import Website from "public/assets/icons/website.svg";
+import Phone from "public/assets/icons/phone.svg";
+import WhatsApp from "public/assets/icons/whatsapp.svg";
+import Bot from "public/assets/icons/bot.svg";
 import {
 	ContactsTypeEnum,
 	IContacts,
@@ -9,36 +14,90 @@ interface ContactsProps {
 	contacts: IContacts[];
 }
 
-function getLabelByValue(value: ContactsTypeEnum) {
+function getByValue(value: ContactsTypeEnum) {
 	const options = [
 		{
-			label: "Телеграм",
+			label: (
+				<div className={styles.label}>
+					<div>Telegram</div>
+					<div className={styles.icon}>
+						<Telegram />
+					</div>
+				</div>
+			),
 			value: ContactsTypeEnum.TELEGRAM,
+			link: `https://t.me/`,
 		},
 		{
-			label: "Телеграм бот",
+			label: (
+				<div className={styles.label}>
+					<div>Telegram бот</div>
+					<div className={styles.icon}>
+						<Telegram />
+					</div>
+					<div className={`${styles.icon} ${styles.customIcon}`}>
+						<Bot />
+					</div>
+				</div>
+			),
 			value: ContactsTypeEnum.TELEGRAM_BOT,
+			link: `https://t.me/`,
 		},
 		{
-			label: "Телеграм канал",
+			label: (
+				<div className={styles.label}>
+					<div>Telegram канал</div>
+					<div className={styles.icon}>
+						<Telegram />
+					</div>
+				</div>
+			),
 			value: ContactsTypeEnum.TELEGRAM_CHANNEL,
+			link: `https://t.me/`,
 		},
 		{
-			label: "Вебсайт",
+			label: (
+				<div className={styles.label}>
+					<div>Вебсайт</div>
+					<div className={styles.icon}>
+						<div className={styles.customIcon}>
+							<Website />
+						</div>
+					</div>
+				</div>
+			),
 			value: ContactsTypeEnum.WEBSITE,
+			link: `https://`,
 		},
 		{
-			label: "WhatsApp",
+			label: (
+				<div className={styles.label}>
+					<div>WhatsApp</div>
+					<div className={styles.icon}>
+						<WhatsApp />
+					</div>
+				</div>
+			),
 			value: ContactsTypeEnum.WHATSAPP,
+			link: `https://api.whatsapp.com/send?phone=`,
 		},
 		{
-			label: "Телефон",
+			label: (
+				<div className={styles.label}>
+					<div>Телефон</div>
+					<div className={styles.icon}>
+						<div className={styles.customIcon}>
+							<Phone />
+						</div>
+					</div>
+				</div>
+			),
 			value: ContactsTypeEnum.PHONE,
+			link: `tel:`,
 		},
 	];
 
-	const option = options.find((option) => option.value === value);
-	return option ? option.label : "Unknown";
+	return options.find((option) => option.value === value);
 }
 
 const Contacts = ({ contacts }: ContactsProps) => {
@@ -46,10 +105,13 @@ const Contacts = ({ contacts }: ContactsProps) => {
 		<div>
 			<div className={styles.contactsWrapper}>
 				{contacts.map((value) => {
+					const option = getByValue(value.type);
 					return (
 						<div className={styles.contact}>
-							<div className={styles.label}>{getLabelByValue(value.type)}:</div>
-							<div>{value.value}</div>
+							<div className={styles.label}>{option?.label}</div>
+							<a href={option?.link + value.value} target={"_blank"}>
+								{value.value}
+							</a>
 						</div>
 					);
 				})}

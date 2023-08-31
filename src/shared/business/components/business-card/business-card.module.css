@@ -14,6 +14,14 @@
     fill: var(--tg-theme-button-text-color);
 }
 
+.activeAvgCheck {
+    color: #30C02D;
+}
+
+.avgCheck {
+    font-size: 1.6rem;
+    color: var(--tg-theme-hint-color);
+}
 
 .businessNavigation {
     display: flex;
