@@ -1,6 +1,12 @@
 import React, { Suspense } from "react";
 import PageLoader from "shared/components/page-loader";
-import { Await, defer, useAsyncValue, useLoaderData } from "react-router-dom";
+import {
+	Await,
+	defer,
+	NavLink,
+	useAsyncValue,
+	useLoaderData,
+} from "react-router-dom";
 import { getBusinesses } from "shared/business/data";
 import { Business } from "shared/business/dto/business.dto";
 import { BusinessesDto } from "shared/business/dto/businesses.dto";
@@ -30,15 +36,26 @@ const BusinessList = () => {
 				}
 			>
 				<div className={styles.contentWrapper}>
-					{data.data.map(({ title, preview, avgCheck, category }) => (
-						<BusinessMiniCard
-							title={title}
-							category={category.title}
-							avgCheck={avgCheck}
-							preview={`https://${preview.domain}/${preview.bucket}/${preview.key}`}
-							key={`mini-card--${title}`}
-						/>
-					))}
+					{data.data.map(
+						({
+							title,
+							preview,
+							avgCheck,
+							category,
+							_id,
+							owner: { _id: ownerId },
+						}) => (
+							<NavLink to={`/partner/${ownerId}/business/${_id}/`}>
+								<BusinessMiniCard
+									title={title}
+									category={category.title}
+									avgCheck={avgCheck}
+									preview={`https://${preview.domain}/${preview.bucket}/${preview.key}`}
+									key={`mini-card--${title}`}
+								/>
+							</NavLink>
+						)
+					)}
 				</div>
 			</ContentLayout>
 		</div>
