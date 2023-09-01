@@ -32,6 +32,7 @@
 
 .cardWrapper {
   padding: 4px 0 2px;
+  color: var(--tg-theme-text-color);
 }
 
 .activeAvgCheck {
@@ -52,12 +53,30 @@
   border-radius: 20px;
 }
 
+.noLogoWrapper {
+  border: 1px solid var(--tg-theme-hint-color);
+}
+
 .logo {
   top: 0;
   width: 100%;
   border-radius: 20px;
   bottom: 0;
   margin: auto;
+  position: absolute;
+  pointer-events: none;
+}
+
+.noLogo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  width: 100%;
+  border-radius: 20px;
+  bottom: 0;
+  margin: auto;
+  color: var(--tg-theme-hint-color);
   position: absolute;
   pointer-events: none;
 }

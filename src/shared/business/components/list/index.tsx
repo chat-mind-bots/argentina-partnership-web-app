@@ -12,7 +12,7 @@ import { Business } from "shared/business/dto/business.dto";
 import { BusinessesDto } from "shared/business/dto/businesses.dto";
 import ContentLayout from "shared/components/content-layout";
 import styles from "./list.module.less";
-import History from "public/assets/icons/history.svg";
+import Filter from "public/assets/icons/filter.svg";
 import BusinessMiniCard from "shared/business/components/list/components/business-mini-card";
 
 export async function loader() {
@@ -29,9 +29,8 @@ const BusinessList = () => {
 				headerSecondary={
 					<div className={styles.buttonWrapper}>
 						<button className={styles.filterButton}>
-							<History />
+							<Filter />
 						</button>
-						<span>Фильтры</span>
 					</div>
 				}
 			>
@@ -50,7 +49,10 @@ const BusinessList = () => {
 									title={title}
 									category={category.title}
 									avgCheck={avgCheck}
-									preview={`https://${preview.domain}/${preview.bucket}/${preview.key}`}
+									preview={
+										preview &&
+										`https://${preview.domain}/${preview.bucket}/${preview.key}`
+									}
 									key={`mini-card--${title}`}
 								/>
 							</NavLink>
