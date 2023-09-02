@@ -16,7 +16,6 @@ import Filter from "public/assets/icons/filter.svg";
 import BusinessMiniCard from "shared/business/components/list/components/business-mini-card";
 import { useInView } from "react-intersection-observer";
 import InputText from "shared/components/input/input-text";
-import { Button } from "antd";
 import { GetBusinessesInterface } from "shared/business/interfaces/query/get-businesses.interface";
 import useDebounce from "hooks/useDebounce";
 
@@ -30,13 +29,11 @@ export async function loader() {
 const BusinessList = () => {
 	const data = useAsyncValue() as BusinessesDto;
 	const [business, setBusiness] = useState(data.data);
-	// const [q, setQ] = useState<string>("");
 	const [maxPage, setMaxPage] = useState(Math.ceil(data.total / LIMITONPAGE));
 	const [params, setParams] = useState<GetBusinessesInterface>({
 		page: 1,
 		limit: LIMITONPAGE,
 	});
-	// const [currentPage, setPage] = useState(1);
 	const debouncedValue = useDebounce(params, 500);
 
 	const { ref, inView } = useInView({
@@ -81,12 +78,9 @@ const BusinessList = () => {
 
 	useEffect(() => {
 		handleOnScroll();
-		console.log(inView);
-		console.log(maxPage);
 	}, [inView]);
 
 	useEffect(() => {
-		console.log(maxPage);
 		handleOnSearch();
 	}, [
 		debouncedValue.q,
