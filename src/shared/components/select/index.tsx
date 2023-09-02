@@ -3,12 +3,13 @@ import styles from "shared/components/select/select.module.less";
 import { Select as AntdSelect } from "antd";
 
 export interface SelectProps {
-	value: string;
+	value?: string;
 	placeholder: string;
 	onChange: (str: string) => void;
 	options: SelectOption[];
 	showSearch?: boolean;
 	description?: ReactNode;
+	allowClear?: boolean;
 }
 
 export interface SelectOption {
@@ -20,13 +21,16 @@ const Select: FC<SelectProps> = ({
 	value,
 	placeholder,
 	onChange,
+	allowClear,
 	options,
+	showSearch,
 	description,
 }) => {
 	return (
 		<div className={styles.wrapper}>
 			<AntdSelect
-				showSearch
+				showSearch={showSearch}
+				allowClear={allowClear}
 				className={styles.formSelect}
 				value={value}
 				placeholder={placeholder}

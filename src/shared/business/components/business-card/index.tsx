@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import { getBusiness } from "shared/business/data";
-import { Await, defer, useAsyncValue, useLoaderData } from "react-router-dom";
+import {
+	Await,
+	defer,
+	useAsyncValue,
+	useLoaderData,
+	useLocation,
+	useNavigate,
+} from "react-router-dom";
 import { Business } from "shared/business/dto/business.dto";
 import PageLoader from "shared/components/page-loader";
 import { Suspense } from "react";
@@ -15,6 +22,7 @@ import {
 	ContactsOutlined,
 	HomeOutlined,
 } from "@ant-design/icons";
+import { BackButton } from "@vkruglikov/react-telegram-web-app";
 
 export async function loader({
 	params: { businessId },
@@ -29,6 +37,11 @@ function BusinessCard() {
 	const { preview, address, contacts, title, category, description, avgCheck } =
 		useAsyncValue() as Business;
 	const [active, setActive] = useState(0);
+	const navigate = useNavigate();
+	const handleBack = () => {
+		navigate(-1);
+	};
+	console.log(window.history);
 
 	const components = [
 		{
@@ -49,6 +62,7 @@ function BusinessCard() {
 	];
 	return (
 		<div>
+			{window.history.length > 1 && <BackButton onClick={handleBack} />}
 			<Header
 				title={
 					<div>

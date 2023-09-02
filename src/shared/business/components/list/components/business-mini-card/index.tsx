@@ -4,7 +4,7 @@ interface BusinessMiniCardProps {
 	title: string;
 	avgCheck?: number;
 	category: string;
-	preview: string;
+	preview?: string;
 }
 
 const BusinessMiniCard = ({
@@ -15,7 +15,9 @@ const BusinessMiniCard = ({
 }: BusinessMiniCardProps) => {
 	return (
 		<div>
-			<div className={styles.logoWrapper}>
+			<div
+				className={`${styles.logoWrapper} ${!preview && styles.noLogoWrapper}`}
+			>
 				{preview ? (
 					<img src={preview} alt={preview} className={styles.logo} />
 				) : (
@@ -35,6 +37,7 @@ const BusinessMiniCard = ({
 										className={
 											index > avgCheck ? undefined : styles.activeAvgCheck
 										}
+										key={`card-price--${index}`}
 									>
 										$
 									</span>

@@ -2,7 +2,7 @@ import { BusinessByEnum } from "shared/business/components/list/enums/sort-by.en
 
 export interface GetBusinessesInterface {
 	limit: number;
-	offset: number;
+	page: number;
 	q?: string;
 	"has-owner"?: boolean;
 	category?: string;
