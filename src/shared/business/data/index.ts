@@ -9,7 +9,9 @@ import { BusinessesDto } from "shared/business/dto/businesses.dto";
 export const getBusiness = (id: string) => get<Business>(`business/${id}`, {});
 
 export const getBusinesses = (query: GetBusinessesInterface) =>
-	get<BusinessesDto>(`business`, { query: { ...query } });
+	get<BusinessesDto>(`business`, {
+		query: { ...query, offset: query.page * query.limit },
+	});
 
 export const createBusiness = (userId: number, body: CreateBusiness) =>
 	post<Business>(`business`, { body, query: { userId } });
