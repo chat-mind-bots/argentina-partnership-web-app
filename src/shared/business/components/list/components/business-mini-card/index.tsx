@@ -37,6 +37,7 @@ const BusinessMiniCard = ({
 										className={
 											index > avgCheck ? undefined : styles.activeAvgCheck
 										}
+										key={`card-price--${index}`}
 									>
 										$
 									</span>

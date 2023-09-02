@@ -15,14 +15,10 @@ import styles from "./list.module.less";
 import Filter from "public/assets/icons/filter.svg";
 import BusinessMiniCard from "shared/business/components/list/components/business-mini-card";
 import { useInView } from "react-intersection-observer";
-import {
-	BusinessContext,
-	BusinessDispatchContext,
-} from "shared/business/context/businesses.context";
-import { BusinessActionKind } from "shared/business/provider/businesses.provider";
 import InputText from "shared/components/input/input-text";
 import { Button } from "antd";
 import { GetBusinessesInterface } from "shared/business/interfaces/query/get-businesses.interface";
+import useDebounce from "hooks/useDebounce";
 
 const LIMITONPAGE = 4;
 
@@ -34,66 +30,81 @@ export async function loader() {
 const BusinessList = () => {
 	const data = useAsyncValue() as BusinessesDto;
 	const [business, setBusiness] = useState(data.data);
-	const [q, setQ] = useState<string>("");
+	// const [q, setQ] = useState<string>("");
 	const [maxPage, setMaxPage] = useState(Math.ceil(data.total / LIMITONPAGE));
 	const [params, setParams] = useState<GetBusinessesInterface>({
 		page: 1,
 		limit: LIMITONPAGE,
 	});
-	const [currentPage, setPage] = useState(1);
+	// const [currentPage, setPage] = useState(1);
+	const debouncedValue = useDebounce(params, 500);
 
 	const { ref, inView } = useInView({
 		delay: 500,
 	});
 
 	const handleOnChangeQ = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setQ(event.target.value);
+		setParams((prev: GetBusinessesInterface) => {
+			return { ...prev, q: event.target.value };
+		});
+	};
+
+	const handleOnChangePage = (value: number) => {
+		setParams((prev: GetBusinessesInterface) => {
+			return { ...prev, page: value };
+		});
 	};
 
 	const handleOnScroll = async () => {
 		if (inView) {
-			if (currentPage < maxPage) {
+			if (params.page < maxPage) {
 				const businessesData = await getBusinesses({
-					page: currentPage,
-					limit: LIMITONPAGE,
-					q: q ? q : undefined,
+					...params,
 				});
-				setPage((prevState) => prevState + 1);
+				handleOnChangePage(params.page + 1);
 				setBusiness((prevState) => [...prevState, ...businessesData.data]);
+				setMaxPage(Math.ceil(businessesData.total / LIMITONPAGE));
 			}
 		}
 	};
 
 	const handleOnSearch = async () => {
-		setPage(1);
 		const businessData = await getBusinesses({
+			...params,
+			q: params.q ? params.q : undefined,
 			page: 0,
-			limit: LIMITONPAGE,
-			q: q ? q : undefined,
 		});
+		handleOnChangePage(1);
 		setBusiness(businessData.data);
 		setMaxPage(Math.ceil(businessData.total / LIMITONPAGE));
 	};
 
 	useEffect(() => {
-		console.log(inView);
 		handleOnScroll();
+		console.log(inView);
+		console.log(maxPage);
 	}, [inView]);
 
-	useEffect(() => {}, [params]);
-
+	useEffect(() => {
+		console.log(maxPage);
+		handleOnSearch();
+	}, [
+		debouncedValue.q,
+		debouncedValue.limit,
+		debouncedValue.category,
+		debouncedValue["has-owner"],
+		debouncedValue["sort-by"],
+		debouncedValue["sort-order"],
+	]);
 	return (
 		<div>
 			<div>
-				<InputText value={q} type={"standard"} onChange={handleOnChangeQ} />
-				<Button
-					onClick={() => {
-						setPage(0);
-						handleOnSearch();
-					}}
-				>
-					Отправить
-				</Button>
+				<InputText
+					value={params.q || ""}
+					type={"standard"}
+					placeholder={"Поиск по бизнесам"}
+					onChange={handleOnChangeQ}
+				/>
 			</div>
 			<ContentLayout
 				headerPrimary={"Наши партнеры:"}
@@ -121,13 +132,14 @@ const BusinessList = () => {
 						) => (
 							<NavLink
 								to={`/partner/${ownerId}/business/${_id}/`}
-								key={`mini-card--${_id}`}
+								key={`nav-link--${_id}`}
 								ref={data.data.length - 1 === index ? ref : undefined}
 							>
 								<BusinessMiniCard
 									title={title}
 									category={category.title}
 									avgCheck={avgCheck}
+									key={`mini-card--${_id}`}
 									preview={
 										preview &&
 										`https://${preview.domain}/${preview.bucket}/${preview.key}`
