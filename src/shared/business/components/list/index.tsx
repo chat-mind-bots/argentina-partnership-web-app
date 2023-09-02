@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense, useEffect, useMemo, useState } from "react";
 import PageLoader from "shared/components/page-loader";
 import {
 	Await,
@@ -7,7 +7,7 @@ import {
 	useAsyncValue,
 	useLoaderData,
 } from "react-router-dom";
-import { getBusinesses } from "shared/business/data";
+import { getBusinesses, getCategories } from "shared/business/data";
 import { Business } from "shared/business/dto/business.dto";
 import { BusinessesDto } from "shared/business/dto/businesses.dto";
 import ContentLayout from "shared/components/content-layout";
@@ -18,18 +18,32 @@ import { useInView } from "react-intersection-observer";
 import InputText from "shared/components/input/input-text";
 import { GetBusinessesInterface } from "shared/business/interfaces/query/get-businesses.interface";
 import useDebounce from "hooks/useDebounce";
+import { MainButton, WebAppProvider } from "@vkruglikov/react-telegram-web-app";
+import Modal from "shared/components/modal";
+import ListFilter from "shared/business/components/list/components/list-filter";
+import { Category } from "shared/business/dto/categories.dto";
+import { SelectProps } from "shared/business/components/create-business-form";
 
 const LIMITONPAGE = 4;
 
 export async function loader() {
-	const data = getBusinesses({ page: 0, limit: LIMITONPAGE });
-	return defer({ data });
+	const businesses = getBusinesses({ page: 0, limit: LIMITONPAGE });
+	const categories = getCategories();
+	const dataPromise = Promise.all([businesses, categories]);
+	return defer({ dataPromise });
 }
 
 const BusinessList = () => {
-	const data = useAsyncValue() as BusinessesDto;
-	const [business, setBusiness] = useState(data.data);
-	const [maxPage, setMaxPage] = useState(Math.ceil(data.total / LIMITONPAGE));
+	const [businesses, categories] = useAsyncValue() as [
+		BusinessesDto,
+		Category[],
+	];
+	console.log(businesses, categories);
+	const [business, setBusiness] = useState(businesses.data);
+	const [isOpenFilters, setIsOpenFilters] = useState(false);
+	const [maxPage, setMaxPage] = useState(
+		Math.ceil(businesses.total / LIMITONPAGE)
+	);
 	const [params, setParams] = useState<GetBusinessesInterface>({
 		page: 1,
 		limit: LIMITONPAGE,
@@ -50,6 +64,13 @@ const BusinessList = () => {
 		setParams((prev: GetBusinessesInterface) => {
 			return { ...prev, page: value };
 		});
+	};
+
+	const applyFilters = () => {
+		setIsOpenFilters(!isOpenFilters);
+	};
+	const openFiltersHandler = () => {
+		setIsOpenFilters(!isOpenFilters);
 	};
 
 	const handleOnScroll = async () => {
@@ -91,7 +112,7 @@ const BusinessList = () => {
 		debouncedValue["sort-order"],
 	]);
 	return (
-		<div>
+		<WebAppProvider>
 			<div>
 				<InputText
 					value={params.q || ""}
@@ -103,13 +124,26 @@ const BusinessList = () => {
 			<ContentLayout
 				headerPrimary={"Наши партнеры:"}
 				headerSecondary={
-					<div className={styles.buttonWrapper}>
+					<div
+						className={styles.buttonWrapper}
+						onClick={() => !isOpenFilters && openFiltersHandler()}
+					>
 						<button className={styles.filterButton}>
 							<Filter />
 						</button>
 					</div>
 				}
 			>
+				<Modal isOpen={isOpenFilters} onClose={openFiltersHandler}>
+					<ListFilter
+						setParams={setParams}
+						categories={categories}
+						params={params}
+					/>
+					{isOpenFilters && (
+						<MainButton text={"Применить фильтры"} onClick={applyFilters} />
+					)}
+				</Modal>
 				<div className={styles.contentWrapper}>
 					{business.map(
 						(
@@ -127,7 +161,7 @@ const BusinessList = () => {
 							<NavLink
 								to={`/partner/${ownerId}/business/${_id}/`}
 								key={`nav-link--${_id}`}
-								ref={data.data.length - 1 === index ? ref : undefined}
+								ref={business.length - 1 === index ? ref : undefined}
 							>
 								<BusinessMiniCard
 									title={title}
@@ -144,17 +178,17 @@ const BusinessList = () => {
 					)}
 				</div>
 			</ContentLayout>
-		</div>
+		</WebAppProvider>
 	);
 };
 
 export const Component = () => {
 	const data = useLoaderData() as {
-		data: Business[];
+		dataPromise: [BusinessesDto, Category[]];
 	};
 	return (
 		<Suspense fallback={<PageLoader />}>
-			<Await resolve={data.data}>
+			<Await resolve={data.dataPromise}>
 				<BusinessList />
 			</Await>
 		</Suspense>
