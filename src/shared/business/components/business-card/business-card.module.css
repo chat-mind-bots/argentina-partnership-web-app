@@ -1,0 +1,43 @@
+.logo {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.noLogo {
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+    text-align: center;
+}
+
+.icon > svg > path{
+    fill: var(--tg-theme-button-text-color);
+}
+
+.activeAvgCheck {
+    color: #30C02D;
+}
+
+.avgCheck {
+    font-size: 1.6rem;
+    color: var(--tg-theme-hint-color);
+}
+
+.businessNavigation {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.businessCategoryWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contentWrapper {
+    background-color: var(--tg-theme-bg-color);
+    padding: 30px 28px 20px;
+    font-size: 1.6rem;
+    border-radius: 9px;
+}

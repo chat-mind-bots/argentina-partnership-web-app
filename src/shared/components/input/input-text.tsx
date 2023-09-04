@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useRef } from "react";
 import { Input } from "antd";
 import styles from "./input-text.module.less";
 
@@ -13,6 +13,7 @@ interface InputTextProps {
 	status?: "error";
 	isTextArea?: boolean;
 	description?: ReactNode;
+	hideKeyboardEnter?: boolean;
 }
 
 const InputText = ({
@@ -25,6 +26,7 @@ const InputText = ({
 	type,
 	status,
 	isTextArea,
+	hideKeyboardEnter,
 	description,
 }: InputTextProps) => {
 	if (type === "numeric") {
@@ -35,6 +37,7 @@ const InputText = ({
 				onChange(e);
 			}
 		};
+
 		return (
 			<>
 				<Input
@@ -50,6 +53,22 @@ const InputText = ({
 			</>
 		);
 	}
+	const regLink = /^(http|https):\/\//;
+	if (value.match(regLink)) {
+		value = value.replace(regLink, "");
+	}
+	const inputRef = useRef<any>(null);
+	const handleDocumentTouch = (e: React.TouchEvent<HTMLInputElement>) => {
+		if (inputRef.current && !inputRef.current.contains(e.target as Node)) {
+			inputRef.current.blur();
+		}
+	};
+
+	const enterHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
+		event.preventDefault();
+		event.currentTarget.blur();
+	};
+
 	return (
 		<>
 			{isTextArea ? (
@@ -66,6 +85,9 @@ const InputText = ({
 					onChange={onChange}
 					placeholder={placeholder}
 					value={value}
+					onPressEnter={hideKeyboardEnter ? enterHandler : undefined}
+					ref={inputRef}
+					onTouchStart={handleDocumentTouch}
 					className={className}
 				/>
 			)}
