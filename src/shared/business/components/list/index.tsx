@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 import PageLoader from "shared/components/page-loader";
 import {
 	Await,
@@ -109,17 +109,16 @@ const BusinessList = () => {
 		debouncedValue["sort-by"],
 		debouncedValue["sort-order"],
 	]);
+
 	return (
 		<WebAppProvider>
 			<div>
-				<form>
-					<InputText
-						value={params.q || ""}
-						type={"standard"}
-						placeholder={"Поиск по бизнесам"}
-						onChange={handleOnChangeQ}
-					/>
-				</form>
+				<InputText
+					value={params.q || ""}
+					type={"standard"}
+					placeholder={"Поиск по бизнесам"}
+					onChange={handleOnChangeQ}
+				/>
 			</div>
 			<ContentLayout
 				headerPrimary={"Наши партнеры:"}
