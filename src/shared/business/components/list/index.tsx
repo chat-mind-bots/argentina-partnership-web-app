@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useMemo, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import PageLoader from "shared/components/page-loader";
 import {
 	Await,
@@ -8,7 +8,6 @@ import {
 	useLoaderData,
 } from "react-router-dom";
 import { getBusinesses, getCategories } from "shared/business/data";
-import { Business } from "shared/business/dto/business.dto";
 import { BusinessesDto } from "shared/business/dto/businesses.dto";
 import ContentLayout from "shared/components/content-layout";
 import styles from "./list.module.less";
@@ -22,7 +21,6 @@ import { MainButton, WebAppProvider } from "@vkruglikov/react-telegram-web-app";
 import Modal from "shared/components/modal";
 import ListFilter from "shared/business/components/list/components/list-filter";
 import { Category } from "shared/business/dto/categories.dto";
-import { SelectProps } from "shared/business/components/create-business-form";
 
 const LIMITONPAGE = 4;
 
@@ -114,12 +112,14 @@ const BusinessList = () => {
 	return (
 		<WebAppProvider>
 			<div>
-				<InputText
-					value={params.q || ""}
-					type={"standard"}
-					placeholder={"Поиск по бизнесам"}
-					onChange={handleOnChangeQ}
-				/>
+				<form>
+					<InputText
+						value={params.q || ""}
+						type={"standard"}
+						placeholder={"Поиск по бизнесам"}
+						onChange={handleOnChangeQ}
+					/>
+				</form>
 			</div>
 			<ContentLayout
 				headerPrimary={"Наши партнеры:"}
@@ -155,8 +155,7 @@ const BusinessList = () => {
 								_id,
 								owner: { _id: ownerId },
 							},
-							index,
-							array
+							index
 						) => (
 							<NavLink
 								to={`/partner/${ownerId}/business/${_id}/`}
