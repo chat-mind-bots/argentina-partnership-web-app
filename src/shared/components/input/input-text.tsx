@@ -55,6 +55,14 @@ const InputText = ({
 	if (value.match(regLink)) {
 		value = value.replace(regLink, "");
 	}
+
+	const enterHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
+		if (event.key === "Enter") {
+			event.preventDefault();
+			event.currentTarget.blur();
+		}
+	};
+
 	return (
 		<>
 			{isTextArea ? (
@@ -69,6 +77,7 @@ const InputText = ({
 					addonBefore={addonBefore}
 					addonAfter={addonAfter}
 					onChange={onChange}
+					onKeyPress={enterHandler}
 					placeholder={placeholder}
 					value={value}
 					className={className}
