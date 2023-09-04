@@ -57,10 +57,8 @@ const InputText = ({
 	}
 
 	const enterHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
-		if (event.key === "Enter") {
-			event.preventDefault();
-			event.currentTarget.blur();
-		}
+		event.preventDefault();
+		event.currentTarget.blur();
 	};
 
 	return (
@@ -77,9 +75,9 @@ const InputText = ({
 					addonBefore={addonBefore}
 					addonAfter={addonAfter}
 					onChange={onChange}
-					onKeyDown={enterHandler}
 					placeholder={placeholder}
 					value={value}
+					onPressEnter={enterHandler}
 					className={className}
 				/>
 			)}
