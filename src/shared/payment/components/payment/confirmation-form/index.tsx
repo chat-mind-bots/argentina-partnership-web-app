@@ -33,7 +33,7 @@ const ConfirmationForm: FC<IOwnProps> = ({ paymentId, userId, onClose }) => {
 			});
 
 		onClose();
-	}, []);
+	}, [txId, photo]);
 	return (
 		<div>
 			<ContentLayout headerPrimary={"Введите TxId"}>
