@@ -19,7 +19,12 @@ const BusinessMiniCard = ({
 				className={`${styles.logoWrapper} ${!preview && styles.noLogoWrapper}`}
 			>
 				{preview ? (
-					<img src={preview} alt={preview} className={styles.logo} />
+					<img
+						src={preview}
+						alt={preview}
+						loading={"lazy"}
+						className={styles.logo}
+					/>
 				) : (
 					<div className={styles.noLogo}>Без логотипа</div>
 				)}
