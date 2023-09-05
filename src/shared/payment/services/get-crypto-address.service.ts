@@ -2,6 +2,7 @@ import { NetworksEnum } from "shared/payment/interfaces/networks.enum";
 import * as process from "process";
 
 export const getCryptoAddressService = (network: NetworksEnum) => {
+	console.log(JSON.stringify(process.env.ADDRESS_TRC20));
 	switch (network) {
 		case NetworksEnum.TRC20:
 			return process.env.ADDRESS_TRC20;
