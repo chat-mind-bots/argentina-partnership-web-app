@@ -6,6 +6,7 @@ import {
 	NavLink,
 	useAsyncValue,
 	useLoaderData,
+	useNavigate,
 } from "react-router-dom";
 import { getBusinesses, getCategories } from "shared/business/data";
 import { BusinessesDto } from "shared/business/dto/businesses.dto";
@@ -17,7 +18,11 @@ import { useInView } from "react-intersection-observer";
 import InputText from "shared/components/input/input-text";
 import { GetBusinessesInterface } from "shared/business/interfaces/query/get-businesses.interface";
 import useDebounce from "hooks/useDebounce";
-import { MainButton, WebAppProvider } from "@vkruglikov/react-telegram-web-app";
+import {
+	BackButton,
+	MainButton,
+	WebAppProvider,
+} from "@vkruglikov/react-telegram-web-app";
 import Modal from "shared/components/modal";
 import ListFilter from "shared/business/components/list/components/list-filter";
 import { Category } from "shared/business/dto/categories.dto";
@@ -36,6 +41,12 @@ const BusinessList = () => {
 		BusinessesDto,
 		Category[],
 	];
+	const navigate = useNavigate();
+
+	const navigateToMain = () => {
+		navigate("/home");
+	};
+
 	console.log(businesses, categories);
 	const [business, setBusiness] = useState(businesses.data);
 	const [isOpenFilters, setIsOpenFilters] = useState(false);
@@ -176,6 +187,7 @@ const BusinessList = () => {
 					)}
 				</div>
 			</ContentLayout>
+			<BackButton onClick={navigateToMain} />
 		</WebAppProvider>
 	);
 };
