@@ -6,6 +6,7 @@ import {
 	useAsyncValue,
 	useLoaderData,
 	useNavigate,
+	useSearchParams,
 } from "react-router-dom";
 import PageLoader from "shared/components/page-loader";
 import { get } from "services/api";
@@ -43,10 +44,14 @@ interface IFilters extends IFiltersForm {
 }
 const History = () => {
 	const user = useAsyncValue() as User;
+	const [searchParams] = useSearchParams();
 
 	const [payments, setPayments] = useState<PaymentInterface[]>([]);
 	const [filters, setFilters] = useState<IFilters>({
 		page: 0,
+		status: searchParams.get("status")
+			? (searchParams.get("status") as PaymentStatusEnum)
+			: undefined,
 	});
 	const [temporaryFilters, setTemporaryFilters] = useState<IFiltersForm>({});
 
