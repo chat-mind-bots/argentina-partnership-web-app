@@ -9,7 +9,7 @@ RUN yarn install
 COPY . /app/
 ARG MODE
 ARG BASE_URL
-RUN yarn build --env BASE_URL=${BASE_URL}  --progress
+RUN yarn build --env BASE_URL=${BASE_URL} --env=${} --env ADDRESS_TRC20=${ADDRESS_TRC20} --env ADDRESS_BEP20=${ADDRESS_BEP20} --env ADDRESS_SOL=${ADDRESS_SOL} --env ADDRESS_ERC20=${ADDRESS_ERC20}  --progress
 
 FROM nginx:alpine AS web
 WORKDIR /app
