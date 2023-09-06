@@ -1,7 +1,9 @@
 import React from "react";
 import styles from "shared/business/components/list/list.module.less";
+import AsyncImage from "shared/components/async-image";
 interface BusinessMiniCardProps {
 	title: string;
+	updateImageState: () => void;
 	avgCheck?: number;
 	category: string;
 	preview?: string;
@@ -10,6 +12,7 @@ interface BusinessMiniCardProps {
 const BusinessMiniCard = ({
 	title,
 	category,
+	updateImageState,
 	avgCheck = -1,
 	preview,
 }: BusinessMiniCardProps) => {
@@ -19,11 +22,11 @@ const BusinessMiniCard = ({
 				className={`${styles.logoWrapper} ${!preview && styles.noLogoWrapper}`}
 			>
 				{preview ? (
-					<img
-						src={preview}
+					<AsyncImage
+						link={preview}
 						alt={preview}
-						loading={"lazy"}
-						className={styles.logo}
+						isLogo
+						updateImageState={updateImageState}
 					/>
 				) : (
 					<div className={styles.noLogo}>Без логотипа</div>

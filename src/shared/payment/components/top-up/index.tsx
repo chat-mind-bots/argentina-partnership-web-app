@@ -77,8 +77,8 @@ function TopUp() {
 		navigation("/my-payments");
 	}, [navigation]);
 
-	const handleAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setValue({ ...value, amount: event.target.value });
+	const handleAmount = (text: string) => {
+		setValue({ ...value, amount: text });
 	};
 
 	const handleNetwork = (network?: string) => {
