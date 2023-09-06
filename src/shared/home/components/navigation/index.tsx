@@ -6,13 +6,14 @@ import Qr from "public/assets/icons/qr.svg";
 import TariffPlans from "public/assets/icons/tariff.svg";
 import NavigationButton from "shared/home/components/navigation/navigation-button";
 import Card from "shared/components/card";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navigation = () => {
 	const navigate = useNavigate();
 	return (
 		<Card title={"Возможности пллатформы"}>
 			<NavigationButton
+				onClick={() => navigate("/partners")}
 				logo={
 					<div className={styles.logo}>
 						<Business />
@@ -20,7 +21,7 @@ const Navigation = () => {
 				}
 			>
 				<div className={styles.content}>
-					<span>Посмотреть список акций</span>
+					<span>Посмотреть список партнеров</span>
 					<AngleRight />
 				</div>
 			</NavigationButton>

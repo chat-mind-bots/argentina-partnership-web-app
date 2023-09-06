@@ -1,11 +1,12 @@
 import React, { FC } from "react";
-import styles from "./pay-instruction.module.less";
+import styles from "shared/payment/components/payment-info/pay-instruction/pay-instruction.module.less";
 import Copy from "public/assets/icons/copy.svg";
 import { NetworksEnum } from "shared/payment/interfaces/networks.enum";
 import ContentLayout from "shared/components/content-layout";
 import { getNetworkTitle } from "shared/payment/services/get-network-title";
 import { message } from "antd";
 import ConfirmationForm from "shared/payment/components/payment/confirmation-form";
+import { getCryptoAddressService } from "shared/payment/services/get-crypto-address.service";
 
 interface IOwnProps {
 	paymentId: string;
@@ -29,7 +30,7 @@ const PayInstruction: FC<IOwnProps> = ({
 
 	const writeToClipboard = () => {
 		window.navigator.clipboard
-			.writeText("TQvxpD3noy3WYy2zW3UceUGhXkxph4dvth")
+			.writeText(getCryptoAddressService(method) as string)
 			.then(
 				() => successMessage("Адрес скопирован в буффер обмена!"),
 				() => errorMessage("При копировании произошла ошибка")
@@ -46,7 +47,7 @@ const PayInstruction: FC<IOwnProps> = ({
 					title={"Нажать, чтобы скопировать"}
 					onClick={writeToClipboard}
 				>
-					<Copy /> TQvxpD3noy3WYy2zW3UceUGhXkxph4dvth
+					<Copy /> {getCryptoAddressService(method)}
 				</p>
 				<p>
 					Для подтверждения оплаты заполните форму снизу и нажать на кнопку

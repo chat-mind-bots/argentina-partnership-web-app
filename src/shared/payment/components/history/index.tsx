@@ -6,6 +6,7 @@ import {
 	useAsyncValue,
 	useLoaderData,
 	useNavigate,
+	useSearchParams,
 } from "react-router-dom";
 import PageLoader from "shared/components/page-loader";
 import { get } from "services/api";
@@ -26,6 +27,7 @@ import { PaymentStatusEnum } from "shared/payment/interfaces/payment-statuses.en
 import { CurrenciesEnum } from "shared/payment/interfaces/currencies.enum";
 import FilterForm from "shared/payment/components/history/filter-form";
 import NothingFound from "shared/components/nothing-found";
+import { getMyPayments } from "shared/payment/services/data";
 
 export async function loader() {
 	// @ts-ignore
@@ -43,10 +45,14 @@ interface IFilters extends IFiltersForm {
 }
 const History = () => {
 	const user = useAsyncValue() as User;
+	const [searchParams] = useSearchParams();
 
 	const [payments, setPayments] = useState<PaymentInterface[]>([]);
 	const [filters, setFilters] = useState<IFilters>({
 		page: 0,
+		status: searchParams.get("status")
+			? (searchParams.get("status") as PaymentStatusEnum)
+			: undefined,
 	});
 	const [temporaryFilters, setTemporaryFilters] = useState<IFiltersForm>({});
 
@@ -63,14 +69,11 @@ const History = () => {
 	useEffect(() => {
 		setLoading(true);
 		setEmptyResult(false);
-		get<PaymentInterface[]>(`payment`, {
-			query: {
-				limit: 10,
-				offset: filters.page * 10,
-				userId: user._id,
-				status: filters.status ? filters.status : undefined,
-				currency: filters.currency ? filters.currency : undefined,
-			},
+		getMyPayments(user._id, {
+			limit: 10,
+			offset: filters.page * 10,
+			status: filters.status ? filters.status : undefined,
+			currency: filters.currency ? filters.currency : undefined,
 		})
 			.then((data) => {
 				setPayments(data);

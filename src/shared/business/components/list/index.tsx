@@ -6,6 +6,7 @@ import {
 	NavLink,
 	useAsyncValue,
 	useLoaderData,
+	useNavigate,
 } from "react-router-dom";
 import { getBusinesses, getCategories } from "shared/business/data";
 import { BusinessesDto } from "shared/business/dto/businesses.dto";
@@ -16,7 +17,11 @@ import BusinessMiniCard from "shared/business/components/list/components/busines
 import { useInView } from "react-intersection-observer";
 import InputText from "shared/components/input/input-text";
 import { GetBusinessesInterface } from "shared/business/interfaces/query/get-businesses.interface";
-import { MainButton, WebAppProvider } from "@vkruglikov/react-telegram-web-app";
+import {
+	BackButton,
+	MainButton,
+	WebAppProvider,
+} from "@vkruglikov/react-telegram-web-app";
 import Modal from "shared/components/modal";
 import ListFilter from "shared/business/components/list/components/list-filter";
 import { Category } from "shared/business/dto/categories.dto";
@@ -47,6 +52,9 @@ const BusinessList = () => {
 	>({
 		page: 0,
 	});
+	const navigateToMain = () => {
+		navigate("/home");
+	};
 
 	const { submitForm, handleSubmit, values, setFieldValue } = useFormik({
 		initialValues: {
@@ -240,6 +248,7 @@ const BusinessList = () => {
 					<div>По вашему запросу ничего не найдено...</div>
 				)}
 			</ContentLayout>
+			<BackButton onClick={navigateToMain} />
 		</WebAppProvider>
 	);
 };

@@ -1,13 +1,11 @@
 import React, { FC } from "react";
-import styles from "shared/payment/components/payment/info/info.module.less";
+import styles from "shared/payment/components/payment/info-modal/info.module.less";
 import { PaymentInterface } from "shared/payment/interfaces/payment.interface";
 import { getCurrencyTitleService } from "shared/payment/services/get-currency-title.service";
 import { dateToCustomString } from "services/date-formatters";
 import { getPointColorService } from "shared/payment/services/get-point-color.service";
 import Point from "shared/components/point";
 import { getPaymentStatusService } from "shared/payment/services/get-payment-status.service";
-import { PaymentStatusEnum } from "shared/payment/interfaces/payment-statuses.enum";
-import PayInstruction from "shared/payment/components/payment/pay-instruction";
 
 const Info: FC<PaymentInterface & { onClose(): void; userId: string }> = (
 	payment
@@ -39,14 +37,6 @@ const Info: FC<PaymentInterface & { onClose(): void; userId: string }> = (
 					{getCurrencyTitleService(payment.currency)}
 				</span>
 			</div>
-			{payment.status === PaymentStatusEnum.PENDING && payment.method && (
-				<PayInstruction
-					paymentId={payment._id}
-					onClose={payment.onClose}
-					method={payment.method}
-					userId={payment.userId}
-				/>
-			)}
 		</div>
 	);
 };
