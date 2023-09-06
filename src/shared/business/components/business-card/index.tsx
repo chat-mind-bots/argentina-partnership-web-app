@@ -5,7 +5,6 @@ import {
 	defer,
 	useAsyncValue,
 	useLoaderData,
-	useLocation,
 	useNavigate,
 } from "react-router-dom";
 import { Business } from "shared/business/dto/business.dto";
@@ -34,14 +33,13 @@ export async function loader({
 }
 
 function BusinessCard() {
-	const { preview, address, contacts, title, category, description, avgCheck } =
+	const { preview, address, contacts, title, description, avgCheck } =
 		useAsyncValue() as Business;
 	const [active, setActive] = useState(0);
 	const navigate = useNavigate();
 	const handleBack = () => {
 		navigate(-1);
 	};
-	console.log(window.history);
 
 	const components = [
 		{

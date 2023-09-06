@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import styles from "./pay-instruction.module.less";
+import styles from "shared/payment/components/payment-info/pay-instruction/pay-instruction.module.less";
 import Copy from "public/assets/icons/copy.svg";
 import { NetworksEnum } from "shared/payment/interfaces/networks.enum";
 import ContentLayout from "shared/components/content-layout";

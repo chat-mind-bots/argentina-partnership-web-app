@@ -4,16 +4,35 @@ import { router } from "shared/router";
 import PageLoader from "shared/components/page-loader";
 import { useTelegram } from "hooks/useTelegram";
 import { BusinessProvider } from "shared/business/provider/businesses.provider";
+import { ConfigProvider } from "antd";
 
 function App() {
-	const { tg } = useTelegram();
+	const { tg, theme } = useTelegram();
 	useEffect(() => {
 		tg.setHeaderColor(tg.themeParams.secondary_bg_color);
 	}, [tg]);
 
 	return (
 		<BusinessProvider>
-			<RouterProvider router={router} fallbackElement={<PageLoader />} />
+			<ConfigProvider
+				theme={{
+					token: {
+						colorText: theme.text_color,
+						colorTextDisabled: theme.hint_color,
+					},
+					components: {
+						Tabs: {
+							cardBg: theme.bg_color,
+							itemActiveColor: theme.text_color,
+							itemHoverColor: theme.link_color,
+							itemSelectedColor: theme.link_color,
+							inkBarColor: theme.link_color,
+						},
+					},
+				}}
+			>
+				<RouterProvider router={router} fallbackElement={<PageLoader />} />
+			</ConfigProvider>
 		</BusinessProvider>
 	);
 }

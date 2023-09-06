@@ -10,3 +10,6 @@ export const createPayment = (userId: string, body: CreatePaymentInterface) =>
 
 export const getMyPayments = (userId: string, query: GetPaymentDto) =>
 	get<PaymentInterface[]>("payment", { query: { ...query, userId } });
+
+export const getPayment = (userId: string, paymentId: string) =>
+	get<PaymentInterface>(`payment/${paymentId}`, { query: { userId } });

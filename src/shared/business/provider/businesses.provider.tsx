@@ -20,7 +20,6 @@ function businessesReducer(
 ) {
 	switch (action.type) {
 		case BusinessActionKind.INCREASE: {
-			console.log("11");
 			return {
 				status: action.payload.status,
 				data: {

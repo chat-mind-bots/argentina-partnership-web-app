@@ -22,6 +22,7 @@ export function useTelegram() {
 		onToggleButton,
 		onExpand,
 		tg,
+		theme: tg.themeParams,
 		user: tg.initDataUnsafe?.user,
 		queryId: tg.initDataUnsafe?.query_id,
 	};

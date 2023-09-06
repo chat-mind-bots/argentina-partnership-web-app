@@ -8,16 +8,24 @@ import Point from "shared/components/point";
 import { getPointColorService } from "shared/payment/services/get-point-color.service";
 import Modal from "shared/components/modal";
 import PageLoader from "shared/components/page-loader";
+import { PaymentStatusEnum } from "shared/payment/interfaces/payment-statuses.enum";
+import { useNavigate } from "react-router-dom";
 
-const Info = lazy(() => import("shared/payment/components/payment/info"));
+const InfoModal = lazy(
+	() => import("shared/payment/components/payment/info-modal")
+);
 
 const Card: FC<PaymentInterface & { userId: string; reLoad(): void }> = (
 	payment
 ) => {
 	const [isOpen, setIsOpen] = useState(false);
 
+	const navigate = useNavigate();
+
 	const handleModal = () => {
-		setIsOpen(!isOpen);
+		payment.status === PaymentStatusEnum.PENDING
+			? navigate(`/payment/${payment._id}`)
+			: setIsOpen(!isOpen);
 	};
 
 	return (
@@ -50,13 +58,15 @@ const Card: FC<PaymentInterface & { userId: string; reLoad(): void }> = (
 			>
 				{isOpen && (
 					<Suspense fallback={<PageLoader />}>
-						<Info
-							{...payment}
-							onClose={() => {
-								handleModal();
-								payment.reLoad();
-							}}
-						/>
+						{payment.status !== PaymentStatusEnum.PENDING && (
+							<InfoModal
+								{...payment}
+								onClose={() => {
+									handleModal();
+									payment.reLoad();
+								}}
+							/>
+						)}
 					</Suspense>
 				)}
 			</Modal>

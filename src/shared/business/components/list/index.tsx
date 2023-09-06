@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useRef, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import PageLoader from "shared/components/page-loader";
 import {
 	Await,
@@ -47,7 +47,6 @@ const BusinessList = () => {
 		navigate("/home");
 	};
 
-	console.log(businesses, categories);
 	const [business, setBusiness] = useState(businesses.data);
 	const [isOpenFilters, setIsOpenFilters] = useState(false);
 	const [maxPage, setMaxPage] = useState(

@@ -27,6 +27,7 @@ import { PaymentStatusEnum } from "shared/payment/interfaces/payment-statuses.en
 import { CurrenciesEnum } from "shared/payment/interfaces/currencies.enum";
 import FilterForm from "shared/payment/components/history/filter-form";
 import NothingFound from "shared/components/nothing-found";
+import { getMyPayments } from "shared/payment/services/data";
 
 export async function loader() {
 	// @ts-ignore
@@ -68,14 +69,11 @@ const History = () => {
 	useEffect(() => {
 		setLoading(true);
 		setEmptyResult(false);
-		get<PaymentInterface[]>(`payment`, {
-			query: {
-				limit: 10,
-				offset: filters.page * 10,
-				userId: user._id,
-				status: filters.status ? filters.status : undefined,
-				currency: filters.currency ? filters.currency : undefined,
-			},
+		getMyPayments(user._id, {
+			limit: 10,
+			offset: filters.page * 10,
+			status: filters.status ? filters.status : undefined,
+			currency: filters.currency ? filters.currency : undefined,
 		})
 			.then((data) => {
 				setPayments(data);
