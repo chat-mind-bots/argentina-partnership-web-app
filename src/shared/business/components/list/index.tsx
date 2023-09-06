@@ -52,6 +52,7 @@ const BusinessList = () => {
 	>({
 		page: 0,
 	});
+	const navigate = useNavigate();
 	const navigateToMain = () => {
 		navigate("/home");
 	};
