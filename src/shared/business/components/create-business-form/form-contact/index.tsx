@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "shared/business/components/create-business-form/business-form.module.css";
+import styles from "shared/business/components/create-business-form/business-form.module.less";
 import {
 	ContactsTypeEnum,
 	IContacts,

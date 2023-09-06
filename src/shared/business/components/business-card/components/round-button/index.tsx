@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./round-button.module.css";
+import styles from "shared/business/components/business-card/components/round-button/round-button.module.less";
 interface RoundButtonProps {
 	title: string;
 	callBack: () => void;

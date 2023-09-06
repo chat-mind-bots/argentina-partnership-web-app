@@ -1,6 +1,6 @@
 .address {
   font-size: 14px;
-  color: var(--tg-theme-link-color);
+  color: var(--tg-theme-link-color) !important;
   cursor: pointer;
   height: 14px;
   display: flex;
@@ -14,4 +14,28 @@
       fill: var(--tg-theme-link-color);
     }
   }
+}
+
+.card {
+  padding: 10px 0;
+}
+.content {
+  padding: 0 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  p {
+    color: var(--tg-theme-text-color);
+  }
+}
+
+.copyHelper {
+  color: var(--tg-theme-hint-color);
+}
+
+.ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }

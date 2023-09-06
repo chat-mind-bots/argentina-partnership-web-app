@@ -11,7 +11,7 @@ import { Business } from "shared/business/dto/business.dto";
 import PageLoader from "shared/components/page-loader";
 import { Suspense } from "react";
 import Header from "shared/components/header";
-import styles from "./business-card.module.css";
+import styles from "shared/business/components/business-card/business-card.module.less";
 import RoundButton from "shared/business/components/business-card/components/round-button";
 import Description from "shared/business/components/business-card/components/description";
 import AddressBlock from "shared/business/components/business-card/components/address";

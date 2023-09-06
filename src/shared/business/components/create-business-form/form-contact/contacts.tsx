@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
-import styles from "shared/business/components/create-business-form/business-form.module.css";
+import styles from "shared/business/components/create-business-form/business-form.module.less";
 import { Button } from "antd";
 import { SettingOutlined } from "@ant-design/icons";
 import {

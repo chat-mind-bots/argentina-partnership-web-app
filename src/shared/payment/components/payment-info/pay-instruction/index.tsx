@@ -5,21 +5,16 @@ import { NetworksEnum } from "shared/payment/interfaces/networks.enum";
 import ContentLayout from "shared/components/content-layout";
 import { getNetworkTitle } from "shared/payment/services/get-network-title";
 import { message } from "antd";
-import ConfirmationForm from "shared/payment/components/payment/confirmation-form";
 import { getCryptoAddressService } from "shared/payment/services/get-crypto-address.service";
+import { MainButton } from "@vkruglikov/react-telegram-web-app";
+import Card from "shared/components/card";
 
 interface IOwnProps {
-	paymentId: string;
-	userId: string;
 	method: NetworksEnum;
-	onClose(): void;
+	isActive: boolean;
+	toApprove(): void;
 }
-const PayInstruction: FC<IOwnProps> = ({
-	method,
-	userId,
-	paymentId,
-	onClose,
-}) => {
+const PayInstruction: FC<IOwnProps> = ({ method, toApprove, isActive }) => {
 	const successMessage = (text: string) => {
 		message.success(text);
 	};
@@ -38,36 +33,45 @@ const PayInstruction: FC<IOwnProps> = ({
 	};
 
 	return (
-		<ContentLayout headerPrimary={"Инструкция по оплате"}>
-			<div>
-				<p>Для оплаты вы выбрали сеть: {getNetworkTitle(method)}.</p>
-				<p>Адрес для оплаты:</p>
-				<p
-					className={styles.address}
-					title={"Нажать, чтобы скопировать"}
-					onClick={writeToClipboard}
-				>
-					<Copy /> {getCryptoAddressService(method)}
-				</p>
-				<p>
-					Для подтверждения оплаты заполните форму снизу и нажать на кнопку
-					подтверждения
-				</p>
-				<p>
-					После заполнения вами формы - администрация проверит и подтвердит факт
-					оплаты в течении 24 часов
-				</p>
-				<p>
-					Вам нужно либо загрузить скриншот об ссупешной оплате, либо вставить
-					ваш TxId в текстовое поле
-				</p>
-				<ConfirmationForm
-					paymentId={paymentId}
-					onClose={onClose}
-					userId={userId}
-				/>
-			</div>
-		</ContentLayout>
+		<Card className={styles.card}>
+			<ContentLayout headerPrimary={"Инструкция по оплате"}>
+				<div className={styles.content}>
+					<p>
+						Для оплаты вы выбрали сеть: <b>{getNetworkTitle(method)}</b>.
+					</p>
+					<p>Адрес для оплаты:</p>
+					<p
+						className={styles.address}
+						title={"Нажать, чтобы скопировать"}
+						onClick={writeToClipboard}
+					>
+						<Copy />{" "}
+						<span className={styles.ellipsis}>
+							{getCryptoAddressService(method)}
+						</span>
+					</p>
+					<p>
+						<b>Внимание!</b> Не забывайте делать <b>скриншот</b> об успешной
+						оплате, или
+						<b>TxId</b> (Id Транзакции в сети)
+					</p>
+					<p>
+						Для подтверждения оплаты заполните перейдите во вкладку
+						&#171;Подтверждение оплаты&#187; или нажмите кнопку ниже
+					</p>
+					{isActive && (
+						<MainButton
+							text={"Перейти к подтверждению оплаты"}
+							onClick={toApprove}
+						/>
+					)}
+					<p>
+						После подтверждения оплаты - ваши средства будут зачислены в течении
+						24 часов
+					</p>
+				</div>
+			</ContentLayout>
+		</Card>
 	);
 };
 

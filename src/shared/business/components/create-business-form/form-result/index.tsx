@@ -1,6 +1,6 @@
 import React from "react";
 import Emotion from "shared/components/emotion";
-import styles from "../business-form.module.css";
+import styles from "shared/business/components/create-business-form/business-form.module.less";
 
 export interface FormResultProps {
 	mode: "update" | "create";

@@ -7,6 +7,8 @@ export const getPointColorService = (status: PaymentStatusEnum) => {
 			return "rgb(201, 148, 0)";
 		case PaymentStatusEnum.REJECTED:
 			return "red";
+		case PaymentStatusEnum.SUCCESS:
+			return "green";
 		default:
 			return null;
 	}

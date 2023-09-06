@@ -1,5 +1,5 @@
-import React, { FC, Suspense } from "react";
-import styles from "shared/payment/components/payment/info-modal/info.module.less";
+import React, { FC, Suspense, useState } from "react";
+import styles from "./info.module.less";
 import { PaymentInterface } from "shared/payment/interfaces/payment.interface";
 import { getCurrencyTitleService } from "shared/payment/services/get-currency-title.service";
 import { dateToCustomString } from "services/date-formatters";
@@ -22,6 +22,7 @@ import PageLoader from "shared/components/page-loader";
 import { getPayment } from "shared/payment/services/data";
 import { BackButton, WebAppProvider } from "@vkruglikov/react-telegram-web-app";
 import Card from "shared/components/card";
+import ConfirmationForm from "shared/payment/components/payment-info/confirmation-form";
 
 export async function loader({
 	params: { paymentId },
@@ -50,19 +51,25 @@ const Info: FC = () => {
 
 	const navigate = useNavigate();
 
+	const [activeTab, setActiveTab] = useState(
+		payment && (payment.status !== PaymentStatusEnum.PENDING || !payment.method)
+			? "1"
+			: "2"
+	);
 	return (
 		<div className={styles.list}>
 			<WebAppProvider>
 				{!payment && <div>Введены неверные данные</div>}
 				{payment && (
 					<Tabs
-						defaultActiveKey="1"
+						activeKey={activeTab}
+						onChange={(activeKey) => setActiveTab(activeKey)}
 						items={[
 							{
 								label: "Информация по платежу",
 								key: "1",
 								children: (
-									<Card>
+									<Card className={styles.card}>
 										<div className={styles.row}>
 											<span className={styles.title}>Статус</span>
 											<span className={styles.description}>
@@ -100,18 +107,30 @@ const Info: FC = () => {
 							{
 								label: "Инструкция по оплате",
 								key: "2",
-								disabled: !(
-									payment.status === PaymentStatusEnum.PENDING && payment.method
-								),
+								disabled:
+									payment.status !== PaymentStatusEnum.PENDING ||
+									!payment.method,
 								children: (
-									<Card>
-										<PayInstruction
-											paymentId={payment._id}
-											onClose={() => {}}
-											method={payment.method!}
-											userId={payment.user}
-										/>
-									</Card>
+									<PayInstruction
+										isActive={activeTab === "2"}
+										toApprove={() => setActiveTab("3")}
+										method={payment.method!}
+									/>
+								),
+							},
+							{
+								label: "Подтверждение оплаты",
+								key: "3",
+								disabled:
+									payment.status !== PaymentStatusEnum.PENDING ||
+									!payment.method,
+								children: (
+									<ConfirmationForm
+										isActive={activeTab === "3"}
+										toPaymentInfo={() => setActiveTab("1")}
+										paymentId={payment._id}
+										userId={payment.user}
+									/>
 								),
 							},
 						]}

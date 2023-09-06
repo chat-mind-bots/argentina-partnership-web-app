@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import StepCounter from "shared/components/step-counter";
 import ContentLayout from "shared/components/content-layout";
 import { CreateBusiness } from "shared/business/interfaces/create-business.interface";
-import styles from "shared/business/components/create-business-form/business-form.module.css";
+import styles from "shared/business/components/create-business-form/business-form.module.less";
 import { Radio, RadioChangeEvent, Space } from "antd";
 import { AvgCheckEnum } from "shared/business/types/avg-check.type";
 import Description from "shared/components/description";

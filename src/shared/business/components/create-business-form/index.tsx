@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState, lazy, Suspense } from "react";
 import Slider from "shared/components/slider";
-import styles from "./business-form.module.css";
+import styles from "shared/business/components/create-business-form/business-form.module.less";
 import { useTelegram } from "hooks/useTelegram";
 import { Category } from "shared/business/dto/categories.dto";
 import {

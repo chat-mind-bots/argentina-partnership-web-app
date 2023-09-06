@@ -126,7 +126,7 @@ const BusinessList = () => {
 				<InputText
 					value={params.q || ""}
 					type={"standard"}
-					placeholder={"Поиск по бизнесам"}
+					placeholder={"Поиск партнеров"}
 					onChange={handleOnChangeQ}
 				/>
 			</div>

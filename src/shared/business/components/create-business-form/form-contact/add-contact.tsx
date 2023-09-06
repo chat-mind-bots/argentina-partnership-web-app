@@ -6,7 +6,7 @@ import {
 } from "shared/business/interfaces/create-business.interface";
 import { Button, Select } from "antd";
 import { FormData } from "shared/business/components/create-business-form/form-contact/index";
-import styles from "../business-form.module.css";
+import styles from "shared/business/components/create-business-form/business-form.module.less";
 
 interface AddContactProps {
 	optionOnChange: (value: ContactsTypeEnum) => void;

@@ -18,7 +18,10 @@ function App() {
 				theme={{
 					token: {
 						colorText: theme.text_color,
+						colorTextPlaceholder: theme.hint_color,
 						colorTextDisabled: theme.hint_color,
+						colorBgContainer: theme.secondary_bg_color,
+						colorBgElevated: theme.bg_color,
 					},
 					components: {
 						Tabs: {
@@ -27,6 +30,7 @@ function App() {
 							itemHoverColor: theme.link_color,
 							itemSelectedColor: theme.link_color,
 							inkBarColor: theme.link_color,
+							horizontalMargin: "0 10px 16px 10px",
 						},
 					},
 				}}

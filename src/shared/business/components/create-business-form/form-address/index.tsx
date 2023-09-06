@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import styles from "shared/business/components/create-business-form/business-form.module.css";
+import styles from "shared/business/components/create-business-form/business-form.module.less";
 import InputText from "shared/components/input/input-text";
 import { IAddress } from "shared/business/interfaces/address.interface";
 import { Checkbox, Input } from "antd";
@@ -88,7 +88,7 @@ const FormAddress = ({
 				</div>
 				{value.isExist && (
 					<div className={styles.formWrapper}>
-						<div>
+						<div className={styles.formElement}>
 							<div className={styles.formInnerWrapper}>
 								<div>Введите адрес:</div>
 							</div>
@@ -104,7 +104,7 @@ const FormAddress = ({
 								secondary={"Cerrito 628, C1010AAN CABA"}
 							/>
 						</div>
-						<div>
+						<div className={styles.formElement}>
 							<div className={styles.formInnerWrapper}>
 								Введите ссылку на гугл карты с геолокацией (необязательно):
 							</div>
@@ -130,7 +130,7 @@ const FormAddress = ({
 								}
 							/>
 						</div>
-						<div>
+						<div className={styles.formElement}>
 							<div className={styles.formInnerWrapper}>
 								Опишите как добраться до вас (необязательно):
 							</div>
