@@ -13,7 +13,7 @@ interface AddContactProps {
 	// selectOption: string;
 	addValue: IContacts;
 	contactData: { [key: string]: FormData };
-	onChangeInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
+	onChangeInput: (text: string) => void;
 	onSave: () => void;
 }
 

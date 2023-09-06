@@ -36,18 +36,13 @@ const FormAddress = ({
 		const mobilePattern = /^https:\/\/maps\.app\.goo\.gl\/[a-zA-Z0-9]+$/;
 		setValidLink(desktopPattern.test(link) || mobilePattern.test(link));
 	};
-	const handleOnChange = (
-		event:
-			| React.ChangeEvent<HTMLInputElement>
-			| React.ChangeEvent<HTMLTextAreaElement>,
-		filedName: string
-	) => {
+	const handleOnChange = (text: string, filedName: string) => {
 		setData((prev) => {
 			return {
 				...prev,
 				address: {
 					...prev.address,
-					[filedName]: event.target.value,
+					[filedName]: text,
 				},
 			};
 		});
@@ -97,7 +92,7 @@ const FormAddress = ({
 								type={"standard"}
 								value={value.addressLine || ""}
 								placeholder={"Адрес"}
-								onChange={(event) => handleOnChange(event, "addressLine")}
+								onChange={(text) => handleOnChange(text, "addressLine")}
 							/>
 							<Description
 								primary={"Пример адреса:"}
@@ -113,9 +108,9 @@ const FormAddress = ({
 								type={"standard"}
 								value={value.googleMapsLink || ""}
 								placeholder={"Ссылка на геолокацию"}
-								onChange={(event) => {
-									handleValidateGoogleLink(event.target.value);
-									handleOnChange(event, "googleMapsLink");
+								onChange={(text) => {
+									handleValidateGoogleLink(text);
+									handleOnChange(text, "googleMapsLink");
 								}}
 							/>
 							{!isValidLink && (
@@ -138,7 +133,9 @@ const FormAddress = ({
 								className={styles.formInput}
 								value={value.comment || ""}
 								placeholder={"Введите описание"}
-								onChange={(event) => handleOnChange(event, "comment")}
+								onChange={(event) =>
+									handleOnChange(event.target.value, "comment")
+								}
 							/>
 							<Description
 								primary={"Пример описания:"}

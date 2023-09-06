@@ -82,12 +82,9 @@ export function Component() {
 		);
 	}, [showQrPopup, closeQrPopup, checkCode, sendPopupByResult]);
 
-	const handleInput = useCallback(
-		(event: React.ChangeEvent<HTMLInputElement>) => {
-			setValue(event.target.value);
-		},
-		[]
-	);
+	const handleInput = useCallback((text: string) => {
+		setValue(text);
+	}, []);
 
 	return (
 		<WebAppProvider

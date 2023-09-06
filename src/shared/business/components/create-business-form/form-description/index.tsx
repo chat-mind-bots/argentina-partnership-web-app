@@ -19,10 +19,10 @@ const FormDescription = ({
 	onChange,
 	isEmptyCallback,
 }: FormDescriptionProps) => {
-	const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+	const handleOnChange = (text: string) => {
 		onChange((prevData: any) => ({
 			...prevData,
-			description: event.target.value,
+			description: text,
 		}));
 	};
 	useEffect(() => {
