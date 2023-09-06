@@ -7,7 +7,7 @@ import { message } from "antd";
 import { patch } from "services/api";
 import UploadPhoto from "shared/components/upload-photo";
 import Card from "shared/components/card";
-import styles from "shared/payment/components/payment-info/confirmation-form/confirmation-form.module.less";
+import styles from "./confirmation-form.module.less";
 
 interface IOwnProps {
 	paymentId: string;
@@ -23,8 +23,8 @@ const ConfirmationForm: FC<IOwnProps> = ({
 	const [txId, setTxId] = useState("");
 	const [photo, setPhoto] = useState<string | undefined>();
 
-	const handleTxId = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setTxId(event.target.value);
+	const handleTxId = (text: string) => {
+		setTxId(text);
 	};
 
 	const sendConfirmation = useCallback(() => {

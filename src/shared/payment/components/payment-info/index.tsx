@@ -1,4 +1,4 @@
-import React, { FC, Suspense, useState } from "react";
+import React, { FC, lazy, Suspense, useState } from "react";
 import styles from "./info.module.less";
 import { PaymentInterface } from "shared/payment/interfaces/payment.interface";
 import { getCurrencyTitleService } from "shared/payment/services/get-currency-title.service";
@@ -7,7 +7,6 @@ import { getPointColorService } from "shared/payment/services/get-point-color.se
 import Point from "shared/components/point";
 import { getPaymentStatusService } from "shared/payment/services/get-payment-status.service";
 import { PaymentStatusEnum } from "shared/payment/interfaces/payment-statuses.enum";
-import PayInstruction from "shared/payment/components/payment-info/pay-instruction";
 import { get } from "services/api";
 import { User } from "shared/home/interfaces/user.interface";
 import {
@@ -22,7 +21,14 @@ import PageLoader from "shared/components/page-loader";
 import { getPayment } from "shared/payment/services/data";
 import { BackButton, WebAppProvider } from "@vkruglikov/react-telegram-web-app";
 import Card from "shared/components/card";
-import ConfirmationForm from "shared/payment/components/payment-info/confirmation-form";
+
+const ConfirmationForm = lazy(
+	() => import("shared/payment/components/payment-info/confirmation-form")
+);
+
+const PayInstruction = lazy(
+	() => import("shared/payment/components/payment-info/pay-instruction")
+);
 
 export async function loader({
 	params: { paymentId },
@@ -125,12 +131,14 @@ const Info: FC = () => {
 									payment.status !== PaymentStatusEnum.PENDING ||
 									!payment.method,
 								children: (
-									<ConfirmationForm
-										isActive={activeTab === "3"}
-										toPaymentInfo={() => setActiveTab("1")}
-										paymentId={payment._id}
-										userId={payment.user}
-									/>
+									<Suspense fallback={<PageLoader />}>
+										<ConfirmationForm
+											isActive={activeTab === "3"}
+											toPaymentInfo={() => setActiveTab("1")}
+											paymentId={payment._id}
+											userId={payment.user}
+										/>
+									</Suspense>
 								),
 							},
 						]}
