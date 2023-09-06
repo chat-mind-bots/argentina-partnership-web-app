@@ -53,8 +53,8 @@ const FormContact = ({
 			type,
 		}));
 	};
-	const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-		const value = event.target.value;
+	const onChangeInput = (text: string) => {
+		const value = text;
 		setAddValue((prev: IContacts) => ({
 			...prev,
 			value,

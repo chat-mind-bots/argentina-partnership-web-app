@@ -11,7 +11,7 @@ interface AddContactProps {
 	optionOnChange: (value: ContactsTypeEnum) => void;
 	addValue: IContacts;
 	contactData: { [key: string]: FormData };
-	onChangeInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
+	onChangeInput: (text: string) => void;
 	onSave: (value: number) => void;
 	onCancel: () => void;
 	editIndex: number;

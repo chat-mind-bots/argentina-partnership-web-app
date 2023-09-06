@@ -19,10 +19,10 @@ const FormTitle = ({
 	onChange,
 	isEmptyCallback,
 }: FormTitleProps) => {
-	const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+	const handleOnChange = (text: string) => {
 		onChange((prevData: any) => ({
 			...prevData,
-			title: event.target.value,
+			title: text,
 		}));
 	};
 

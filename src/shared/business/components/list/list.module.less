@@ -24,10 +24,22 @@
 }
 
 .contentWrapper {
+  position: relative;
   padding: 0 16px;
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+}
+
+.infiniteLoader {
+  position: absolute;
+  z-index: -1;
+  bottom: 0;
+  left: 0;
+  //background-color: red;
+  height: 25%;
+  width: 100%;
 }
 
 .cardWrapper {
@@ -53,6 +65,7 @@
   border-radius: 20px;
 }
 
+
 .noLogoWrapper {
   border: 1px solid var(--tg-theme-hint-color);
 }
@@ -66,6 +79,7 @@
   position: absolute;
   pointer-events: none;
 }
+
 
 .noLogo {
   display: flex;

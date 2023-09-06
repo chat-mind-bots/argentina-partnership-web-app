@@ -18,10 +18,10 @@ const InputTextArea = ({
 	fieldName,
 	isEmptyCallback,
 }: InputTextProps) => {
-	const handleOnChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+	const handleOnChange = (text: string) => {
 		onChange((prevData: any) => ({
 			...prevData,
-			[fieldName]: event.target.value,
+			[fieldName]: text,
 		}));
 	};
 	useEffect(() => {
@@ -34,7 +34,7 @@ const InputTextArea = ({
 
 	return (
 		<Input.TextArea
-			onChange={handleOnChange}
+			onChange={(event) => handleOnChange(event.target.value)}
 			placeholder={placeholder}
 			value={value}
 			className={className}

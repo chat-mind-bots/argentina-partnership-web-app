@@ -16,8 +16,8 @@ const ConfirmationForm: FC<IOwnProps> = ({ paymentId, userId, onClose }) => {
 	const [txId, setTxId] = useState("");
 	const [photo, setPhoto] = useState<string | undefined>();
 
-	const handleTxId = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setTxId(event.target.value);
+	const handleTxId = (text: string) => {
+		setTxId(text);
 	};
 
 	const sendConfirmation = useCallback(() => {

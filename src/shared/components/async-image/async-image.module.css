@@ -1,0 +1,13 @@
+.logo {
+    top: 0;
+    width: 100%;
+    border-radius: 20px;
+    bottom: 0;
+    margin: auto;
+    position: absolute;
+    pointer-events: none;
+}
+
+.loadingLogo {
+    display: none;
+}
