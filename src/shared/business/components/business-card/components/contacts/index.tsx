@@ -1,10 +1,10 @@
 import React from "react";
 import styles from "shared/business/components/business-card/components/contacts/contacts.module.less";
-import Telegram from "public/assets/icons/telegram.svg";
-import Website from "public/assets/icons/website.svg";
-import Phone from "public/assets/icons/phone.svg";
-import WhatsApp from "public/assets/icons/whatsapp.svg";
-import Bot from "public/assets/icons/bot.svg";
+import { ReactComponent as Telegram } from "public/assets/icons/telegram.svg";
+import { ReactComponent as Website } from "public/assets/icons/website.svg";
+import { ReactComponent as Phone } from "public/assets/icons/phone.svg";
+import { ReactComponent as WhatsApp } from "public/assets/icons/whatsapp.svg";
+import { ReactComponent as Bot } from "public/assets/icons/bot.svg";
 import {
 	ContactsTypeEnum,
 	IContacts,

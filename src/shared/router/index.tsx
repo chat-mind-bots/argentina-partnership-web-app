@@ -3,6 +3,12 @@ import React from "react";
 
 export const router = createBrowserRouter([
 	{
+		path: "",
+		Component() {
+			return <div>Home page</div>;
+		},
+	},
+	{
 		path: "qr-check",
 		lazy: () => import("shared/qr-code/qr-check"),
 	},

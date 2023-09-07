@@ -11,7 +11,6 @@ function App() {
 	useEffect(() => {
 		tg.setHeaderColor(tg.themeParams.secondary_bg_color);
 	}, [tg]);
-
 	return (
 		<BusinessProvider>
 			<ConfigProvider

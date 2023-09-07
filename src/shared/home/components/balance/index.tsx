@@ -1,6 +1,6 @@
 import React, { FC, useCallback, useMemo } from "react";
 import styles from "shared/home/components/balance/balance.module.less";
-import Plus from "public/assets/icons/plus.svg";
+import { ReactComponent as Plus } from "public/assets/icons/plus.svg";
 import { splitNumber } from "services/splitNumber";
 import { useNavigate } from "react-router-dom";
 import Header from "shared/components/header";
