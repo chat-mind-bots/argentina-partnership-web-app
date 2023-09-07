@@ -12,7 +12,7 @@ import {
 	useLoaderData,
 	useNavigate,
 } from "react-router-dom";
-import History from "public/assets/icons/history.svg";
+import { ReactComponent as History } from "public/assets/icons/history.svg";
 import ContentLayout from "shared/components/content-layout";
 import InputText from "shared/components/input/input-text";
 import Description from "shared/components/description";

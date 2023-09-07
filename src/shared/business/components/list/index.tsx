@@ -12,7 +12,7 @@ import { getBusinesses, getCategories } from "shared/business/data";
 import { BusinessesDto } from "shared/business/dto/businesses.dto";
 import ContentLayout from "shared/components/content-layout";
 import styles from "./list.module.less";
-import Filter from "public/assets/icons/filter.svg";
+import { ReactComponent as Filter } from "public/assets/icons/filter.svg";
 import BusinessMiniCard from "shared/business/components/list/components/business-mini-card";
 import { useInView } from "react-intersection-observer";
 import InputText from "shared/components/input/input-text";
@@ -81,7 +81,6 @@ const BusinessList = () => {
 						Math.ceil(res.total / LIMITONPAGE) < 1
 							? 1
 							: Math.ceil(res.total / LIMITONPAGE);
-					console.log(maxPage);
 					setMaxPage(maxPage);
 					setFieldValue("maxPage", maxPage);
 					setIsLoading(false);
@@ -93,7 +92,6 @@ const BusinessList = () => {
 	});
 
 	const handleFilters = () => {
-		console.log("maxPageinScroll", maxPage);
 		setParams((prevState) => ({
 			...prevState,
 			...tempParams,
@@ -143,7 +141,6 @@ const BusinessList = () => {
 	};
 
 	const handleOnScroll = () => {
-		console.log(params.page, maxPage, "tempParams");
 		if (inView && params.page < maxPage) {
 			handleFilters();
 		}
