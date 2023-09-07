@@ -39,6 +39,10 @@ export async function loader() {
 	return defer({ dataPromise });
 }
 
+interface BusinessExtended extends Business {
+	isLoadingImage?: boolean;
+}
+
 const BusinessList = () => {
 	const [categories] = useAsyncValue() as [Category[]];
 	const [business, setBusiness] = useState<Business[]>([]);
@@ -149,20 +153,22 @@ const BusinessList = () => {
 	return (
 		<WebAppProvider>
 			<div>
-				<form onSubmit={handleSubmit}>
-					<InputText
-						value={tempParams.q || ""}
-						type={"standard"}
-						placeholder={"Поиск партнеров"}
-						onFocus={() => {
-							setFocusSearch(true);
-						}}
-						onBlur={() => {
-							setFocusSearch(false);
-						}}
-						onChange={handleOnChangeQ}
-					/>
-				</form>
+				<div className={styles.contentWrapper}>
+					<form onSubmit={handleSubmit}>
+						<InputText
+							value={tempParams.q || ""}
+							type={"standard"}
+							placeholder={"Поиск по партнерам"}
+							onFocus={() => {
+								setFocusSearch(true);
+							}}
+							onBlur={() => {
+								setFocusSearch(false);
+							}}
+							onChange={handleOnChangeQ}
+						/>
+					</form>
+				</div>
 				{values.isFocusSearch && (
 					<MainButton text={"Поиск"} onClick={handleSubmitForm} />
 				)}
@@ -190,7 +196,6 @@ const BusinessList = () => {
 						<MainButton
 							text={"Применить фильтры"}
 							onClick={() => {
-								// applyParams();
 								handleSubmitForm();
 								openFiltersHandler();
 							}}
@@ -201,15 +206,15 @@ const BusinessList = () => {
 					<List
 						mas={business}
 						skeleton={<ListSkeleton />}
-						renderFunction={(item: Business) => {
-							const {
-								_id,
-								owner: { _id: ownerId },
-								avgCheck,
-								category,
-								preview,
-								title,
-							} = item;
+						skeletonCount={LIMITONPAGE}
+						renderFunction={({
+							_id,
+							owner: { _id: ownerId },
+							avgCheck,
+							category,
+							preview,
+							title,
+						}) => {
 							return (
 								<NavLink
 									to={`/partner/${ownerId}/business/${_id}/`}
@@ -241,10 +246,10 @@ const BusinessList = () => {
 						isLoading={isLoading}
 					/>
 					<div ref={ref} className={styles.infiniteLoader} />
+					{values.isEmptyResult && (
+						<div>По вашему запросу ничего не найдено...</div>
+					)}
 				</div>
-				{values.isEmptyResult && (
-					<div>По вашему запросу ничего не найдено...</div>
-				)}
 			</ContentLayout>
 			<BackButton onClick={navigateToMain} />
 		</WebAppProvider>

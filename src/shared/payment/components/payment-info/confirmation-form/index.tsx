@@ -8,6 +8,7 @@ import { patch } from "services/api";
 import UploadPhoto from "shared/components/upload-photo";
 import Card from "shared/components/card";
 import styles from "./confirmation-form.module.less";
+import Ellipsis from "shared/components/ellipsis";
 
 interface IOwnProps {
 	paymentId: string;
@@ -26,7 +27,7 @@ const ConfirmationForm: FC<IOwnProps> = ({
 	const handleTxId = (text: string) => {
 		setTxId(text);
 	};
-
+	console.log(photo);
 	const sendConfirmation = useCallback(() => {
 		patch(`payment/to-review/${paymentId}`, {
 			query: { userId },
@@ -56,7 +57,11 @@ const ConfirmationForm: FC<IOwnProps> = ({
 							<Description
 								primary={"Пример:"}
 								secondary={
-									"0f2e1a2ae7117ba4ce8e3c19e368fa545a4cdaf7274e1n1764f9d6062d38f598"
+									<Ellipsis>
+										{
+											"0f2e1a2ae7117ba4ce8e3c19e368fa545a4cdaf7274e1n1764f9d6062d38f598"
+										}
+									</Ellipsis>
 								}
 							/>
 						}
@@ -66,6 +71,7 @@ const ConfirmationForm: FC<IOwnProps> = ({
 						onChange={(url) => {
 							setPhoto(url);
 						}}
+						defaultImage={photo}
 					/>
 					{(txId || photo) && (
 						<MainButton

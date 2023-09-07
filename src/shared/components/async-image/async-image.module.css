@@ -11,3 +11,14 @@
 .loadingLogo {
     display: none;
 }
+
+.isLoadingImage {
+    z-index: -1;
+}
+
+.skeletonWrapper {
+    position: absolute;
+    bottom: 0;
+    z-index: 1;
+    pointer-events: none;
+}
