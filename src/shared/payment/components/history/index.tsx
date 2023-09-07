@@ -10,8 +10,8 @@ import {
 } from "react-router-dom";
 import PageLoader from "shared/components/page-loader";
 import { get } from "services/api";
-import TopUpHistory from "public/assets/icons/top-up-history.svg";
-import Filter from "public/assets/icons/filter.svg";
+import { ReactComponent as TopUpHistory } from "public/assets/icons/top-up-history.svg";
+import { ReactComponent as Filter } from "public/assets/icons/filter.svg";
 import { PaymentInterface } from "shared/payment/interfaces/payment.interface";
 import {
 	BackButton,

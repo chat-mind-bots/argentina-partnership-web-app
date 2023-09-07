@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import styles from "shared/payment/components/payment-info/pay-instruction/pay-instruction.module.less";
-import Copy from "public/assets/icons/copy.svg";
+import { ReactComponent as Copy } from "public/assets/icons/copy.svg";
 import { NetworksEnum } from "shared/payment/interfaces/networks.enum";
 import ContentLayout from "shared/components/content-layout";
 import { getNetworkTitle } from "shared/payment/services/get-network-title";

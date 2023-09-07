@@ -1,5 +1,5 @@
 import React from "react";
-import Ok from "public/assets/icons/ok.svg";
+import { ReactComponent as Ok } from "public/assets/icons/ok.svg";
 import styles from "shared/home/components/subscribe/subscribe.module.less";
 import Flat from "shared/components/flat";
 

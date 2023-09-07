@@ -1,12 +1,9 @@
-import * as process from "process";
-
 export const config = {
 	api: {
 		baseURL:
-			process.env.MODE === "LOCAL"
+			import.meta.env.VITE_MODE === "LOCAL"
 				? "http://localhost:3000"
-				: `https://${process.env.BASE_URL}/api/`,
-		// process.env.NODE_ENV === "develop" ? "http://localhost:5050/" : undefined,
+				: `https://${import.meta.env.VITE_BASE_URL}/api/`,
 		timeout: 25000,
 	},
 };

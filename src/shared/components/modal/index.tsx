@@ -1,5 +1,5 @@
 import React, { FC, ReactNode } from "react";
-import Close from "public/assets/icons/close.svg";
+import { ReactComponent as Close } from "public/assets/icons/close.svg";
 import ReactDOM from "react-dom";
 import styles from "./modal.module.less";
 
