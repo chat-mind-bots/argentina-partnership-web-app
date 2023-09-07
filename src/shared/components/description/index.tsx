@@ -10,7 +10,7 @@ const Description: FC<IOwnProps> = ({ primary, secondary }) => {
 	return (
 		<div className={styles.stepDescription}>
 			<div className={styles.stepDescriptionTitle}>{primary}</div>
-			<div className={styles.ellipsis}>{secondary}</div>
+			<div>{secondary}</div>
 		</div>
 	);
 };

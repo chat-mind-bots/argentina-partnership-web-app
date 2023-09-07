@@ -1,18 +1,28 @@
 import React from "react";
 import PageLoader from "shared/components/page-loader";
 
-interface ListProps {
-	mas: Array<any>;
-	renderFunction: (item: any) => React.ReactNode;
+interface ListProps<T> {
+	mas: Array<T>;
+	renderFunction: (item: T) => React.ReactNode;
 	isLoading: boolean;
 	skeleton?: React.ReactNode;
+	skeletonCount?: number;
 }
 
-const List = ({ mas, renderFunction, isLoading, skeleton }: ListProps) => {
+const List = <T extends unknown>({
+	mas,
+	renderFunction,
+	isLoading,
+	skeleton,
+	skeletonCount,
+}: ListProps<T>) => {
 	return (
 		<div>
 			{mas.map((item) => renderFunction(item))}
-			{isLoading && (skeleton || <PageLoader />)}
+			{isLoading &&
+				(Array(skeletonCount || 1)
+					.fill(0)
+					.map(() => skeleton) || <PageLoader />)}
 		</div>
 	);
 };

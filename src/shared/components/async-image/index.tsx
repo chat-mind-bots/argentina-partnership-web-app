@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import styles from "shared/components/async-image/async-image.module.css";
 
 interface AsyncImageProps {
 	link: string;
 	alt: string;
+	skeleton?: React.ReactNode;
 	isLogo?: boolean;
 	updateImageState?: () => void;
 }
@@ -12,6 +13,7 @@ const AsyncImage = ({
 	link,
 	alt,
 	isLogo,
+	skeleton,
 	updateImageState,
 }: AsyncImageProps) => {
 	const ref = useRef<HTMLImageElement>(null);
@@ -44,6 +46,7 @@ const AsyncImage = ({
 				alt={alt}
 				ref={ref}
 			/>
+			{isLoading && <div className={styles.skeletonWrapper}>{skeleton}</div>}
 		</div>
 	);
 };

@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "shared/business/components/list/list.module.less";
 import AsyncImage from "shared/components/async-image";
+import ImageSkeleton from "shared/business/components/list/components/skeleton/image-skeleton";
 interface BusinessMiniCardProps {
 	title: string;
 	updateImageState: () => void;
@@ -26,6 +27,7 @@ const BusinessMiniCard = ({
 						link={preview}
 						alt={preview}
 						isLogo
+						skeleton={<ImageSkeleton />}
 						updateImageState={updateImageState}
 					/>
 				) : (

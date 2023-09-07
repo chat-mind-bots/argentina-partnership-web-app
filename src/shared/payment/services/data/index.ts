@@ -2,6 +2,7 @@ import { get, post } from "services/api";
 import {
 	PaymentInterface,
 	CreatePaymentInterface,
+	PaymentInterfaceDto,
 } from "shared/payment/interfaces/payment.interface";
 import { GetPaymentDto } from "shared/payment/interfaces/get-payment.dto";
 
@@ -9,7 +10,7 @@ export const createPayment = (userId: string, body: CreatePaymentInterface) =>
 	post<PaymentInterface>("payment", { body, query: { userId } });
 
 export const getMyPayments = (userId: string, query: GetPaymentDto) =>
-	get<PaymentInterface[]>("payment", { query: { ...query, userId } });
+	get<PaymentInterfaceDto>("payment", { query: { ...query, userId } });
 
 export const getPayment = (userId: string, paymentId: string) =>
 	get<PaymentInterface>(`payment/${paymentId}`, { query: { userId } });

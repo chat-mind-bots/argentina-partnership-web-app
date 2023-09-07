@@ -70,6 +70,7 @@ const Info: FC = () => {
 					<Tabs
 						activeKey={activeTab}
 						onChange={(activeKey) => setActiveTab(activeKey)}
+						className={styles.popup}
 						items={[
 							{
 								label: "Информация по платежу",
