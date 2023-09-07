@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useAsyncValue, useNavigate, useSearchParams } from "react-router-dom";
-import { User } from "../../../home/interfaces/user.interface";
+import { User } from "shared/home/interfaces/user.interface";
 import { PaymentInterface } from "../../interfaces/payment.interface";
 import { PaymentStatusEnum } from "../../interfaces/payment-statuses.enum";
 import { getMyPayments } from "../../services/data";
@@ -21,15 +21,18 @@ import PageLoader from "../../../components/page-loader";
 import PaymentCard from "./card";
 import NothingFound from "../../../components/nothing-found";
 import { IFiltersForm } from "./index";
+import { useInView } from "react-intersection-observer";
 
 interface IFilters extends IFiltersForm {
 	page: number;
 }
 
+const LIMITONPAGE = 4;
+
 const History = () => {
 	const user = useAsyncValue() as User;
 	const [searchParams] = useSearchParams();
-
+	const [maxPage, setMaxPage] = useState(1);
 	const [payments, setPayments] = useState<PaymentInterface[]>([]);
 	const [filters, setFilters] = useState<IFilters>({
 		page: 0,
@@ -40,6 +43,10 @@ const History = () => {
 	const [temporaryFilters, setTemporaryFilters] = useState<IFiltersForm>({});
 
 	const [isOpenFilters, setIsOpenFilters] = useState(false);
+
+	const { ref, inView } = useInView({
+		delay: 500,
+	});
 
 	const [loading, setLoading] = useState(false);
 	const [emptyResult, setEmptyResult] = useState(false);
@@ -53,14 +60,19 @@ const History = () => {
 		setLoading(true);
 		setEmptyResult(false);
 		getMyPayments(user._id, {
-			limit: 10,
-			offset: filters.page * 10,
+			limit: LIMITONPAGE,
+			offset: filters.page * LIMITONPAGE,
 			status: filters.status ? filters.status : undefined,
 			currency: filters.currency ? filters.currency : undefined,
 		})
-			.then((data) => {
-				setPayments(data);
-				if (data.length) {
+			.then(({ data, total }) => {
+				setPayments((prev) => (filters.page === 0 ? data : [...prev, ...data]));
+				const maxPage =
+					Math.ceil(total / LIMITONPAGE) < 1
+						? 1
+						: Math.ceil(total / LIMITONPAGE);
+				setMaxPage(maxPage);
+				if (payments.length) {
 					setEmptyResult(false);
 				} else {
 					setEmptyResult(true);
@@ -72,6 +84,24 @@ const History = () => {
 				setLoading(false);
 			});
 	}, [filters, user._id]);
+
+	useEffect(() => {
+		!loading && handleOnScroll();
+	}, [inView]);
+
+	const handleOnScroll = () => {
+		if (inView && filters.page < maxPage - 1) {
+			console.log("filters", filters.page, maxPage);
+			handleFilters();
+		}
+	};
+
+	const handleFilters = () => {
+		setFilters((prevState) => ({
+			...prevState,
+			page: prevState.page < maxPage ? prevState.page + 1 : prevState.page,
+		}));
+	};
 
 	const toTopUp = useCallback(() => {
 		navigation("/top-up");
@@ -134,18 +164,21 @@ const History = () => {
 					</div>
 				}
 			>
-				{loading ? (
-					<PageLoader />
-				) : (
-					payments.map((payment) => (
-						<PaymentCard
-							{...payment}
-							reLoad={reLoad}
-							key={`payment-card--${payment._id}`}
-							userId={user._id}
-						/>
-					))
-				)}
+				<div className={styles.contentWrapper}>
+					{loading ? (
+						<PageLoader />
+					) : (
+						payments.map((payment) => (
+							<PaymentCard
+								{...payment}
+								reLoad={reLoad}
+								key={`payment-card--${payment._id}`}
+								userId={user._id}
+							/>
+						))
+					)}
+					<div className={styles.infinityLoader} ref={ref} />
+				</div>
 				{emptyResult && <NothingFound />}
 			</Card>
 

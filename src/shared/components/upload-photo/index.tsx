@@ -20,6 +20,7 @@ const UploadPhoto: FC<IOwnProps> = ({ defaultImage, onChange }) => {
 		async function fetchData() {
 			if (defaultImage) {
 				const imageData = await getImage(defaultImage);
+				console.log(imageData);
 				setDefaultList([
 					{
 						uid: imageData._id, // or use some unique identifier
@@ -67,6 +68,7 @@ const UploadPhoto: FC<IOwnProps> = ({ defaultImage, onChange }) => {
 			formData.append("file", file);
 			formData.append("userId", user?.id);
 			const response = await uploadPhoto(formData);
+			console.log("file", response);
 			if (response) {
 				onSuccess(response, file);
 				onChange(response.file._id);

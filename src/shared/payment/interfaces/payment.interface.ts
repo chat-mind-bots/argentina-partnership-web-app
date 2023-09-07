@@ -16,3 +16,8 @@ export interface PaymentInterface extends CreatePaymentInterface {
 	createdAt: Date;
 	updatedAt: Date;
 }
+
+export interface PaymentInterfaceDto {
+	data: PaymentInterface[];
+	total: number;
+}

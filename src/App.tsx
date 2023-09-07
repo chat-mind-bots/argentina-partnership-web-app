@@ -16,17 +16,18 @@ function App() {
 			<ConfigProvider
 				theme={{
 					token: {
-						colorText: theme.text_color,
-						colorTextPlaceholder: theme.hint_color,
-						colorTextDisabled: theme.hint_color,
-						colorBgContainer: theme.secondary_bg_color,
-						colorBgElevated: theme.bg_color,
+						// colorText: theme.text_color,
+						// colorTextPlaceholder: theme.hint_color,
+						// colorTextDisabled: theme.hint_color,
+						// colorBgContainer: theme.secondary_bg_color,
+						// colorBgElevated: theme.bg_color,
 					},
 					components: {
 						Tabs: {
 							cardBg: theme.bg_color,
 							itemActiveColor: theme.text_color,
 							itemHoverColor: theme.link_color,
+							// colorText: theme.text_color,
 							itemSelectedColor: theme.link_color,
 							inkBarColor: theme.link_color,
 							horizontalMargin: "0 10px 16px 10px",
