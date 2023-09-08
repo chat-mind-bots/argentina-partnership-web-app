@@ -15,6 +15,7 @@ interface IOwnProps {
 const UploadPhoto: FC<IOwnProps> = ({ defaultImage, onChange }) => {
 	const { user } = useTelegram();
 	const [defaultList, setDefaultList] = useState<UploadFile[]>([]);
+	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
 		async function fetchData() {
@@ -42,18 +43,21 @@ const UploadPhoto: FC<IOwnProps> = ({ defaultImage, onChange }) => {
 
 	const onChangeUpload = (info: UploadChangeParam) => {
 		if (info.file.status === "uploading") {
+			setIsLoading(true);
 			setDefaultList([
 				{
 					uid: info.file.uid, // or use some unique identifier
-					name: info.file.fileName || "uploading",
+					name: info.file.fileName || "",
 					status: "uploading",
 					url: `loading`,
 				},
 			]);
 		}
 		if (info.file.status === "done") {
+			setIsLoading(false);
 			message.success(`${info.file.name} file uploaded successfully`);
 		} else if (info.file.status === "error") {
+			setIsLoading(false);
 			message.error(`${info.file.name} file upload failed.`);
 		}
 	};
@@ -85,7 +89,7 @@ const UploadPhoto: FC<IOwnProps> = ({ defaultImage, onChange }) => {
 			<Upload
 				fileList={defaultList}
 				showUploadList={{
-					showRemoveIcon: true,
+					showRemoveIcon: !isLoading,
 					removeIcon: <DeleteOutlined className={styles.icon} />,
 				}}
 				onChange={onChangeUpload}
