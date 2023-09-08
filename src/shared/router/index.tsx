@@ -28,6 +28,10 @@ export const router = createBrowserRouter([
 				lazy: () => import("shared/payment/components/history"),
 			},
 			{
+				path: "partnership",
+				lazy: () => import("shared/partnership"),
+			},
+			{
 				path: "payment/:paymentId",
 				lazy: () => import("shared/payment/components/payment-info"),
 			},

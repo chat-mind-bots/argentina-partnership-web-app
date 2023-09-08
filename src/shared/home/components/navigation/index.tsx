@@ -45,8 +45,21 @@ const Navigation = () => {
 					</div>
 				}
 			>
-				<div className={`${styles.content} ${styles.last}`}>
+				<div className={`${styles.content}`}>
 					<span>Показать QR-код</span>
+					<AngleRight />
+				</div>
+			</NavigationButton>
+			<NavigationButton
+				onClick={() => navigate("/partnership")}
+				logo={
+					<div className={styles.logo}>
+						<Qr />
+					</div>
+				}
+			>
+				<div className={`${styles.content} ${styles.last}`}>
+					<span>Сотрудничество</span>
 					<AngleRight />
 				</div>
 			</NavigationButton>
