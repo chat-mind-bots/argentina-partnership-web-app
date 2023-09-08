@@ -3,6 +3,7 @@ import styles from "shared/home/components/navigation/navigation.module.less";
 import { ReactComponent as Business } from "public/assets/icons/business.svg";
 import { ReactComponent as AngleRight } from "public/assets/icons/angle-right.svg";
 import { ReactComponent as Qr } from "public/assets/icons/qr.svg";
+import { ReactComponent as Partnership } from "public/assets/icons/partnership.svg";
 import { ReactComponent as TariffPlans } from "public/assets/icons/tariff.svg";
 import NavigationButton from "shared/home/components/navigation/navigation-button";
 import Card from "shared/components/card";
@@ -45,8 +46,21 @@ const Navigation = () => {
 					</div>
 				}
 			>
-				<div className={`${styles.content} ${styles.last}`}>
+				<div className={`${styles.content}`}>
 					<span>Показать QR-код</span>
+					<AngleRight />
+				</div>
+			</NavigationButton>
+			<NavigationButton
+				onClick={() => navigate("/partnership")}
+				logo={
+					<div className={styles.logo}>
+						<Partnership />
+					</div>
+				}
+			>
+				<div className={`${styles.content} ${styles.last}`}>
+					<span>Сотрудничество</span>
 					<AngleRight />
 				</div>
 			</NavigationButton>
