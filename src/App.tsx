@@ -12,15 +12,9 @@ function App() {
 	useEffect(() => {
 		tg.setHeaderColor(tg.themeParams.secondary_bg_color);
 	}, [tg]);
-	console.log(typeof tg.initData);
-	console.log(tg.initData);
 
-	// const onTest = () => {
-	// 	get("/bot/test", { query: { data: tg.initData } });
-	// };
 	return (
 		<BusinessProvider>
-			{/*<button onClick={onTest}>Data check</button>*/}
 			<ConfigProvider
 				theme={{
 					token: {
