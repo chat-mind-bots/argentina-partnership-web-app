@@ -39,10 +39,6 @@ export async function loader() {
 	return defer({ dataPromise });
 }
 
-interface BusinessExtended extends Business {
-	isLoadingImage?: boolean;
-}
-
 const BusinessList = () => {
 	const [categories] = useAsyncValue() as [Category[]];
 	const [business, setBusiness] = useState<Business[]>([]);
@@ -245,7 +241,7 @@ const BusinessList = () => {
 						}}
 						isLoading={isLoading}
 					/>
-					<div ref={ref} className={styles.infiniteLoader} />
+					<div ref={ref} className={styles.infinityLoader} />
 					{values.isEmptyResult && (
 						<div>По вашему запросу ничего не найдено...</div>
 					)}

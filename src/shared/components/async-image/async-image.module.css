@@ -9,7 +9,7 @@
 }
 
 .loadingLogo {
-    display: none;
+    opacity: 0;
 }
 
 .isLoadingImage {

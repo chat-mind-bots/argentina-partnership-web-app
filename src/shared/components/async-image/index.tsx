@@ -42,7 +42,9 @@ const AsyncImage = ({
 				// onLoadStart={() => {
 				// }}
 				loading={"lazy"}
-				className={`${isLogo && styles.logo}`}
+				className={`${isLogo && styles.logo} ${
+					isLoading ? styles.loadingLogo : ""
+				}`}
 				alt={alt}
 				ref={ref}
 			/>

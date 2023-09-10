@@ -3,11 +3,12 @@ import styles from "shared/home/components/navigation/navigation.module.less";
 import { ReactComponent as Business } from "public/assets/icons/business.svg";
 import { ReactComponent as AngleRight } from "public/assets/icons/angle-right.svg";
 import { ReactComponent as Qr } from "public/assets/icons/qr.svg";
+import { ReactComponent as Information } from "public/assets/icons/help.svg";
 import { ReactComponent as Partnership } from "public/assets/icons/partnership.svg";
 import { ReactComponent as TariffPlans } from "public/assets/icons/tariff.svg";
 import NavigationButton from "shared/home/components/navigation/navigation-button";
 import Card from "shared/components/card";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navigation = () => {
 	const navigate = useNavigate();
@@ -59,11 +60,25 @@ const Navigation = () => {
 					</div>
 				}
 			>
-				<div className={`${styles.content} ${styles.last}`}>
+				<div className={`${styles.content}`}>
 					<span>Сотрудничество</span>
 					<AngleRight />
 				</div>
 			</NavigationButton>
+			<Link to={"https://t.me/kurkul608"} target={"_blank"}>
+				<NavigationButton
+					logo={
+						<div className={styles.logo}>
+							<Information />
+						</div>
+					}
+				>
+					<div className={`${styles.content} ${styles.last}`}>
+						<span>Помощь</span>
+						<AngleRight />
+					</div>
+				</NavigationButton>
+			</Link>
 		</Card>
 	);
 };
