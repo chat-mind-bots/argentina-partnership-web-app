@@ -20,7 +20,9 @@ const BusinessMiniCard = ({
 	return (
 		<div>
 			<div
-				className={`${styles.logoWrapper} ${!preview && styles.noLogoWrapper}`}
+				className={`${styles.logoWrapper} ${
+					!preview ? styles.noLogoWrapper : ""
+				}`}
 			>
 				{preview ? (
 					<AsyncImage

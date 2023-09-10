@@ -34,6 +34,9 @@ function App() {
 							inkBarColor: theme.link_color,
 							horizontalMargin: "0 10px 16px 10px",
 						},
+						Button: {
+							colorTextDisabled: theme.text_color,
+						},
 					},
 				}}
 			>
