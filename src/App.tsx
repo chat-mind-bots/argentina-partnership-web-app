@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 import { RouterProvider } from "react-router-dom";
 import { router } from "shared/router";
 import PageLoader from "shared/components/page-loader";
@@ -41,10 +41,12 @@ function App() {
 				}}
 			>
 				{/*<RouterProvider router={router} fallbackElement={<PageLoader />} />*/}
-				<RouterProvider
-					router={router}
-					fallbackElement={<div>LOADING....s</div>}
-				/>
+				<Suspense fallback={<div>SUSPENSR FAALLLBACK</div>}>
+					<RouterProvider
+						router={router}
+						fallbackElement={<div>LOADING....s</div>}
+					/>
+				</Suspense>
 			</ConfigProvider>
 		</BusinessProvider>
 	);
