@@ -13,58 +13,154 @@ export const router = createBrowserRouter([
 		children: [
 			{
 				path: "qr-check",
-				lazy: () => import("shared/qr-code/qr-check"),
-				element: <Suspense fallback={<div>LOAD..</div>}></Suspense>,
+				element: (
+					<Suspense fallback={<div>LOAD..</div>}>
+						<Outlet />
+					</Suspense>
+				),
+				children: [
+					{ index: true, lazy: () => import("shared/qr-code/qr-check") },
+				],
 			},
 			{
 				path: "qr-generate",
-				lazy: () => import("shared/qr-code/qr-generate"),
-				element: <Suspense fallback={<div>LOAD..</div>}></Suspense>,
+				element: (
+					<Suspense fallback={<div>LOAD..</div>}>
+						<Outlet />
+					</Suspense>
+				),
+				children: [
+					{ index: true, lazy: () => import("shared/qr-code/qr-generate") },
+				],
 			},
 			{
 				path: "home",
-				lazy: () => import("shared/home/components"),
-				element: <Suspense fallback={<div>LOAD..</div>}></Suspense>,
+
+				element: (
+					<Suspense fallback={<div>LOAD..</div>}>
+						<Outlet />
+					</Suspense>
+				),
+				children: [
+					{ index: true, lazy: () => import("shared/home/components") },
+				],
 			},
 			{
 				path: "my-payments",
-				lazy: () => import("shared/payment/components/history"),
-				element: <Suspense fallback={<div>LOAD..</div>}></Suspense>,
+
+				element: (
+					<Suspense fallback={<div>LOAD..</div>}>
+						<Outlet />
+					</Suspense>
+				),
+				children: [
+					{
+						index: true,
+						lazy: () => import("shared/payment/components/history"),
+					},
+				],
 			},
 			{
 				path: "partnership",
-				lazy: () => import("shared/partnership"),
-				element: <Suspense fallback={<div>LOAD..</div>}></Suspense>,
+
+				element: (
+					<Suspense fallback={<div>LOAD..</div>}>
+						<Outlet />
+					</Suspense>
+				),
+				children: [{ index: true, lazy: () => import("shared/partnership") }],
 			},
 			{
 				path: "payment/:paymentId",
-				lazy: () => import("shared/payment/components/payment-info"),
-				element: <Suspense fallback={<div>LOAD..</div>}></Suspense>,
+
+				element: (
+					<Suspense fallback={<div>LOAD..</div>}>
+						<Outlet />
+					</Suspense>
+				),
+				children: [
+					{
+						index: true,
+						lazy: () => import("shared/payment/components/payment-info"),
+					},
+				],
 			},
 			{
 				path: "top-up",
-				lazy: () => import("shared/payment/components/top-up"),
-				element: <Suspense fallback={<div>LOAD..</div>}></Suspense>,
+
+				element: (
+					<Suspense fallback={<div>LOAD..</div>}>
+						<Outlet />
+					</Suspense>
+				),
+				children: [
+					{
+						index: true,
+						lazy: () => import("shared/payment/components/top-up"),
+					},
+				],
 			},
 			{
 				path: "/create/business",
-				lazy: () => import("shared/business/components/create-business-form"),
-				element: <Suspense fallback={<div>LOAD..</div>}></Suspense>,
+
+				element: (
+					<Suspense fallback={<div>LOAD..</div>}>
+						<Outlet />
+					</Suspense>
+				),
+				children: [
+					{
+						index: true,
+						lazy: () =>
+							import("shared/business/components/create-business-form"),
+					},
+				],
 			},
 			{
 				path: "/partner/:userId/business/:businessId/",
-				lazy: () => import("shared/business/components/business-card"),
-				element: <Suspense fallback={<div>LOAD..</div>}></Suspense>,
+
+				element: (
+					<Suspense fallback={<div>LOAD..</div>}>
+						<Outlet />
+					</Suspense>
+				),
+				children: [
+					{
+						index: true,
+						lazy: () => import("shared/business/components/business-card"),
+					},
+				],
 			},
 			{
 				path: "/partner/:userId/business/:businessId/update",
-				lazy: () => import("shared/business/components/create-business-form"),
-				element: <Suspense fallback={<div>LOAD..</div>}></Suspense>,
+
+				element: (
+					<Suspense fallback={<div>LOAD..</div>}>
+						<Outlet />
+					</Suspense>
+				),
+				children: [
+					{
+						index: true,
+						lazy: () =>
+							import("shared/business/components/create-business-form"),
+					},
+				],
 			},
 			{
 				path: "/partners",
-				lazy: () => import("shared/business/components/list"),
-				element: <Suspense fallback={<div>LOAD..</div>}></Suspense>,
+
+				element: (
+					<Suspense fallback={<div>LOAD..</div>}>
+						<Outlet />
+					</Suspense>
+				),
+				children: [
+					{
+						index: true,
+						lazy: () => import("shared/business/components/list"),
+					},
+				],
 			},
 		],
 	},
