@@ -33,7 +33,7 @@ export async function loader() {
 	return defer({ userDataPromise });
 }
 
-export default function TopUp() {
+function TopUp() {
 	const [value, setValue] = useState<{
 		amount: string;
 		network?: NetworksEnum;
@@ -141,13 +141,13 @@ export default function TopUp() {
 	);
 }
 
-// export function Component() {
-// 	const data = useLoaderData() as { userDataPromise: User };
-// 	return (
-// 		<Suspense fallback={<PageLoader />}>
-// 			<Await resolve={data.userDataPromise}>
-// 				<TopUp />
-// 			</Await>
-// 		</Suspense>
-// 	);
-// }
+export function Component() {
+	const data = useLoaderData() as { userDataPromise: User };
+	return (
+		<Suspense fallback={<PageLoader />}>
+			<Await resolve={data.userDataPromise}>
+				<TopUp />
+			</Await>
+		</Suspense>
+	);
+}

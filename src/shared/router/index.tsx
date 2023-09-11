@@ -1,9 +1,6 @@
 import { createBrowserRouter, Outlet } from "react-router-dom";
-import React, { lazy, Suspense } from "react";
+import React, { Suspense } from "react";
 import PageLoader from "../components/page-loader";
-import { loader } from "../payment/components/top-up";
-
-const TopUp = lazy(() => import("shared/payment/components/top-up"));
 
 export const router = createBrowserRouter([
 	{
@@ -40,13 +37,7 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: "top-up",
-				loader: loader,
-				element: (
-					<Suspense fallback={<div>TOP UP LOAD</div>}>
-						<TopUp />
-					</Suspense>
-				),
-				// lazy: () => import("shared/payment/components/top-up"),
+				lazy: () => import("shared/payment/components/top-up"),
 			},
 			{
 				path: "/create/business",
