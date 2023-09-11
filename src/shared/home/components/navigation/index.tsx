@@ -14,19 +14,19 @@ const Navigation = () => {
 	const navigate = useNavigate();
 	return (
 		<Card title={"Возможности пллатформы"}>
-			<NavigationButton
-				onClick={() => navigate("/partners")}
-				logo={
-					<div className={styles.logo}>
-						<Business />
-					</div>
-				}
-			>
-				<div className={styles.content}>
-					<span>Посмотреть список партнеров</span>
-					<AngleRight />
-				</div>
-			</NavigationButton>
+			{/*<NavigationButton*/}
+			{/*	onClick={() => navigate("/partners")}*/}
+			{/*	logo={*/}
+			{/*		<div className={styles.logo}>*/}
+			{/*			<Business />*/}
+			{/*		</div>*/}
+			{/*	}*/}
+			{/*>*/}
+			{/*	<div className={styles.content}>*/}
+			{/*		<span>Посмотреть список партнеров</span>*/}
+			{/*		<AngleRight />*/}
+			{/*	</div>*/}
+			{/*</NavigationButton>*/}
 			<NavigationButton
 				logo={
 					<div className={styles.logo}>
@@ -39,19 +39,19 @@ const Navigation = () => {
 					<AngleRight />
 				</div>
 			</NavigationButton>
-			<NavigationButton
-				onClick={() => navigate("/qr-generate")}
-				logo={
-					<div className={styles.logo}>
-						<Qr />
-					</div>
-				}
-			>
-				<div className={`${styles.content}`}>
-					<span>Показать QR-код</span>
-					<AngleRight />
-				</div>
-			</NavigationButton>
+			{/*<NavigationButton*/}
+			{/*	onClick={() => navigate("/qr-generate")}*/}
+			{/*	logo={*/}
+			{/*		<div className={styles.logo}>*/}
+			{/*			<Qr />*/}
+			{/*		</div>*/}
+			{/*	}*/}
+			{/*>*/}
+			{/*	<div className={`${styles.content}`}>*/}
+			{/*		<span>Показать QR-код</span>*/}
+			{/*		<AngleRight />*/}
+			{/*	</div>*/}
+			{/*</NavigationButton>*/}
 			<NavigationButton
 				onClick={() => navigate("/partnership")}
 				logo={

@@ -40,7 +40,11 @@ function App() {
 					},
 				}}
 			>
-				<RouterProvider router={router} fallbackElement={<PageLoader />} />
+				{/*<RouterProvider router={router} fallbackElement={<PageLoader />} />*/}
+				<RouterProvider
+					router={router}
+					fallbackElement={<div>LOADING....s</div>}
+				/>
 			</ConfigProvider>
 		</BusinessProvider>
 	);

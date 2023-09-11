@@ -27,7 +27,7 @@ interface IFilters extends IFiltersForm {
 	page: number;
 }
 
-const LIMITONPAGE = 4;
+const LIMITONPAGE = 10;
 
 const History = () => {
 	const user = useAsyncValue() as User;
