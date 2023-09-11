@@ -28,19 +28,12 @@ export interface IFiltersForm {
 }
 
 export function Component() {
+	const data = useLoaderData() as { user: User };
 	return (
-		<Suspense fallback={<div>AAAA HISTORY LOADs</div>}>
-			<History />
+		<Suspense fallback={<PageLoader />}>
+			<Await resolve={data.user}>
+				<History />
+			</Await>
 		</Suspense>
 	);
 }
-// export function Component() {
-// 	const data = useLoaderData() as { user: User };
-// 	return (
-// 		<Suspense fallback={<PageLoader />}>
-// 			<Await resolve={data.user}>
-// 				<History />
-// 			</Await>
-// 		</Suspense>
-// 	);
-// }

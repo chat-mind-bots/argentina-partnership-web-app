@@ -1,11 +1,5 @@
-import React, { Suspense, useCallback, useEffect, useState } from "react";
-import {
-	Await,
-	useAsyncValue,
-	useLoaderData,
-	useNavigate,
-	useSearchParams,
-} from "react-router-dom";
+import React, { useCallback, useEffect, useState } from "react";
+import { useAsyncValue, useNavigate, useSearchParams } from "react-router-dom";
 import { User } from "shared/home/interfaces/user.interface";
 import { PaymentInterface } from "../../interfaces/payment.interface";
 import { PaymentStatusEnum } from "../../interfaces/payment-statuses.enum";
@@ -195,15 +189,5 @@ const History = () => {
 		</WebAppProvider>
 	);
 };
-export default function Component() {
-	const data = useLoaderData() as { user: User };
-	return (
-		<Suspense fallback={<PageLoader />}>
-			<Await resolve={data.user}>
-				<History />
-			</Await>
-		</Suspense>
-	);
-}
 
-// export default History;
+export default History;
