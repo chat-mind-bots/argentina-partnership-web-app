@@ -32,10 +32,10 @@ interface QrCodeResponse {
 	qrCode: Buffer;
 }
 
-export async function qrGenerateLoader() {
+export async function loader() {
 	// @ts-ignore
 	const tg = window.Telegram.WebApp;
-	const dataQRPromise = await post<QrCodeResponse>("user-codes", {
+	const dataQRPromise = post<QrCodeResponse>("user-codes", {
 		query: {
 			userId: tg.initDataUnsafe?.user.id,
 			light: tg.themeParams.secondary_bg_color,
@@ -43,11 +43,11 @@ export async function qrGenerateLoader() {
 		},
 	});
 
-	return dataQRPromise;
+	return defer({ dataQR: dataQRPromise });
 }
 
-export default function QRCodeGenerate() {
-	const { codeDocument, qrCode } = useLoaderData() as QrCodeResponse;
+export function QRCodeGenerate() {
+	const { codeDocument, qrCode } = useAsyncValue() as QrCodeResponse;
 	const [imageURL, setImageURL] = useState("");
 	const [[diffDays, diffH, diffM, diffS], setDiff] = useState([0, 0, 0, 0]);
 	const [tick, setTick] = useState(false);
@@ -108,5 +108,16 @@ export default function QRCodeGenerate() {
 				<MainButton onClick={refreshPage} text={"Загрузить новый QR-код"} />
 			)}
 		</ContentLayout>
+	);
+}
+
+export function Component() {
+	const data = useLoaderData() as { dataQR: QrCodeResponse };
+	return (
+		<Suspense fallback={<PageLoader />}>
+			<Await resolve={data.dataQR}>
+				<QRCodeGenerate />
+			</Await>
+		</Suspense>
 	);
 }

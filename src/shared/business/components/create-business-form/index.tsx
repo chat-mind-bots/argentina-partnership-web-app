@@ -49,7 +49,7 @@ export interface ILoader {
 	businessId?: string;
 }
 
-export async function createBusinessLoader({
+export async function loader({
 	params: { businessId },
 }: {
 	params: { businessId?: string };
@@ -224,17 +224,15 @@ function CreateBusinessForm() {
 	);
 }
 
-export default CreateBusinessForm;
-
-// export function Component() {
-// 	const data = useLoaderData() as {
-// 		data: [Category[], Business | undefined, string | undefined];
-// 	};
-// 	return (
-// 		<Suspense fallback={<PageLoader />}>
-// 			<Await resolve={data.data}>
-// 				<CreateBusinessForm />
-// 			</Await>
-// 		</Suspense>
-// 	);
-// }
+export function Component() {
+	const data = useLoaderData() as {
+		data: [Category[], Business | undefined, string | undefined];
+	};
+	return (
+		<Suspense fallback={<PageLoader />}>
+			<Await resolve={data.data}>
+				<CreateBusinessForm />
+			</Await>
+		</Suspense>
+	);
+}

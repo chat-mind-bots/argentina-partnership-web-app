@@ -8,16 +8,15 @@ import { Await, defer, useAsyncValue, useLoaderData } from "react-router-dom";
 import { User } from "shared/home/interfaces/user.interface";
 import PageLoader from "shared/components/page-loader";
 
-export async function homeLoader() {
+export async function loader() {
 	// @ts-ignore
 	const user = window.Telegram.WebApp.initDataUnsafe?.user;
-	const userDataPromise = await get<User>(`user/${user.id}`, {});
-	// return defer({ userData: userDataPromise });
-	return userDataPromise;
+	const userDataPromise = get<User>(`user/${user.id}`, {});
+	return defer({ userData: userDataPromise });
 }
 
-export default function Home() {
-	const data = useLoaderData() as User;
+function Home() {
+	const data = useAsyncValue() as User;
 	return (
 		<div className={styles.wrapper}>
 			<Balance amount={data.balance.amount} />
@@ -27,13 +26,13 @@ export default function Home() {
 	);
 }
 
-// export function Component() {
-// 	const data = useLoaderData() as { userData: User };
-// 	return (
-// 		<Suspense fallback={<PageLoader />}>
-// 			<Await resolve={data.userData}>
-// 				<Home />
-// 			</Await>
-// 		</Suspense>
-// 	);
-// }
+export function Component() {
+	const data = useLoaderData() as { userData: User };
+	return (
+		<Suspense fallback={<PageLoader />}>
+			<Await resolve={data.userData}>
+				<Home />
+			</Await>
+		</Suspense>
+	);
+}

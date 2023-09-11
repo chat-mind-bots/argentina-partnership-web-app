@@ -23,7 +23,7 @@ import {
 } from "@ant-design/icons";
 import { BackButton } from "@vkruglikov/react-telegram-web-app";
 
-export async function businessCardLoader({
+export async function loader({
 	params: { businessId },
 }: {
 	params: { businessId?: string };
@@ -113,4 +113,15 @@ function BusinessCard() {
 	);
 }
 
-export default BusinessCard;
+export function Component() {
+	const data = useLoaderData() as {
+		data: Business;
+	};
+	return (
+		<Suspense fallback={<PageLoader />}>
+			<Await resolve={data.data}>
+				<BusinessCard />
+			</Await>
+		</Suspense>
+	);
+}

@@ -11,7 +11,7 @@ import styles from "shared/qr-code/qr-check/qr-check.module.css";
 import InputText from "shared/components/input/input-text";
 import ContentLayout from "shared/components/content-layout";
 
-export default function Component() {
+export function Component() {
 	const { user, onClose, onExpand } = useTelegram();
 	const [showQrPopup, closeQrPopup] = useScanQrPopup();
 	const showPopup = useShowPopup();

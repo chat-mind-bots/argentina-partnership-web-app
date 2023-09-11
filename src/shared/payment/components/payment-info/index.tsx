@@ -30,7 +30,7 @@ const PayInstruction = lazy(
 	() => import("shared/payment/components/payment-info/pay-instruction")
 );
 
-export async function paymentInfoLoader({
+export async function loader({
 	params: { paymentId },
 }: {
 	params: { paymentId?: string };
@@ -40,19 +40,17 @@ export async function paymentInfoLoader({
 
 	const data = await get<User>(`user/${user.id}`, {}).then(async (userData) => {
 		return paymentId
-			? await getPayment(userData._id, paymentId as string).then(
-					(paymentData) => ({
-						user: userData,
-						payment: paymentData,
-					})
-			  )
+			? getPayment(userData._id, paymentId as string).then((paymentData) => ({
+					user: userData,
+					payment: paymentData,
+			  }))
 			: { user: userData };
 	});
-	return data;
+	return defer(data);
 }
 
 const Info: FC = () => {
-	const { payment } = useLoaderData() as {
+	const { payment } = useAsyncValue() as {
 		user: User;
 		payment?: PaymentInterface;
 	};
@@ -153,4 +151,13 @@ const Info: FC = () => {
 	);
 };
 
-export default Info;
+export function Component() {
+	const data = useLoaderData() as { user: User; payment: PaymentInterface };
+	return (
+		<Suspense fallback={<PageLoader />}>
+			<Await resolve={data}>
+				<Info />
+			</Await>
+		</Suspense>
+	);
+}
