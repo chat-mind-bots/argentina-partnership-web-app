@@ -41,11 +41,8 @@ function App() {
 				}}
 			>
 				{/*<RouterProvider router={router} fallbackElement={<PageLoader />} />*/}
-				<Suspense fallback={<div>SUSPENSR FAALLLBACK</div>}>
-					<RouterProvider
-						router={router}
-						fallbackElement={<div>LOADING....s</div>}
-					/>
+				<Suspense fallback={<PageLoader />}>
+					<RouterProvider router={router} fallbackElement={<PageLoader />} />
 				</Suspense>
 			</ConfigProvider>
 		</BusinessProvider>
