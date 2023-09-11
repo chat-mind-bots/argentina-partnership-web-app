@@ -16,15 +16,15 @@ import { createTicket, getTicket } from "shared/partnership/data";
 import { TicketDto } from "shared/partnership/dto/ticket.dto";
 import { getUserRoleHelper } from "shared/partnership/helpers/get-user-role.helper";
 
-export async function loader() {
+export async function partnerShipLoader() {
 	// @ts-ignore
 	const user = window.Telegram.WebApp.initDataUnsafe?.user;
-	const userDataPromise = get<User>(`user/${user.id}`, {});
-	return defer({ userData: userDataPromise });
+	const userDataPromise = await get<User>(`user/${user.id}`, {});
+	return userDataPromise;
 }
 
 const Partnership = () => {
-	const data = useAsyncValue() as User;
+	const data = useLoaderData() as User;
 	const [ticketAdmin, setTicketAdmin] = useState<TicketDto | undefined>();
 	const [ticketPartner, setTicketPartner] = useState<TicketDto | undefined>();
 	const [isTicketAdminCreated, setTicketAdminCreated] = useState(false);
@@ -175,15 +175,4 @@ const Partnership = () => {
 	);
 };
 
-export const Component = () => {
-	const data = useLoaderData() as { userData: User };
-	return (
-		<div>
-			<Suspense fallback={<PageLoader />}>
-				<Await resolve={data.userData}>
-					<Partnership />
-				</Await>
-			</Suspense>
-		</div>
-	);
-};
+export default Partnership;

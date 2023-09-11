@@ -26,11 +26,11 @@ import { NetworksEnum } from "shared/payment/interfaces/networks.enum";
 import PageLoader from "shared/components/page-loader";
 import styles from "shared/payment/components/top-up/top-up.module.less";
 
-export async function loader() {
+export async function topUpLoader() {
 	// @ts-ignore
 	const user = window.Telegram.WebApp.initDataUnsafe?.user;
-	const userDataPromise = get<User>(`user/${user.id}`, {});
-	return defer({ userDataPromise });
+	const userDataPromise = await get<User>(`user/${user.id}`, {});
+	return userDataPromise;
 }
 
 export default function TopUp() {
@@ -43,7 +43,7 @@ export default function TopUp() {
 	const [progress, setProgress] = useState(false);
 
 	const showPopup = useShowPopup();
-	const data = useAsyncValue() as User;
+	const data = useLoaderData() as User;
 
 	const sendPayment = useCallback(
 		(amount: number, network: NetworksEnum) => {
@@ -140,14 +140,3 @@ export default function TopUp() {
 		</WebAppProvider>
 	);
 }
-
-// export function Component() {
-// 	const data = useLoaderData() as { userDataPromise: User };
-// 	return (
-// 		<Suspense fallback={<PageLoader />}>
-// 			<Await resolve={data.userDataPromise}>
-// 				<TopUp />
-// 			</Await>
-// 		</Suspense>
-// 	);
-// }

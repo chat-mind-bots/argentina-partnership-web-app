@@ -32,15 +32,13 @@ import ListSkeleton from "shared/business/components/list/components/skeleton/li
 
 const LIMITONPAGE = 4;
 
-export async function loader() {
-	// const businesses = getBusinesses({ page: 0, limit: LIMITONPAGE });
-	const categories = getCategories();
-	const dataPromise = Promise.all([categories]);
-	return defer({ dataPromise });
+export async function partnersLoader() {
+	const categories = await getCategories();
+	return categories;
 }
 
 const BusinessList = () => {
-	const [categories] = useAsyncValue() as [Category[]];
+	const categories = useLoaderData() as Category[];
 	const [business, setBusiness] = useState<Business[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [maxPage, setMaxPage] = useState(0);
@@ -252,15 +250,4 @@ const BusinessList = () => {
 	);
 };
 
-export const Component = () => {
-	const data = useLoaderData() as {
-		dataPromise: [BusinessesDto, Category[]];
-	};
-	return (
-		<Suspense fallback={<PageLoader />}>
-			<Await resolve={data.dataPromise}>
-				<BusinessList />
-			</Await>
-		</Suspense>
-	);
-};
+export default BusinessList;
