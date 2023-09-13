@@ -1,20 +1,17 @@
 import { createBrowserRouter, Outlet } from "react-router-dom";
 import React, { Suspense } from "react";
-import PageLoader from "../components/page-loader";
+import PortalLoader from "shared/components/portal-loader";
 
 export const router = createBrowserRouter([
 	{
 		path: "",
-		element: (
-			<Suspense fallback={<PageLoader />}>
-				<Outlet />
-			</Suspense>
-		),
+		element: <Outlet />,
 		children: [
 			{
 				path: "qr-check",
 				element: (
-					<Suspense fallback={<div>LOAD..</div>}>
+					<Suspense>
+						<PortalLoader />
 						<Outlet />
 					</Suspense>
 				),
@@ -25,7 +22,8 @@ export const router = createBrowserRouter([
 			{
 				path: "qr-generate",
 				element: (
-					<Suspense fallback={<div>LOAD..</div>}>
+					<Suspense>
+						<PortalLoader />
 						<Outlet />
 					</Suspense>
 				),
@@ -37,7 +35,8 @@ export const router = createBrowserRouter([
 				path: "home",
 
 				element: (
-					<Suspense fallback={<div>LOAD..</div>}>
+					<Suspense>
+						<PortalLoader />
 						<Outlet />
 					</Suspense>
 				),
@@ -49,7 +48,8 @@ export const router = createBrowserRouter([
 				path: "my-payments",
 
 				element: (
-					<Suspense fallback={<div>LOAD..</div>}>
+					<Suspense>
+						<PortalLoader />
 						<Outlet />
 					</Suspense>
 				),
@@ -64,7 +64,8 @@ export const router = createBrowserRouter([
 				path: "partnership",
 
 				element: (
-					<Suspense fallback={<div>LOAD..</div>}>
+					<Suspense>
+						<PortalLoader />
 						<Outlet />
 					</Suspense>
 				),
@@ -74,7 +75,8 @@ export const router = createBrowserRouter([
 				path: "payment/:paymentId",
 
 				element: (
-					<Suspense fallback={<div>LOAD..</div>}>
+					<Suspense>
+						<PortalLoader />
 						<Outlet />
 					</Suspense>
 				),
@@ -89,7 +91,8 @@ export const router = createBrowserRouter([
 				path: "top-up",
 
 				element: (
-					<Suspense fallback={<div>LOAD..</div>}>
+					<Suspense>
+						<PortalLoader />
 						<Outlet />
 					</Suspense>
 				),
@@ -104,7 +107,8 @@ export const router = createBrowserRouter([
 				path: "/create/business",
 
 				element: (
-					<Suspense fallback={<div>LOAD..</div>}>
+					<Suspense>
+						<PortalLoader />
 						<Outlet />
 					</Suspense>
 				),
@@ -120,7 +124,8 @@ export const router = createBrowserRouter([
 				path: "/partner/:userId/business/:businessId/",
 
 				element: (
-					<Suspense fallback={<div>LOAD..</div>}>
+					<Suspense>
+						<PortalLoader />
 						<Outlet />
 					</Suspense>
 				),
@@ -135,7 +140,8 @@ export const router = createBrowserRouter([
 				path: "/partner/:userId/business/:businessId/update",
 
 				element: (
-					<Suspense fallback={<div>LOAD..</div>}>
+					<Suspense>
+						<PortalLoader />
 						<Outlet />
 					</Suspense>
 				),
@@ -151,7 +157,8 @@ export const router = createBrowserRouter([
 				path: "/partners",
 
 				element: (
-					<Suspense fallback={<div>LOAD..</div>}>
+					<Suspense>
+						<PortalLoader />
 						<Outlet />
 					</Suspense>
 				),
