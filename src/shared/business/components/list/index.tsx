@@ -25,7 +25,7 @@ import {
 import Modal from "shared/components/modal";
 import ListFilter from "shared/business/components/list/components/list-filter";
 import { Category } from "shared/business/dto/categories.dto";
-import { Business } from "shared/business/dto/business.dto";
+import { Business, StatusEnum } from "shared/business/dto/business.dto";
 import { useFormik } from "formik";
 import List from "shared/components/list/list";
 import ListSkeleton from "shared/business/components/list/components/skeleton/list-skeleton";
@@ -70,6 +70,7 @@ const BusinessList = () => {
 			getBusinesses({
 				...params,
 				page: params.page,
+				status: StatusEnum.ACTIVE,
 				limit: LIMITONPAGE,
 			})
 				.then((res) => {

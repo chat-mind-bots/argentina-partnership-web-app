@@ -14,7 +14,7 @@ import { CreateBusiness } from "shared/business/interfaces/create-business.inter
 import FormResult from "shared/business/components/create-business-form/form-result";
 import { WebAppProvider } from "@vkruglikov/react-telegram-web-app";
 import { Await, defer, useAsyncValue, useLoaderData } from "react-router-dom";
-import { Business } from "shared/business/dto/business.dto";
+import { Business, StatusEnum } from "shared/business/dto/business.dto";
 import PageLoader from "shared/components/page-loader";
 import FormAvgCheck from "shared/business/components/create-business-form/form-avg-check";
 
@@ -88,6 +88,7 @@ function CreateBusinessForm() {
 		address: business?.address ?? {
 			isExist: false,
 		},
+		status: business?.status ?? StatusEnum.ACTIVE,
 		contacts: business?.contacts ?? [],
 		preview: business?.preview?._id ?? undefined,
 		avgCheck: business?.avgCheck ?? 0,

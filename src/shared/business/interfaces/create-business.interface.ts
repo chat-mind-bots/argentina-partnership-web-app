@@ -1,4 +1,5 @@
 import { IAddress } from "shared/business/interfaces/address.interface";
+import { StatusEnum } from "shared/business/dto/business.dto";
 
 export enum ContactsTypeEnum {
 	TELEGRAM = "tg_username",
@@ -21,5 +22,6 @@ export interface CreateBusiness {
 	contacts: Array<IContacts>;
 	address: IAddress;
 	avgCheck: number;
+	status: StatusEnum;
 	preview?: string;
 }
