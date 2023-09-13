@@ -1,5 +1,7 @@
 import { createBrowserRouter, Outlet } from "react-router-dom";
-import React from "react";
+import React, { Suspense } from "react";
+import PortalLoader from "shared/components/portal-loader";
+
 export const router = createBrowserRouter([
 	{
 		path: "",
@@ -7,14 +9,24 @@ export const router = createBrowserRouter([
 		children: [
 			{
 				path: "qr-check",
-				element: <Outlet />,
+				element: (
+					<Suspense>
+						<PortalLoader />
+						<Outlet />
+					</Suspense>
+				),
 				children: [
 					{ index: true, lazy: () => import("shared/qr-code/qr-check") },
 				],
 			},
 			{
 				path: "qr-generate",
-				element: <Outlet />,
+				element: (
+					<Suspense>
+						<PortalLoader />
+						<Outlet />
+					</Suspense>
+				),
 				children: [
 					{ index: true, lazy: () => import("shared/qr-code/qr-generate") },
 				],
@@ -22,7 +34,12 @@ export const router = createBrowserRouter([
 			{
 				path: "home",
 
-				element: <Outlet />,
+				element: (
+					<Suspense>
+						<PortalLoader />
+						<Outlet />
+					</Suspense>
+				),
 				children: [
 					{ index: true, lazy: () => import("shared/home/components") },
 				],
@@ -30,7 +47,12 @@ export const router = createBrowserRouter([
 			{
 				path: "my-payments",
 
-				element: <Outlet />,
+				element: (
+					<Suspense>
+						<PortalLoader />
+						<Outlet />
+					</Suspense>
+				),
 				children: [
 					{
 						index: true,
@@ -41,13 +63,23 @@ export const router = createBrowserRouter([
 			{
 				path: "partnership",
 
-				element: <Outlet />,
+				element: (
+					<Suspense>
+						<PortalLoader />
+						<Outlet />
+					</Suspense>
+				),
 				children: [{ index: true, lazy: () => import("shared/partnership") }],
 			},
 			{
 				path: "payment/:paymentId",
 
-				element: <Outlet />,
+				element: (
+					<Suspense>
+						<PortalLoader />
+						<Outlet />
+					</Suspense>
+				),
 				children: [
 					{
 						index: true,
@@ -58,7 +90,12 @@ export const router = createBrowserRouter([
 			{
 				path: "top-up",
 
-				element: <Outlet />,
+				element: (
+					<Suspense>
+						<PortalLoader />
+						<Outlet />
+					</Suspense>
+				),
 				children: [
 					{
 						index: true,
@@ -69,7 +106,12 @@ export const router = createBrowserRouter([
 			{
 				path: "/create/business",
 
-				element: <Outlet />,
+				element: (
+					<Suspense>
+						<PortalLoader />
+						<Outlet />
+					</Suspense>
+				),
 				children: [
 					{
 						index: true,
@@ -81,7 +123,12 @@ export const router = createBrowserRouter([
 			{
 				path: "/partner/:userId/business/:businessId/",
 
-				element: <Outlet />,
+				element: (
+					<Suspense>
+						<PortalLoader />
+						<Outlet />
+					</Suspense>
+				),
 				children: [
 					{
 						index: true,
@@ -92,7 +139,12 @@ export const router = createBrowserRouter([
 			{
 				path: "/partner/:userId/business/:businessId/update",
 
-				element: <Outlet />,
+				element: (
+					<Suspense>
+						<PortalLoader />
+						<Outlet />
+					</Suspense>
+				),
 				children: [
 					{
 						index: true,
@@ -104,7 +156,12 @@ export const router = createBrowserRouter([
 			{
 				path: "/partners",
 
-				element: <Outlet />,
+				element: (
+					<Suspense>
+						<PortalLoader />
+						<Outlet />
+					</Suspense>
+				),
 				children: [
 					{
 						index: true,
