@@ -1,11 +1,10 @@
-import React, { Suspense, useEffect } from "react";
+import React, { lazy, Suspense, useEffect } from "react";
 import { RouterProvider } from "react-router-dom";
 import { router } from "shared/router";
 import PageLoader from "shared/components/page-loader";
 import { useTelegram } from "hooks/useTelegram";
-import { BusinessProvider } from "shared/business/provider/businesses.provider";
 import { ConfigProvider } from "antd";
-import { get } from "./services/api";
+import PaymentProvider from "shared/context/payment/payment.provider";
 
 function App() {
 	const { tg, theme } = useTelegram();
@@ -14,16 +13,9 @@ function App() {
 	}, [tg]);
 
 	return (
-		<BusinessProvider>
+		<PaymentProvider>
 			<ConfigProvider
 				theme={{
-					token: {
-						// colorText: theme.text_color,
-						// colorTextPlaceholder: theme.hint_color,
-						// colorTextDisabled: theme.hint_color,
-						// colorBgContainer: theme.secondary_bg_color,
-						// colorBgElevated: theme.bg_color,
-					},
 					components: {
 						Tabs: {
 							cardBg: theme.bg_color,
@@ -45,7 +37,7 @@ function App() {
 					<RouterProvider router={router} fallbackElement={<PageLoader />} />
 				</Suspense>
 			</ConfigProvider>
-		</BusinessProvider>
+		</PaymentProvider>
 	);
 }
 

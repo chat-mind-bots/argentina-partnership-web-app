@@ -1,12 +1,14 @@
 import { createBrowserRouter, Outlet } from "react-router-dom";
-import React, { Suspense } from "react";
-import PageLoader from "../components/page-loader";
-
+import React, { lazy, Suspense } from "react";
+const PaymentAffix = lazy(
+	() => import("shared/payment/components/payment-affix")
+);
 export const router = createBrowserRouter([
 	{
 		path: "",
 		element: (
-			<Suspense fallback={<PageLoader />}>
+			<Suspense>
+				<PaymentAffix />
 				<Outlet />
 			</Suspense>
 		),

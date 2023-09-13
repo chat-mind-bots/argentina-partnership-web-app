@@ -135,7 +135,7 @@ const Info: FC = () => {
 									<Suspense fallback={<PageLoader />}>
 										<ConfirmationForm
 											isActive={activeTab === "3"}
-											toPaymentInfo={() => setActiveTab("1")}
+											toPaymentInfo={() => navigate(0)}
 											paymentId={payment._id}
 											userId={payment.user}
 										/>

@@ -1,4 +1,4 @@
-import { get, post } from "services/api";
+import { get, patch, post } from "services/api";
 import {
 	PaymentInterface,
 	CreatePaymentInterface,
@@ -14,3 +14,14 @@ export const getMyPayments = (userId: string, query: GetPaymentDto) =>
 
 export const getPayment = (userId: string, paymentId: string) =>
 	get<PaymentInterface>(`payment/${paymentId}`, { query: { userId } });
+
+export const paymentToId = (
+	userId: string,
+	paymentId: string,
+	txId: string,
+	photo?: string
+) =>
+	patch(`payment/to-review/${paymentId}`, {
+		query: { userId },
+		body: { data: { txId, photo } },
+	});

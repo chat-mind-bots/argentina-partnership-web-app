@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from "react";
+import React, { FC, useCallback, useContext, useState } from "react";
 import ContentLayout from "shared/components/content-layout";
 import Description from "shared/components/description";
 import InputText from "shared/components/input/input-text";
@@ -9,6 +9,8 @@ import UploadPhoto from "shared/components/upload-photo";
 import Card from "shared/components/card";
 import styles from "./confirmation-form.module.less";
 import Ellipsis from "shared/components/ellipsis";
+import { paymentToId } from "shared/payment/services/data";
+import { PaymentContext } from "shared/context/payment/payment.context";
 
 interface IOwnProps {
 	paymentId: string;
@@ -23,22 +25,22 @@ const ConfirmationForm: FC<IOwnProps> = ({
 }) => {
 	const [txId, setTxId] = useState("");
 	const [photo, setPhoto] = useState<string | undefined>();
-
+	const { updatePayments } = useContext(PaymentContext);
 	const handleTxId = (text: string) => {
 		setTxId(text);
 	};
-	console.log(photo);
+
 	const sendConfirmation = useCallback(() => {
-		patch(`payment/to-review/${paymentId}`, {
-			query: { userId },
-			body: { data: { txId, photo } },
-		})
+		paymentToId(userId, paymentId, txId, photo)
 			.then(() => {
 				message.success("Данные успешно подтверждены");
+				updatePayments && updatePayments();
 				toPaymentInfo();
 			})
 			.catch((err) => {
 				message.error(err.message);
+				toPaymentInfo();
+				updatePayments && updatePayments();
 			});
 	}, [txId, photo]);
 	return (

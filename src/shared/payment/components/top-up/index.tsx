@@ -1,4 +1,4 @@
-import React, { Suspense, useCallback, useState } from "react";
+import React, { Suspense, useCallback, useContext, useState } from "react";
 import {
 	BackButton,
 	MainButton,
@@ -25,6 +25,7 @@ import { networkOptions } from "shared/payment/services/network-options";
 import { NetworksEnum } from "shared/payment/interfaces/networks.enum";
 import PageLoader from "shared/components/page-loader";
 import styles from "shared/payment/components/top-up/top-up.module.less";
+import { PaymentContext } from "shared/context/payment/payment.context";
 
 export async function loader() {
 	// @ts-ignore
@@ -40,6 +41,7 @@ function TopUp() {
 	}>({
 		amount: "",
 	});
+	const { updatePayments } = useContext(PaymentContext);
 	const [progress, setProgress] = useState(false);
 
 	const showPopup = useShowPopup();
@@ -56,12 +58,14 @@ function TopUp() {
 					await showPopup({
 						message: "Запрос на пополнение успешно создан создан",
 					});
+					updatePayments && updatePayments();
 					setProgress(false);
 				})
 				.catch(async () => {
 					await showPopup({
 						message: "Во время создания запроса на пополнение произошла ошибка",
 					});
+					updatePayments && updatePayments();
 					setProgress(false);
 				});
 		},
