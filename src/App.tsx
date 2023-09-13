@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useEffect } from "react";
+import React, { useEffect, lazy } from "react";
 import { RouterProvider } from "react-router-dom";
 import { router } from "shared/router";
 import PageLoader from "shared/components/page-loader";
@@ -11,7 +11,6 @@ function App() {
 	useEffect(() => {
 		tg.setHeaderColor(tg.themeParams.secondary_bg_color);
 	}, [tg]);
-
 	return (
 		<PaymentProvider>
 			<ConfigProvider
@@ -33,9 +32,7 @@ function App() {
 				}}
 			>
 				{/*<RouterProvider router={router} fallbackElement={<PageLoader />} />*/}
-				<Suspense fallback={<PageLoader />}>
-					<RouterProvider router={router} fallbackElement={<PageLoader />} />
-				</Suspense>
+				<RouterProvider router={router} fallbackElement={<PageLoader />} />
 			</ConfigProvider>
 		</PaymentProvider>
 	);

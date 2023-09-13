@@ -30,7 +30,7 @@ import { useFormik } from "formik";
 import List from "shared/components/list/list";
 import ListSkeleton from "shared/business/components/list/components/skeleton/list-skeleton";
 
-const LIMITONPAGE = 4;
+const LIMITONPAGE = 15;
 
 export async function loader() {
 	// const businesses = getBusinesses({ page: 0, limit: LIMITONPAGE });

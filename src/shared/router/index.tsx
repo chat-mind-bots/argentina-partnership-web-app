@@ -1,5 +1,7 @@
 import { createBrowserRouter, Outlet } from "react-router-dom";
-import React, { lazy, Suspense } from "react";
+import React, { Suspense,  lazy } from "react";
+import PortalLoader from "shared/components/portal-loader";
+
 const PaymentAffix = lazy(
 	() => import("shared/payment/components/payment-affix")
 );
@@ -16,7 +18,8 @@ export const router = createBrowserRouter([
 			{
 				path: "qr-check",
 				element: (
-					<Suspense fallback={<div>LOAD..</div>}>
+					<Suspense>
+						<PortalLoader />
 						<Outlet />
 					</Suspense>
 				),
@@ -27,7 +30,8 @@ export const router = createBrowserRouter([
 			{
 				path: "qr-generate",
 				element: (
-					<Suspense fallback={<div>LOAD..</div>}>
+					<Suspense>
+						<PortalLoader />
 						<Outlet />
 					</Suspense>
 				),
@@ -39,7 +43,8 @@ export const router = createBrowserRouter([
 				path: "home",
 
 				element: (
-					<Suspense fallback={<div>LOAD..</div>}>
+					<Suspense>
+						<PortalLoader />
 						<Outlet />
 					</Suspense>
 				),
@@ -51,7 +56,8 @@ export const router = createBrowserRouter([
 				path: "my-payments",
 
 				element: (
-					<Suspense fallback={<div>LOAD..</div>}>
+					<Suspense>
+						<PortalLoader />
 						<Outlet />
 					</Suspense>
 				),
@@ -66,7 +72,8 @@ export const router = createBrowserRouter([
 				path: "partnership",
 
 				element: (
-					<Suspense fallback={<div>LOAD..</div>}>
+					<Suspense>
+						<PortalLoader />
 						<Outlet />
 					</Suspense>
 				),
@@ -76,7 +83,8 @@ export const router = createBrowserRouter([
 				path: "payment/:paymentId",
 
 				element: (
-					<Suspense fallback={<div>LOAD..</div>}>
+					<Suspense>
+						<PortalLoader />
 						<Outlet />
 					</Suspense>
 				),
@@ -91,7 +99,8 @@ export const router = createBrowserRouter([
 				path: "top-up",
 
 				element: (
-					<Suspense fallback={<div>LOAD..</div>}>
+					<Suspense>
+						<PortalLoader />
 						<Outlet />
 					</Suspense>
 				),
@@ -106,7 +115,8 @@ export const router = createBrowserRouter([
 				path: "/create/business",
 
 				element: (
-					<Suspense fallback={<div>LOAD..</div>}>
+					<Suspense>
+						<PortalLoader />
 						<Outlet />
 					</Suspense>
 				),
@@ -122,7 +132,8 @@ export const router = createBrowserRouter([
 				path: "/partner/:userId/business/:businessId/",
 
 				element: (
-					<Suspense fallback={<div>LOAD..</div>}>
+					<Suspense>
+						<PortalLoader />
 						<Outlet />
 					</Suspense>
 				),
@@ -137,7 +148,8 @@ export const router = createBrowserRouter([
 				path: "/partner/:userId/business/:businessId/update",
 
 				element: (
-					<Suspense fallback={<div>LOAD..</div>}>
+					<Suspense>
+						<PortalLoader />
 						<Outlet />
 					</Suspense>
 				),
@@ -153,7 +165,8 @@ export const router = createBrowserRouter([
 				path: "/partners",
 
 				element: (
-					<Suspense fallback={<div>LOAD..</div>}>
+					<Suspense>
+						<PortalLoader />
 						<Outlet />
 					</Suspense>
 				),
