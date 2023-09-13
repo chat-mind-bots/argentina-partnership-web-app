@@ -9,8 +9,8 @@ import { GetPaymentDto } from "shared/payment/interfaces/get-payment.dto";
 export const createPayment = (userId: string, body: CreatePaymentInterface) =>
 	post<PaymentInterface>("payment", { body, query: { userId } });
 
-export const getMyPayments = (userId: string, query: GetPaymentDto) =>
-	get<PaymentInterfaceDto>("payment", { query: { ...query, userId } });
+export const getMyPayments = (query: GetPaymentDto) =>
+	get<PaymentInterfaceDto>("payment", { query: { ...query } });
 
 export const getPayment = (userId: string, paymentId: string) =>
 	get<PaymentInterface>(`payment/${paymentId}`, { query: { userId } });
