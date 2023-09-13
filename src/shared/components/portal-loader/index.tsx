@@ -1,5 +1,5 @@
 import { createPortal } from "react-dom";
-import styles from "shared/home/components/home.module.less";
+import styles from "./portal-loader.module.css";
 import PageLoader from "shared/components/page-loader";
 import React from "react";
 import { useNavigation } from "react-router-dom";
