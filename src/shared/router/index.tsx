@@ -1,34 +1,20 @@
 import { createBrowserRouter, Outlet } from "react-router-dom";
-import React, { Suspense } from "react";
-import PageLoader from "../components/page-loader";
-
+import React from "react";
 export const router = createBrowserRouter([
 	{
 		path: "",
-		element: (
-			<Suspense fallback={<PageLoader />}>
-				<Outlet />
-			</Suspense>
-		),
+		element: <Outlet />,
 		children: [
 			{
 				path: "qr-check",
-				element: (
-					<Suspense fallback={<div>LOAD..</div>}>
-						<Outlet />
-					</Suspense>
-				),
+				element: <Outlet />,
 				children: [
 					{ index: true, lazy: () => import("shared/qr-code/qr-check") },
 				],
 			},
 			{
 				path: "qr-generate",
-				element: (
-					<Suspense fallback={<div>LOAD..</div>}>
-						<Outlet />
-					</Suspense>
-				),
+				element: <Outlet />,
 				children: [
 					{ index: true, lazy: () => import("shared/qr-code/qr-generate") },
 				],
@@ -36,11 +22,7 @@ export const router = createBrowserRouter([
 			{
 				path: "home",
 
-				element: (
-					<Suspense fallback={<div>LOAD..</div>}>
-						<Outlet />
-					</Suspense>
-				),
+				element: <Outlet />,
 				children: [
 					{ index: true, lazy: () => import("shared/home/components") },
 				],
@@ -48,11 +30,7 @@ export const router = createBrowserRouter([
 			{
 				path: "my-payments",
 
-				element: (
-					<Suspense fallback={<div>LOAD..</div>}>
-						<Outlet />
-					</Suspense>
-				),
+				element: <Outlet />,
 				children: [
 					{
 						index: true,
@@ -63,21 +41,13 @@ export const router = createBrowserRouter([
 			{
 				path: "partnership",
 
-				element: (
-					<Suspense fallback={<div>LOAD..</div>}>
-						<Outlet />
-					</Suspense>
-				),
+				element: <Outlet />,
 				children: [{ index: true, lazy: () => import("shared/partnership") }],
 			},
 			{
 				path: "payment/:paymentId",
 
-				element: (
-					<Suspense fallback={<div>LOAD..</div>}>
-						<Outlet />
-					</Suspense>
-				),
+				element: <Outlet />,
 				children: [
 					{
 						index: true,
@@ -88,11 +58,7 @@ export const router = createBrowserRouter([
 			{
 				path: "top-up",
 
-				element: (
-					<Suspense fallback={<div>LOAD..</div>}>
-						<Outlet />
-					</Suspense>
-				),
+				element: <Outlet />,
 				children: [
 					{
 						index: true,
@@ -103,11 +69,7 @@ export const router = createBrowserRouter([
 			{
 				path: "/create/business",
 
-				element: (
-					<Suspense fallback={<div>LOAD..</div>}>
-						<Outlet />
-					</Suspense>
-				),
+				element: <Outlet />,
 				children: [
 					{
 						index: true,
@@ -119,11 +81,7 @@ export const router = createBrowserRouter([
 			{
 				path: "/partner/:userId/business/:businessId/",
 
-				element: (
-					<Suspense fallback={<div>LOAD..</div>}>
-						<Outlet />
-					</Suspense>
-				),
+				element: <Outlet />,
 				children: [
 					{
 						index: true,
@@ -134,11 +92,7 @@ export const router = createBrowserRouter([
 			{
 				path: "/partner/:userId/business/:businessId/update",
 
-				element: (
-					<Suspense fallback={<div>LOAD..</div>}>
-						<Outlet />
-					</Suspense>
-				),
+				element: <Outlet />,
 				children: [
 					{
 						index: true,
@@ -150,11 +104,7 @@ export const router = createBrowserRouter([
 			{
 				path: "/partners",
 
-				element: (
-					<Suspense fallback={<div>LOAD..</div>}>
-						<Outlet />
-					</Suspense>
-				),
+				element: <Outlet />,
 				children: [
 					{
 						index: true,

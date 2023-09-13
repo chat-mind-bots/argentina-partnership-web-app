@@ -4,9 +4,16 @@ import Balance from "shared/home/components/balance";
 import Subscribe from "shared/home/components/subscribe";
 import Navigation from "shared/home/components/navigation";
 import { get } from "services/api";
-import { Await, defer, useAsyncValue, useLoaderData } from "react-router-dom";
+import {
+	Await,
+	defer,
+	useAsyncValue,
+	useLoaderData,
+	useNavigation,
+} from "react-router-dom";
 import { User } from "shared/home/interfaces/user.interface";
 import PageLoader from "shared/components/page-loader";
+import { createPortal } from "react-dom";
 
 export async function loader() {
 	// @ts-ignore
@@ -28,8 +35,16 @@ function Home() {
 
 export function Component() {
 	const data = useLoaderData() as { userData: User };
+	const isLoading = useNavigation().state === "loading";
 	return (
 		<Suspense fallback={<PageLoader />}>
+			{isLoading &&
+				createPortal(
+					<div className={styles.loader}>
+						<PageLoader />
+					</div>,
+					document.body
+				)}
 			<Await resolve={data.userData}>
 				<Home />
 			</Await>

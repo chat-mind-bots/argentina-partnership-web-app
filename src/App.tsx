@@ -1,18 +1,16 @@
-import React, { Suspense, useEffect } from "react";
+import React, { useEffect } from "react";
 import { RouterProvider } from "react-router-dom";
 import { router } from "shared/router";
 import PageLoader from "shared/components/page-loader";
 import { useTelegram } from "hooks/useTelegram";
 import { BusinessProvider } from "shared/business/provider/businesses.provider";
 import { ConfigProvider } from "antd";
-import { get } from "./services/api";
 
 function App() {
 	const { tg, theme } = useTelegram();
 	useEffect(() => {
 		tg.setHeaderColor(tg.themeParams.secondary_bg_color);
 	}, [tg]);
-
 	return (
 		<BusinessProvider>
 			<ConfigProvider
@@ -41,9 +39,7 @@ function App() {
 				}}
 			>
 				{/*<RouterProvider router={router} fallbackElement={<PageLoader />} />*/}
-				<Suspense fallback={<PageLoader />}>
-					<RouterProvider router={router} fallbackElement={<PageLoader />} />
-				</Suspense>
+				<RouterProvider router={router} fallbackElement={<PageLoader />} />
 			</ConfigProvider>
 		</BusinessProvider>
 	);

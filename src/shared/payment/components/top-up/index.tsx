@@ -84,8 +84,6 @@ function TopUp() {
 	const handleNetwork = (network?: string) => {
 		setValue({ ...value, network: network as NetworksEnum });
 	};
-
-	// @ts-ignore
 	return (
 		<WebAppProvider>
 			<ContentLayout
