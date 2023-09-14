@@ -1,5 +1,4 @@
-import React, { Suspense, useEffect, useState } from "react";
-import PageLoader from "shared/components/page-loader";
+import React, { useEffect, useState } from "react";
 import {
 	Await,
 	defer,
@@ -258,10 +257,8 @@ export const Component = () => {
 		dataPromise: [BusinessesDto, Category[]];
 	};
 	return (
-		<Suspense fallback={<PageLoader />}>
-			<Await resolve={data.dataPromise}>
-				<BusinessList />
-			</Await>
-		</Suspense>
+		<Await resolve={data.dataPromise}>
+			<BusinessList />
+		</Await>
 	);
 };

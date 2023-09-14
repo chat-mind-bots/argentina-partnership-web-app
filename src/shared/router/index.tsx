@@ -32,11 +32,7 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: "qr-generate",
-				element: (
-					<Suspense>
-						<Outlet />
-					</Suspense>
-				),
+				element: <Outlet />,
 				children: [
 					{ index: true, lazy: () => import("shared/qr-code/qr-generate") },
 				],
@@ -44,11 +40,7 @@ export const router = createBrowserRouter([
 			{
 				path: "home",
 
-				element: (
-					<Suspense>
-						<Outlet />
-					</Suspense>
-				),
+				element: <Outlet />,
 				children: [
 					{ index: true, lazy: () => import("shared/home/components") },
 				],
@@ -61,21 +53,13 @@ export const router = createBrowserRouter([
 			{
 				path: "partnership",
 
-				element: (
-					<Suspense>
-						<Outlet />
-					</Suspense>
-				),
+				element: <Outlet />,
 				children: [{ index: true, lazy: () => import("shared/partnership") }],
 			},
 			{
 				path: "payment/:paymentId",
 
-				element: (
-					<Suspense>
-						<Outlet />
-					</Suspense>
-				),
+				element: <Outlet />,
 				children: [
 					{
 						index: true,
@@ -91,11 +75,7 @@ export const router = createBrowserRouter([
 			{
 				path: "/create/business",
 
-				element: (
-					<Suspense>
-						<Outlet />
-					</Suspense>
-				),
+				element: <Outlet />,
 				children: [
 					{
 						index: true,
@@ -107,11 +87,7 @@ export const router = createBrowserRouter([
 			{
 				path: "/partner/:userId/business/:businessId/",
 
-				element: (
-					<Suspense>
-						<Outlet />
-					</Suspense>
-				),
+				element: <Outlet />,
 				children: [
 					{
 						index: true,
@@ -122,11 +98,7 @@ export const router = createBrowserRouter([
 			{
 				path: "/partner/:userId/business/:businessId/update",
 
-				element: (
-					<Suspense>
-						<Outlet />
-					</Suspense>
-				),
+				element: <Outlet />,
 				children: [
 					{
 						index: true,
@@ -138,11 +110,7 @@ export const router = createBrowserRouter([
 			{
 				path: "/partners",
 
-				element: (
-					<Suspense>
-						<Outlet />
-					</Suspense>
-				),
+				element: <Outlet />,
 				children: [
 					{
 						index: true,

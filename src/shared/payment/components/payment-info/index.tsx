@@ -34,8 +34,6 @@ export async function loader({
 }: {
 	params: { paymentId?: string };
 }) {
-	// @ts-ignore
-	const user = window.Telegram.WebApp.initDataUnsafe?.user;
 	const payment = getPayment(paymentId as string);
 
 	return defer({ payment });
@@ -143,10 +141,8 @@ const Info: FC = () => {
 export function Component() {
 	const data = useLoaderData() as { payment: PaymentInterface };
 	return (
-		<Suspense fallback={<PageLoader />}>
-			<Await resolve={data.payment}>
-				<Info />
-			</Await>
-		</Suspense>
+		<Await resolve={data.payment}>
+			<Info />
+		</Await>
 	);
 }
