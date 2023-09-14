@@ -11,7 +11,7 @@ import styles from "shared/qr-code/qr-check/qr-check.module.css";
 import InputText from "shared/components/input/input-text";
 import ContentLayout from "shared/components/content-layout";
 
-export function Component() {
+export function QrCheck() {
 	const { user, onClose, onExpand } = useTelegram();
 	const [showQrPopup, closeQrPopup] = useScanQrPopup();
 	const showPopup = useShowPopup();
@@ -118,4 +118,4 @@ export function Component() {
 	);
 }
 
-Component.displayName = "Partners Page";
+export default QrCheck;
