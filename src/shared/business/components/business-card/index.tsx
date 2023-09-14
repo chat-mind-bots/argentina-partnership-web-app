@@ -8,8 +8,6 @@ import {
 	useNavigate,
 } from "react-router-dom";
 import { Business } from "shared/business/dto/business.dto";
-import PageLoader from "shared/components/page-loader";
-import { Suspense } from "react";
 import Header from "shared/components/header";
 import styles from "shared/business/components/business-card/business-card.module.less";
 import RoundButton from "shared/business/components/business-card/components/round-button";
@@ -118,10 +116,8 @@ export function Component() {
 		data: Business;
 	};
 	return (
-		<Suspense fallback={<PageLoader />}>
-			<Await resolve={data.data}>
-				<BusinessCard />
-			</Await>
-		</Suspense>
+		<Await resolve={data.data}>
+			<BusinessCard />
+		</Await>
 	);
 }

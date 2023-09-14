@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { WebAppProvider, BackButton } from "@vkruglikov/react-telegram-web-app";
 import styles from "./partnership.module.less";
 import { Button } from "antd";
@@ -178,12 +178,8 @@ const Partnership = () => {
 export const Component = () => {
 	const data = useLoaderData() as { userData: User };
 	return (
-		<div>
-			<Suspense fallback={<PageLoader />}>
-				<Await resolve={data.userData}>
-					<Partnership />
-				</Await>
-			</Suspense>
-		</div>
+		<Await resolve={data.userData}>
+			<Partnership />
+		</Await>
 	);
 };

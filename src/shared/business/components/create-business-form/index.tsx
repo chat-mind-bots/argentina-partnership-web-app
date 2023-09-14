@@ -230,10 +230,8 @@ export function Component() {
 		data: [Category[], Business | undefined, string | undefined];
 	};
 	return (
-		<Suspense fallback={<PageLoader />}>
-			<Await resolve={data.data}>
-				<CreateBusinessForm />
-			</Await>
-		</Suspense>
+		<Await resolve={data.data}>
+			<CreateBusinessForm />
+		</Await>
 	);
 }
