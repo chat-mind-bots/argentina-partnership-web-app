@@ -1,4 +1,4 @@
-import React, { useCallback, useLayoutEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
 	MainButton,
 	useScanQrPopup,
@@ -11,16 +11,12 @@ import styles from "shared/qr-code/qr-check/qr-check.module.css";
 import InputText from "shared/components/input/input-text";
 import ContentLayout from "shared/components/content-layout";
 
-export function Component() {
-	const { user, onClose, onExpand } = useTelegram();
+export function QrCheck() {
+	const { user, onClose } = useTelegram();
 	const [showQrPopup, closeQrPopup] = useScanQrPopup();
 	const showPopup = useShowPopup();
 	const [value, setValue] = useState("");
 	const [loading, setLoading] = useState(false);
-
-	useLayoutEffect(() => {
-		onExpand();
-	}, [onExpand]);
 
 	const checkCode = useCallback(
 		async (
@@ -118,4 +114,4 @@ export function Component() {
 	);
 }
 
-Component.displayName = "Partners Page";
+export default QrCheck;

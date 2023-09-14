@@ -1,14 +1,16 @@
 import { createBrowserRouter, Outlet } from "react-router-dom";
 import React, { Suspense, lazy } from "react";
 import PageLoader from "shared/components/page-loader";
+import QrCheck from "shared/qr-code/qr-check";
 
 const TopUp = lazy(() => import("shared/payment/components/top-up"));
-
+const History = lazy(() => import("shared/payment/components/history"));
 const PortalLoader = lazy(() => import("shared/components/portal-loader"));
 
 const PaymentAffix = lazy(
 	() => import("shared/payment/components/payment-affix")
 );
+
 export const router = createBrowserRouter([
 	{
 		path: "",
@@ -26,14 +28,7 @@ export const router = createBrowserRouter([
 		children: [
 			{
 				path: "qr-check",
-				element: (
-					<Suspense>
-						<Outlet />
-					</Suspense>
-				),
-				children: [
-					{ index: true, lazy: () => import("shared/qr-code/qr-check") },
-				],
+				element: <QrCheck />,
 			},
 			{
 				path: "qr-generate",
@@ -61,17 +56,7 @@ export const router = createBrowserRouter([
 			{
 				path: "my-payments",
 
-				element: (
-					<Suspense>
-						<Outlet />
-					</Suspense>
-				),
-				children: [
-					{
-						index: true,
-						lazy: () => import("shared/payment/components/history"),
-					},
-				],
+				element: <History />,
 			},
 			{
 				path: "partnership",
