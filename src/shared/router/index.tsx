@@ -1,7 +1,10 @@
 import { createBrowserRouter, Outlet } from "react-router-dom";
 import React, { Suspense, lazy } from "react";
-import PortalLoader from "shared/components/portal-loader";
-import TopUp from "shared/payment/components/top-up";
+import PageLoader from "shared/components/page-loader";
+
+const TopUp = lazy(() => import("shared/payment/components/top-up"));
+
+const PortalLoader = lazy(() => import("shared/components/portal-loader"));
 
 const PaymentAffix = lazy(
 	() => import("shared/payment/components/payment-affix")
@@ -10,11 +13,15 @@ export const router = createBrowserRouter([
 	{
 		path: "",
 		element: (
-			<Suspense>
-				<PortalLoader />
-				<PaymentAffix />
-				<Outlet />
-			</Suspense>
+			<>
+				<Suspense>
+					<PortalLoader />
+					<PaymentAffix />
+				</Suspense>
+				<Suspense fallback={<PageLoader />}>
+					<Outlet />
+				</Suspense>
+			</>
 		),
 		children: [
 			{
@@ -94,15 +101,7 @@ export const router = createBrowserRouter([
 			{
 				path: "top-up",
 
-				element: <Outlet />,
-				children: [
-					{
-						index: true,
-						Component() {
-							return <TopUp />;
-						},
-					},
-				],
+				element: <TopUp />,
 			},
 			{
 				path: "/create/business",
