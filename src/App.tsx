@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { RouterProvider } from "react-router-dom";
 import { router } from "shared/router";
 import PageLoader from "shared/components/page-loader";
@@ -7,10 +7,14 @@ import { ConfigProvider } from "antd";
 import PaymentProvider from "shared/context/payment/payment.provider";
 
 function App() {
-	const { tg, theme } = useTelegram();
+	const { tg, theme, onExpand } = useTelegram();
 	useEffect(() => {
 		tg.setHeaderColor(tg.themeParams.secondary_bg_color);
 	}, [tg]);
+
+	useLayoutEffect(() => {
+		onExpand();
+	}, [onExpand]);
 	return (
 		<PaymentProvider>
 			<ConfigProvider
