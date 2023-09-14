@@ -10,6 +10,7 @@ export const router = createBrowserRouter([
 		path: "",
 		element: (
 			<Suspense>
+				<PortalLoader />
 				<PaymentAffix />
 				<Outlet />
 			</Suspense>
@@ -19,7 +20,6 @@ export const router = createBrowserRouter([
 				path: "qr-check",
 				element: (
 					<Suspense>
-						<PortalLoader />
 						<Outlet />
 					</Suspense>
 				),
@@ -31,7 +31,6 @@ export const router = createBrowserRouter([
 				path: "qr-generate",
 				element: (
 					<Suspense>
-						<PortalLoader />
 						<Outlet />
 					</Suspense>
 				),
@@ -44,7 +43,6 @@ export const router = createBrowserRouter([
 
 				element: (
 					<Suspense>
-						<PortalLoader />
 						<Outlet />
 					</Suspense>
 				),
@@ -57,7 +55,6 @@ export const router = createBrowserRouter([
 
 				element: (
 					<Suspense>
-						<PortalLoader />
 						<Outlet />
 					</Suspense>
 				),
@@ -73,7 +70,6 @@ export const router = createBrowserRouter([
 
 				element: (
 					<Suspense>
-						<PortalLoader />
 						<Outlet />
 					</Suspense>
 				),
@@ -84,7 +80,6 @@ export const router = createBrowserRouter([
 
 				element: (
 					<Suspense>
-						<PortalLoader />
 						<Outlet />
 					</Suspense>
 				),
@@ -100,7 +95,6 @@ export const router = createBrowserRouter([
 
 				element: (
 					<Suspense>
-						<PortalLoader />
 						<Outlet />
 					</Suspense>
 				),
@@ -116,7 +110,6 @@ export const router = createBrowserRouter([
 
 				element: (
 					<Suspense>
-						<PortalLoader />
 						<Outlet />
 					</Suspense>
 				),
@@ -133,7 +126,6 @@ export const router = createBrowserRouter([
 
 				element: (
 					<Suspense>
-						<PortalLoader />
 						<Outlet />
 					</Suspense>
 				),
@@ -149,7 +141,6 @@ export const router = createBrowserRouter([
 
 				element: (
 					<Suspense>
-						<PortalLoader />
 						<Outlet />
 					</Suspense>
 				),
@@ -166,7 +157,6 @@ export const router = createBrowserRouter([
 
 				element: (
 					<Suspense>
-						<PortalLoader />
 						<Outlet />
 					</Suspense>
 				),
