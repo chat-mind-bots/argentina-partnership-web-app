@@ -15,25 +15,16 @@ import { PaymentStatusEnum } from "shared/payment/interfaces/payment-statuses.en
 import { CurrenciesEnum } from "shared/payment/interfaces/currencies.enum";
 
 const History = lazy(() => import("shared/payment/components/history/content"));
-export async function loader() {
-	// @ts-ignore
-	const user = window.Telegram.WebApp.initDataUnsafe?.user;
 
-	const userData = await get<User>(`user/${user.id}`, {});
-	return defer({ user: userData });
-}
 export interface IFiltersForm {
 	status?: PaymentStatusEnum;
 	currency?: CurrenciesEnum;
 }
 
 export function Component() {
-	const data = useLoaderData() as { user: User };
 	return (
 		<Suspense fallback={<PageLoader />}>
-			<Await resolve={data.user}>
-				<History />
-			</Await>
+			<History />
 		</Suspense>
 	);
 }

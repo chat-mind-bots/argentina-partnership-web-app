@@ -30,7 +30,6 @@ interface IFilters extends IFiltersForm {
 const LIMITONPAGE = 10;
 
 const History = () => {
-	const user = useAsyncValue() as User;
 	const [searchParams] = useSearchParams();
 	const [maxPage, setMaxPage] = useState(1);
 	const [payments, setPayments] = useState<PaymentInterface[]>([]);
@@ -49,17 +48,16 @@ const History = () => {
 	});
 
 	const [loading, setLoading] = useState(false);
-	const [emptyResult, setEmptyResult] = useState(false);
 
 	const navigation = useNavigate();
 
 	const reLoad = () => {
 		setFilters({ page: 0 });
 	};
+
 	useEffect(() => {
 		setLoading(true);
-		setEmptyResult(false);
-		getMyPayments(user._id, {
+		getMyPayments({
 			limit: LIMITONPAGE,
 			offset: filters.page * LIMITONPAGE,
 			status: filters.status ? filters.status : undefined,
@@ -72,18 +70,12 @@ const History = () => {
 						? 1
 						: Math.ceil(total / LIMITONPAGE);
 				setMaxPage(maxPage);
-				if (payments.length) {
-					setEmptyResult(false);
-				} else {
-					setEmptyResult(true);
-				}
 				setLoading(false);
 			})
 			.catch(() => {
-				setEmptyResult(true);
 				setLoading(false);
 			});
-	}, [filters, user._id]);
+	}, [filters]);
 
 	useEffect(() => {
 		!loading && handleOnScroll();
@@ -173,13 +165,13 @@ const History = () => {
 								{...payment}
 								reLoad={reLoad}
 								key={`payment-card--${payment._id}`}
-								userId={user._id}
+								userId={payment.user}
 							/>
 						))
 					)}
 					<div className={styles.infinityLoader} ref={ref} />
 				</div>
-				{emptyResult && <NothingFound />}
+				{payments.length === 0 && <NothingFound />}
 			</Card>
 
 			<BackButton onClick={toTopUp} />

@@ -1,4 +1,4 @@
-import React, { useEffect, lazy } from "react";
+import React, { useEffect } from "react";
 import { RouterProvider } from "react-router-dom";
 import { router } from "shared/router";
 import PageLoader from "shared/components/page-loader";
@@ -23,6 +23,7 @@ function App() {
 							// colorText: theme.text_color,
 							itemSelectedColor: theme.link_color,
 							inkBarColor: theme.link_color,
+							colorTextDisabled: theme.hint_color,
 							horizontalMargin: "0 10px 16px 10px",
 						},
 						Button: {
