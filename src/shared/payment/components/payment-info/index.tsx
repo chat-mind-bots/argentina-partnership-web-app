@@ -7,8 +7,7 @@ import { getPointColorService } from "shared/payment/services/get-point-color.se
 import Point from "shared/components/point";
 import { getPaymentStatusService } from "shared/payment/services/get-payment-status.service";
 import { PaymentStatusEnum } from "shared/payment/interfaces/payment-statuses.enum";
-import { get } from "services/api";
-import { User } from "shared/home/interfaces/user.interface";
+
 import {
 	Await,
 	defer,
@@ -37,23 +36,13 @@ export async function loader({
 }) {
 	// @ts-ignore
 	const user = window.Telegram.WebApp.initDataUnsafe?.user;
+	const payment = getPayment(paymentId as string);
 
-	const data = await get<User>(`user/${user.id}`, {}).then(async (userData) => {
-		return paymentId
-			? getPayment(userData._id, paymentId as string).then((paymentData) => ({
-					user: userData,
-					payment: paymentData,
-			  }))
-			: { user: userData };
-	});
-	return defer(data);
+	return defer({ payment });
 }
 
 const Info: FC = () => {
-	const { payment } = useAsyncValue() as {
-		user: User;
-		payment?: PaymentInterface;
-	};
+	const payment = useAsyncValue() as PaymentInterface;
 
 	const navigate = useNavigate();
 
@@ -152,10 +141,10 @@ const Info: FC = () => {
 };
 
 export function Component() {
-	const data = useLoaderData() as { user: User; payment: PaymentInterface };
+	const data = useLoaderData() as { payment: PaymentInterface };
 	return (
 		<Suspense fallback={<PageLoader />}>
-			<Await resolve={data}>
+			<Await resolve={data.payment}>
 				<Info />
 			</Await>
 		</Suspense>
