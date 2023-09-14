@@ -123,11 +123,4 @@ function TopUp() {
 		</WebAppProvider>
 	);
 }
-
-export function Component() {
-	return (
-		<Suspense fallback={<PageLoader />}>
-			<TopUp />
-		</Suspense>
-	);
-}
+export default TopUp;
