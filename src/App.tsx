@@ -32,7 +32,6 @@ function App() {
 					},
 				}}
 			>
-				{/*<RouterProvider router={router} fallbackElement={<PageLoader />} />*/}
 				<RouterProvider router={router} fallbackElement={<PageLoader />} />
 			</ConfigProvider>
 		</PaymentProvider>
