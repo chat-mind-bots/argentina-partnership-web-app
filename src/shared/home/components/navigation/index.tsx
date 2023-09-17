@@ -28,6 +28,7 @@ const Navigation = () => {
 				</div>
 			</NavigationButton>
 			<NavigationButton
+				onClick={() => navigate("/tariffs")}
 				logo={
 					<div className={styles.logo}>
 						<TariffPlans />

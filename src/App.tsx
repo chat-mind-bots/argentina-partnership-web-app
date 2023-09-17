@@ -33,6 +33,10 @@ function App() {
 						Button: {
 							colorTextDisabled: theme.text_color,
 						},
+						Radio: {
+							buttonColor: theme.text_color,
+							colorText: theme.text_color,
+						},
 					},
 				}}
 			>
