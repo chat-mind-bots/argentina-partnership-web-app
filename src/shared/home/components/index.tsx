@@ -6,29 +6,49 @@ import Navigation from "shared/home/components/navigation";
 import { get } from "services/api";
 import { Await, defer, useAsyncValue, useLoaderData } from "react-router-dom";
 import { User } from "shared/home/interfaces/user.interface";
+import { ISubscription } from "shared/subscription/interfaces/subscription.interface";
 
 export async function loader() {
 	// @ts-ignore
 	const user = window.Telegram.WebApp.initDataUnsafe?.user;
-	const userDataPromise = get<User>(`user/${user.id}`, {});
-	return defer({ userData: userDataPromise });
+	const userDataPromise = await get<User>(`user/${user.id}`, {});
+	const subscriptionDataPromise = await get<Array<ISubscription>>(
+		`/subscription`,
+		{
+			query: {
+				isActive: true,
+			},
+		}
+	);
+	const promises = Promise.all([userDataPromise, subscriptionDataPromise]);
+	return defer({ promiseData: promises });
 }
 
 function Home() {
-	const data = useAsyncValue() as User;
+	const [user, subscriptionData] = useAsyncValue() as [
+		user: User,
+		subscriptionData: Array<ISubscription>,
+	];
+	console.log(user, subscriptionData);
 	return (
 		<div className={styles.wrapper}>
-			<Balance amount={data.balance.amount} />
-			<Subscribe />
+			<Balance amount={user.balance.amount} />
+			<Subscribe
+				isActive={!!subscriptionData.length}
+				expiredDate={subscriptionData[0] && subscriptionData[0].expiredDate}
+			/>
 			<Navigation />
 		</div>
 	);
 }
 
 export function Component() {
-	const data = useLoaderData() as { userData: User };
+	const data = useLoaderData() as {
+		promiseData: [user: User, subscriptionData: ISubscription];
+	};
+	console.log(data);
 	return (
-		<Await resolve={data.userData}>
+		<Await resolve={data.promiseData}>
 			<Home />
 		</Await>
 	);

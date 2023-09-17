@@ -118,6 +118,16 @@ export const router = createBrowserRouter([
 					},
 				],
 			},
+			{
+				path: "/tariffs",
+				element: <Outlet />,
+				children: [
+					{
+						index: true,
+						lazy: () => import("shared/subscription"),
+					},
+				],
+			},
 		],
 	},
 	{
