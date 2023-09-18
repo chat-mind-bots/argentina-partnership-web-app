@@ -34,7 +34,7 @@ const Subscribe = ({ expiredDate, isActive }: SubscribeProps) => {
 					<div className={styles.logo}>{isActive ? <Ok /> : <NotOk />}</div>
 				}
 			>
-				{isActive ? <span>Осталось</span> : <span>Приобрести подписку</span>}
+				{isActive ? <span>Подписка</span> : <span>Приобрести подписку</span>}
 				{/*<span>Подписка</span>*/}
 				{expiredDate && <span>{getLeftDays(expiredDate)} дней</span>}
 			</Flat>
