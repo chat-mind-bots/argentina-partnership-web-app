@@ -29,7 +29,6 @@ function Home() {
 		user: User,
 		subscriptionData: Array<ISubscription>,
 	];
-	console.log(user, subscriptionData);
 	return (
 		<div className={styles.wrapper}>
 			<Balance amount={user.balance.amount} />
@@ -46,7 +45,6 @@ export function Component() {
 	const data = useLoaderData() as {
 		promiseData: [user: User, subscriptionData: ISubscription];
 	};
-	console.log(data);
 	return (
 		<Await resolve={data.promiseData}>
 			<Home />

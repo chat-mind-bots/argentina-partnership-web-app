@@ -61,7 +61,6 @@ const SubscriptionTariff = () => {
 					],
 				},
 			});
-			console.log(purchase);
 			setPending(false);
 			toHome();
 		} catch (error) {
