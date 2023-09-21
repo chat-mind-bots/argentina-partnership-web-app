@@ -1,4 +1,4 @@
-import React, { Suspense, useCallback, useContext, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import {
 	BackButton,
 	MainButton,
@@ -15,43 +15,51 @@ import { CurrenciesEnum } from "shared/payment/interfaces/currencies.enum";
 import Select from "shared/components/select";
 import { networkOptions } from "shared/payment/services/network-options";
 import { NetworksEnum } from "shared/payment/interfaces/networks.enum";
-import PageLoader from "shared/components/page-loader";
 import styles from "shared/payment/components/top-up/top-up.module.less";
 import { PaymentContext } from "shared/context/payment/payment.context";
+import { PaymentTypeEnum } from "shared/payment/interfaces/payment-type.enum";
+import { paymentTypeOptions } from "shared/payment/services/payment-type-options";
+import { getPaymentTypeDescription } from "shared/payment/services/get-payment-type-title";
 
 function TopUp() {
 	const [value, setValue] = useState<{
 		amount: string;
+		paymentType: PaymentTypeEnum;
 		network?: NetworksEnum;
 	}>({
 		amount: "",
+		paymentType: PaymentTypeEnum.CRYPTOMUS,
 	});
 	const { updatePayments } = useContext(PaymentContext);
 	const [progress, setProgress] = useState(false);
 
 	const showPopup = useShowPopup();
 
-	const sendPayment = useCallback((amount: number, network: NetworksEnum) => {
-		createPayment({
-			currency: CurrenciesEnum.USDT,
-			amount,
-			method: network,
-		})
-			.then(async () => {
-				await showPopup({
-					message: "Запрос на пополнение успешно создан создан",
-				});
-				updatePayments && updatePayments();
-				setProgress(false);
+	const sendPayment = useCallback(
+		(amount: number, network: NetworksEnum, paymentType: PaymentTypeEnum) => {
+			createPayment({
+				currency: CurrenciesEnum.USDT,
+				amount,
+				method: network,
+				paymentType: paymentType,
 			})
-			.catch(async () => {
-				await showPopup({
-					message: "Во время создания запроса на пополнение произошла ошибка",
+				.then(async () => {
+					await showPopup({
+						message: "Запрос на пополнение успешно создан создан",
+					});
+					updatePayments && updatePayments();
+					setProgress(false);
+				})
+				.catch(async () => {
+					await showPopup({
+						message: "Во время создания запроса на пополнение произошла ошибка",
+					});
+					updatePayments && updatePayments();
+					setProgress(false);
 				});
-				updatePayments && updatePayments();
-				setProgress(false);
-			});
-	}, []);
+		},
+		[]
+	);
 	const navigation = useNavigate();
 
 	const toHome = useCallback(() => {
@@ -68,6 +76,10 @@ function TopUp() {
 
 	const handleNetwork = (network?: string) => {
 		setValue({ ...value, network: network as NetworksEnum });
+	};
+
+	const handlePaymentType = (paymentType?: string) => {
+		setValue({ ...value, paymentType: paymentType as PaymentTypeEnum });
 	};
 	return (
 		<WebAppProvider>
@@ -94,32 +106,49 @@ function TopUp() {
 					}
 				/>
 			</ContentLayout>
-			<ContentLayout headerPrimary={"Выберите сеть"}>
+			<ContentLayout headerPrimary={"Выберите тип платежа"}>
 				<Select
-					options={networkOptions}
-					value={value.network as string}
-					placeholder={"Выберете сеть"}
-					onChange={handleNetwork}
+					options={paymentTypeOptions}
+					value={value.paymentType as string}
+					placeholder={"тип платежа"}
+					onChange={handlePaymentType}
 					showSearch={true}
 					description={
 						<Description
-							primary={"Выберите сеть, в которой будет произведен платеж"}
-							secondary={"Например: Tron (TRC20)"}
+							primary={getPaymentTypeDescription(value.paymentType)}
 						/>
 					}
 				/>
 			</ContentLayout>
-			<BackButton onClick={toHome} />
-			{value.amount && value.network && (
-				<MainButton
-					text={"Пополнить"}
-					onClick={() => {
-						setProgress(true);
-						sendPayment(+value.amount, value.network!);
-					}}
-					progress={progress}
-				/>
+			{value.paymentType === PaymentTypeEnum.MANUAL && (
+				<ContentLayout headerPrimary={"Выберите сеть"}>
+					<Select
+						options={networkOptions}
+						value={value.network as string}
+						placeholder={"Выберете сеть"}
+						onChange={handleNetwork}
+						showSearch={true}
+						description={
+							<Description
+								primary={"Выберите сеть, в которой будет произведен платеж"}
+								secondary={"Например: Tron (TRC20)"}
+							/>
+						}
+					/>
+				</ContentLayout>
 			)}
+			<BackButton onClick={toHome} />
+			{value.amount &&
+				(value.network || value.paymentType === PaymentTypeEnum.CRYPTOMUS) && (
+					<MainButton
+						text={"Пополнить"}
+						onClick={() => {
+							setProgress(true);
+							sendPayment(+value.amount, value.network!, value.paymentType);
+						}}
+						progress={progress}
+					/>
+				)}
 		</WebAppProvider>
 	);
 }

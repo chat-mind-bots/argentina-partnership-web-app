@@ -86,7 +86,6 @@ const History = () => {
 
 	const handleOnScroll = () => {
 		if (inView && filters.page < maxPage - 1) {
-			console.log("filters", filters.page, maxPage);
 			handleFilters();
 		}
 	};

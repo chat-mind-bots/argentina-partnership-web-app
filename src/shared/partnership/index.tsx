@@ -11,7 +11,6 @@ import {
 } from "react-router-dom";
 import { get } from "services/api";
 import { User } from "shared/home/interfaces/user.interface";
-import PageLoader from "shared/components/page-loader";
 import { createTicket, getTicket } from "shared/partnership/data";
 import { TicketDto } from "shared/partnership/dto/ticket.dto";
 import { getUserRoleHelper } from "shared/partnership/helpers/get-user-role.helper";
@@ -49,9 +48,7 @@ const Partnership = () => {
 			});
 			Promise.allSettled([partnerTicketPromise, adminTicketPromise]).then(
 				() => {
-					console.log(isLoadingTickets);
 					setIsLoadingTickets(false);
-					console.log(isLoadingTickets);
 				}
 			);
 		};
@@ -74,8 +71,7 @@ const Partnership = () => {
 	const handleOnActiveClick = (num: number) => {
 		setActive(num);
 	};
-	console.log(ticketPartner);
-	console.log(ticketAdmin);
+
 	return (
 		<WebAppProvider>
 			<div className={styles.contentWrapper}>
