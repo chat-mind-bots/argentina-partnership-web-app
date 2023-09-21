@@ -9,12 +9,19 @@ export interface CreatePaymentInterface {
 	paymentType: PaymentTypeEnum;
 	method?: NetworksEnum;
 }
+
+interface DataInterface {
+	uuid?: string;
+	payment_link?: string;
+	txId?: string;
+}
+
 export interface PaymentInterface extends CreatePaymentInterface {
 	_id: string;
 	status: PaymentStatusEnum;
 	user: string;
 	balance: string;
-	data?: object;
+	data?: DataInterface;
 	createdAt: Date;
 	updatedAt: Date;
 }

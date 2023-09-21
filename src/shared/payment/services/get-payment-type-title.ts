@@ -15,6 +15,6 @@ export const getPaymentTypeDescription = (paymentType: PaymentTypeEnum) => {
 		case PaymentTypeEnum.MANUAL:
 			return "Ручной перевод обрабатывается в течение 12ч";
 		case PaymentTypeEnum.CRYPTOMUS:
-			return "Обработка происходит автоматически";
+			return "Средства зачисляются автоматически после успешного платежа";
 	}
 };
