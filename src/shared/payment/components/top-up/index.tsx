@@ -1,11 +1,11 @@
-import React, { useCallback, useContext, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import {
 	BackButton,
 	MainButton,
 	useShowPopup,
 	WebAppProvider,
 } from "@vkruglikov/react-telegram-web-app";
-import { useNavigate } from "react-router-dom";
+import { redirect, useNavigate, redirectDocument } from "react-router-dom";
 import { ReactComponent as History } from "public/assets/icons/history.svg";
 import ContentLayout from "shared/components/content-layout";
 import InputText from "shared/components/input/input-text";
@@ -34,7 +34,9 @@ function TopUp() {
 	const [progress, setProgress] = useState(false);
 
 	const showPopup = useShowPopup();
+	const [data, setData] = useState({});
 
+	const navigation = useNavigate();
 	const sendPayment = useCallback(
 		(amount: number, network: NetworksEnum, paymentType: PaymentTypeEnum) => {
 			createPayment({
@@ -43,7 +45,8 @@ function TopUp() {
 				method: network,
 				paymentType: paymentType,
 			})
-				.then(async () => {
+				.then(async (res) => {
+					setData(res);
 					await showPopup({
 						message: "Запрос на пополнение успешно создан создан",
 					});
@@ -60,7 +63,14 @@ function TopUp() {
 		},
 		[]
 	);
-	const navigation = useNavigate();
+
+	useEffect(() => {
+		// @ts-ignore
+		if (data && data.data && data.data.payment_link) {
+			// @ts-ignore
+			window.location.href = data.data.payment_link;
+		}
+	}, [data]);
 
 	const toHome = useCallback(() => {
 		navigation("/home");
