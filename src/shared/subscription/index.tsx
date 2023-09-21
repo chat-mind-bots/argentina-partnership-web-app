@@ -63,7 +63,6 @@ const SubscriptionTariff = () => {
 			});
 			setPending(false);
 			toHome();
-		} catch (error) {
 		} finally {
 			setPending(false);
 			handleOnCloseModal();
