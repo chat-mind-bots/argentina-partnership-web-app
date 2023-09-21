@@ -5,7 +5,7 @@ import {
 	useShowPopup,
 	WebAppProvider,
 } from "@vkruglikov/react-telegram-web-app";
-import { redirect, useNavigate, redirectDocument } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ReactComponent as History } from "public/assets/icons/history.svg";
 import ContentLayout from "shared/components/content-layout";
 import InputText from "shared/components/input/input-text";
@@ -32,11 +32,17 @@ function TopUp() {
 	});
 	const { updatePayments } = useContext(PaymentContext);
 	const [progress, setProgress] = useState(false);
+	const [showButtons, setShowButtons] = useState(true);
 
 	const showPopup = useShowPopup();
-	const [data, setData] = useState({});
 
 	const navigation = useNavigate();
+	const toPayment = useCallback(
+		(paymentId: string) => {
+			navigation(`/payment/${paymentId}`);
+		},
+		[navigation]
+	);
 	const sendPayment = useCallback(
 		(amount: number, network: NetworksEnum, paymentType: PaymentTypeEnum) => {
 			createPayment({
@@ -46,12 +52,13 @@ function TopUp() {
 				paymentType: paymentType,
 			})
 				.then(async (res) => {
-					setData(res);
-					await showPopup({
-						message: "Запрос на пополнение успешно создан создан",
-					});
+					// await showPopup({
+					// 	message: "Запрос на пополнение успешно создан создан",
+					// });
 					updatePayments && updatePayments();
 					setProgress(false);
+
+					toPayment(res._id);
 				})
 				.catch(async () => {
 					await showPopup({
@@ -63,14 +70,6 @@ function TopUp() {
 		},
 		[]
 	);
-
-	useEffect(() => {
-		// @ts-ignore
-		if (data && data.data && data.data.payment_link) {
-			// @ts-ignore
-			window.location.href = data.data.payment_link;
-		}
-	}, [data]);
 
 	const toHome = useCallback(() => {
 		navigation("/home");
@@ -154,6 +153,8 @@ function TopUp() {
 						text={"Пополнить"}
 						onClick={() => {
 							setProgress(true);
+							value.paymentType === PaymentTypeEnum.CRYPTOMUS &&
+								setShowButtons(false);
 							sendPayment(+value.amount, value.network!, value.paymentType);
 						}}
 						progress={progress}
