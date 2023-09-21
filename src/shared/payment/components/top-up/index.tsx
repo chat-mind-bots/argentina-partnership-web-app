@@ -5,7 +5,7 @@ import {
 	useShowPopup,
 	WebAppProvider,
 } from "@vkruglikov/react-telegram-web-app";
-import { redirect, useNavigate, redirectDocument } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ReactComponent as History } from "public/assets/icons/history.svg";
 import ContentLayout from "shared/components/content-layout";
 import InputText from "shared/components/input/input-text";
@@ -32,6 +32,7 @@ function TopUp() {
 	});
 	const { updatePayments } = useContext(PaymentContext);
 	const [progress, setProgress] = useState(false);
+	const [showButtons, setShowButtons] = useState(true);
 
 	const showPopup = useShowPopup();
 	const [data, setData] = useState({});
@@ -147,13 +148,16 @@ function TopUp() {
 					/>
 				</ContentLayout>
 			)}
-			<BackButton onClick={toHome} />
+			{showButtons && <BackButton onClick={toHome} />}
 			{value.amount &&
-				(value.network || value.paymentType === PaymentTypeEnum.CRYPTOMUS) && (
+				(value.network || value.paymentType === PaymentTypeEnum.CRYPTOMUS) &&
+				showButtons && (
 					<MainButton
 						text={"Пополнить"}
 						onClick={() => {
 							setProgress(true);
+							value.paymentType === PaymentTypeEnum.CRYPTOMUS &&
+								setShowButtons(false);
 							sendPayment(+value.amount, value.network!, value.paymentType);
 						}}
 						progress={progress}
