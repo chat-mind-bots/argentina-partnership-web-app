@@ -35,9 +35,14 @@ function TopUp() {
 	const [showButtons, setShowButtons] = useState(true);
 
 	const showPopup = useShowPopup();
-	const [data, setData] = useState({});
 
 	const navigation = useNavigate();
+	const toPayment = useCallback(
+		(paymentId: string) => {
+			navigation(`/payment/${paymentId}`);
+		},
+		[navigation]
+	);
 	const sendPayment = useCallback(
 		(amount: number, network: NetworksEnum, paymentType: PaymentTypeEnum) => {
 			createPayment({
@@ -47,12 +52,13 @@ function TopUp() {
 				paymentType: paymentType,
 			})
 				.then(async (res) => {
-					setData(res);
-					await showPopup({
-						message: "Запрос на пополнение успешно создан создан",
-					});
+					// await showPopup({
+					// 	message: "Запрос на пополнение успешно создан создан",
+					// });
 					updatePayments && updatePayments();
 					setProgress(false);
+
+					toPayment(res._id);
 				})
 				.catch(async () => {
 					await showPopup({
@@ -64,14 +70,6 @@ function TopUp() {
 		},
 		[]
 	);
-
-	useEffect(() => {
-		// @ts-ignore
-		if (data && data.data && data.data.payment_link) {
-			// @ts-ignore
-			window.location.href = data.data.payment_link;
-		}
-	}, [data]);
 
 	const toHome = useCallback(() => {
 		navigation("/home");
@@ -148,10 +146,9 @@ function TopUp() {
 					/>
 				</ContentLayout>
 			)}
-			{showButtons && <BackButton onClick={toHome} />}
+			<BackButton onClick={toHome} />
 			{value.amount &&
-				(value.network || value.paymentType === PaymentTypeEnum.CRYPTOMUS) &&
-				showButtons && (
+				(value.network || value.paymentType === PaymentTypeEnum.CRYPTOMUS) && (
 					<MainButton
 						text={"Пополнить"}
 						onClick={() => {

@@ -95,6 +95,19 @@ const Info: FC = () => {
 												{getCurrencyTitleService(payment.currency)}
 											</span>
 										</div>
+										{payment.data?.payment_link && (
+											<div className={styles.row}>
+												<span className={styles.title}>Ссылка на оплату:</span>
+												<span className={styles.description}>
+													<a
+														href={payment.data?.payment_link}
+														target={"_blank"}
+													>
+														pay.cryptomus.com
+													</a>
+												</span>
+											</div>
+										)}
 									</Card>
 								),
 							},
