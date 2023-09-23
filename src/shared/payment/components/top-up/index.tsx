@@ -120,7 +120,7 @@ function TopUp() {
 					value={value.paymentType as string}
 					placeholder={"тип платежа"}
 					onChange={handlePaymentType}
-					showSearch={true}
+					showSearch={false}
 					description={
 						<Description
 							primary={getPaymentTypeDescription(value.paymentType)}
@@ -135,7 +135,7 @@ function TopUp() {
 						value={value.network as string}
 						placeholder={"Выберете сеть"}
 						onChange={handleNetwork}
-						// showSearch={true}
+						showSearch={false}
 						description={
 							<Description
 								primary={"Выберите сеть, в которой будет произведен платеж"}
