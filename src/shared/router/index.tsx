@@ -1,7 +1,9 @@
-import { createBrowserRouter, Outlet } from "react-router-dom";
-import React, { Suspense, lazy } from "react";
+import { createBrowserRouter, Outlet, useNavigate } from "react-router-dom";
+import React, { Suspense, lazy, useCallback } from "react";
 import PageLoader from "shared/components/page-loader";
 import QrCheck from "shared/qr-code/qr-check";
+import ErrorElement from "shared/components/error-element";
+import { ReactComponent as ErrorIcon } from "public/assets/icons/notOk.svg";
 
 const TopUp = lazy(() => import("shared/payment/components/top-up"));
 const History = lazy(() => import("shared/payment/components/history"));
@@ -34,7 +36,19 @@ export const router = createBrowserRouter([
 				path: "qr-generate",
 				element: <Outlet />,
 				children: [
-					{ index: true, lazy: () => import("shared/qr-code/qr-generate") },
+					{
+						index: true,
+						lazy: () => import("shared/qr-code/qr-generate"),
+						errorElement: (
+							<ErrorElement
+								icon={<ErrorIcon />}
+								buttonTitle={"Купить подписку"}
+								title={"У вас нет подписки"}
+								secondaryTitle={"но вы всегда можете ее приобрести"}
+								href={"/tariffs"}
+							/>
+						),
+					},
 				],
 			},
 			{
