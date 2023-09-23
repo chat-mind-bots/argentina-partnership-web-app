@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import {
 	BackButton,
 	MainButton,
@@ -32,7 +32,6 @@ function TopUp() {
 	});
 	const { updatePayments } = useContext(PaymentContext);
 	const [progress, setProgress] = useState(false);
-	const [showButtons, setShowButtons] = useState(true);
 
 	const showPopup = useShowPopup();
 
@@ -136,7 +135,7 @@ function TopUp() {
 						value={value.network as string}
 						placeholder={"Выберете сеть"}
 						onChange={handleNetwork}
-						showSearch={true}
+						// showSearch={true}
 						description={
 							<Description
 								primary={"Выберите сеть, в которой будет произведен платеж"}
@@ -154,8 +153,7 @@ function TopUp() {
 						onClick={() => {
 							setProgress(true);
 							value.paymentType === PaymentTypeEnum.CRYPTOMUS &&
-								setShowButtons(false);
-							sendPayment(+value.amount, value.network!, value.paymentType);
+								sendPayment(+value.amount, value.network!, value.paymentType);
 						}}
 						progress={progress}
 					/>
