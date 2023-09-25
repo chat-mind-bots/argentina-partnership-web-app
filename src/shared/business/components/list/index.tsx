@@ -182,7 +182,11 @@ const BusinessList = () => {
 					</div>
 				}
 			>
-				<Modal isOpen={values.isOpenFilters} onClose={openFiltersHandler}>
+				<Modal
+					isOpen={values.isOpenFilters}
+					onClose={openFiltersHandler}
+					title={"Фильтры"}
+				>
 					<ListFilter
 						list={categories}
 						params={tempParams}
