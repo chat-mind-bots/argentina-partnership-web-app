@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 import { ITariff } from "shared/subscription/interfaces/tariff.inteface";
 import { Button, Radio, RadioChangeEvent } from "antd";
-import { BackButton } from "@vkruglikov/react-telegram-web-app";
+import { BackButton, MainButton } from "@vkruglikov/react-telegram-web-app";
 import { ISubscription } from "shared/subscription/interfaces/subscription.interface";
 import Modal from "shared/components/modal";
 
@@ -61,7 +61,6 @@ const SubscriptionTariff = () => {
 					],
 				},
 			});
-			setPending(false);
 			toHome();
 		} finally {
 			setPending(false);
@@ -89,14 +88,15 @@ const SubscriptionTariff = () => {
 				})}
 			</Radio.Group>
 			<div className={styles.buttonWrapper}>
-				<Button
-					onClick={handleOnClickModal}
-					className={styles.button}
-					disabled={!!subscriptionData.length}
-					type={"primary"}
-				>
-					К оплате {tariffData[value].price}$
-				</Button>
+				{!isOpenSubmit && (
+					<MainButton
+						onClick={handleOnClickModal}
+						// className={styles.button}
+						disabled={!!subscriptionData.length}
+						// type={"primary"}
+						text={`К оплате ${tariffData[value].price}$`}
+					/>
+				)}
 			</div>
 			<BackButton onClick={toHome} />
 			<Modal
@@ -120,13 +120,16 @@ const SubscriptionTariff = () => {
 						</div>
 					)}
 				</div>
-				{/*<div>{tariffData[value].salePercent}</div>*/}
 				<div className={`${styles.subDescription} ${styles.buttonDescription}`}>
 					Вы дейстительно хотите приобрести подписку?
 				</div>
-				<Button onClick={handleOnClick} loading={pending}>
-					Оплатить
-				</Button>
+				{isOpenSubmit && (
+					<MainButton
+						onClick={handleOnClick}
+						progress={pending}
+						text={`Оформить за ${tariffData[value].price}$`}
+					/>
+				)}
 			</Modal>
 		</div>
 	);
