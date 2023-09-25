@@ -13,6 +13,7 @@ interface FormAvgCheckProps {
 	value: number;
 	setData: React.Dispatch<React.SetStateAction<CreateBusiness>>;
 	isEmptyCallback: (value: boolean) => void;
+	mainButtonCallback: (text: string) => void;
 }
 
 const FormAvgCheck = ({
@@ -20,6 +21,7 @@ const FormAvgCheck = ({
 	maxSteps,
 	value,
 	isEmptyCallback,
+	mainButtonCallback,
 	setData,
 }: FormAvgCheckProps) => {
 	const handleOnClick = (event: RadioChangeEvent) => {
@@ -34,6 +36,10 @@ const FormAvgCheck = ({
 	useEffect(() => {
 		isEmptyCallback(false);
 	}, []);
+
+	useEffect(() => {
+		mainButtonCallback("Сохранить");
+	});
 
 	return (
 		<div>

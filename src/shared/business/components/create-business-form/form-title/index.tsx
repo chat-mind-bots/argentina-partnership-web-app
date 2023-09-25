@@ -4,12 +4,15 @@ import ContentLayout from "shared/components/content-layout";
 import StepCounter from "shared/components/step-counter";
 import Description from "shared/components/description";
 
+import styles from "../business-form.module.less";
+
 interface FormTitleProps {
 	onChange: React.Dispatch<React.SetStateAction<any>>;
 	currentStep: number;
 	maxSteps: number;
 	value: string;
 	isEmptyCallback: (value: boolean) => void;
+	mainButtonCallback: (text: string) => void;
 }
 
 const FormTitle = ({
@@ -17,6 +20,7 @@ const FormTitle = ({
 	maxSteps,
 	value,
 	onChange,
+	mainButtonCallback,
 	isEmptyCallback,
 }: FormTitleProps) => {
 	const handleOnChange = (text: string) => {
@@ -30,9 +34,18 @@ const FormTitle = ({
 		isEmptyCallback(!value);
 	}, [isEmptyCallback, value]);
 
+	useEffect(() => {
+		mainButtonCallback("Далее");
+	}, []);
+
 	return (
 		<ContentLayout
-			headerPrimary={"Введите название бизнеса:"}
+			headerPrimary={
+				<>
+					Введите название бизнеса
+					<span className={styles.requireField}>*</span>
+				</>
+			}
 			headerSecondary={
 				<StepCounter currentStep={currentStep} maxSteps={maxSteps} />
 			}

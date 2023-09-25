@@ -3,6 +3,7 @@ import InputText from "shared/components/input/input-text";
 import ContentLayout from "shared/components/content-layout";
 import StepCounter from "shared/components/step-counter";
 import Description from "shared/components/description";
+import styles from "shared/business/components/create-business-form/business-form.module.less";
 
 interface FormDescriptionProps {
 	currentStep: number;
@@ -10,6 +11,7 @@ interface FormDescriptionProps {
 	onChange: React.Dispatch<React.SetStateAction<any>>;
 	value: string;
 	isEmptyCallback: (value: boolean) => void;
+	mainButtonCallback: (text: string) => void;
 }
 
 const FormDescription = ({
@@ -17,6 +19,7 @@ const FormDescription = ({
 	maxSteps,
 	value,
 	onChange,
+	mainButtonCallback,
 	isEmptyCallback,
 }: FormDescriptionProps) => {
 	const handleOnChange = (text: string) => {
@@ -28,10 +31,17 @@ const FormDescription = ({
 	useEffect(() => {
 		isEmptyCallback(!value);
 	}, [isEmptyCallback, value]);
-
+	useEffect(() => {
+		mainButtonCallback("Далее");
+	}, []);
 	return (
 		<ContentLayout
-			headerPrimary={"Введите описание бизнеса:"}
+			headerPrimary={
+				<>
+					Введите описание бизнеса
+					<span className={styles.requireField}>*</span>
+				</>
+			}
 			headerSecondary={
 				<StepCounter currentStep={currentStep} maxSteps={maxSteps} />
 			}

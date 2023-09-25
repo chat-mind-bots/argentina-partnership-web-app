@@ -64,7 +64,9 @@ const AddContact = ({
 					/>
 				</div>
 				<div>
-					<div className={styles.contactsWrapper}>Введите контакт:</div>
+					<div className={styles.contactsWrapper}>
+						Введите контакт:<span className={styles.requireField}>*</span>
+					</div>
 					<div>
 						<InputText
 							type={
