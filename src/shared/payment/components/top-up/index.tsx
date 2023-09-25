@@ -152,8 +152,7 @@ function TopUp() {
 						text={"Пополнить"}
 						onClick={() => {
 							setProgress(true);
-							value.paymentType === PaymentTypeEnum.CRYPTOMUS &&
-								sendPayment(+value.amount, value.network!, value.paymentType);
+							sendPayment(+value.amount, value.network!, value.paymentType);
 						}}
 						progress={progress}
 					/>
