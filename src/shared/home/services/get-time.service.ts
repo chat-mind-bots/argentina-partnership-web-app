@@ -15,7 +15,7 @@ export const getLeftTime = (expiredDate: string) => {
 	}
 
 	if (leftTimeMs <= TimeMsNameEnum.MIN) {
-		return `вот-вот закончится`;
+		return `< 1 минуты`;
 	}
 
 	return `${Math.floor(leftTimeMs / TimeMsNameEnum.MIN)} минут`;

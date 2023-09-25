@@ -162,17 +162,35 @@ const History = () => {
 					{loading ? (
 						<PageLoader />
 					) : (
-						payments.map((payment) => (
-							<PaymentCard
-								{...payment}
-								reLoad={reLoad}
-								key={`payment-card--${payment._id}`}
-								userId={payment.user}
-							/>
-						))
+						payments.map((payment, index) => {
+							if (index === payments.length - 1) {
+								return (
+									<div
+										className={styles.infinityLoaderWrapper}
+										key={`payment-card--${payment._id}`}
+									>
+										<PaymentCard
+											{...payment}
+											reLoad={reLoad}
+											userId={payment.user}
+										/>
+										<div className={styles.infinityLoader} ref={ref} />
+									</div>
+								);
+							}
+							return (
+								<PaymentCard
+									{...payment}
+									reLoad={reLoad}
+									key={`payment-card--${payment._id}`}
+									userId={payment.user}
+								/>
+							);
+						})
 					)}
-					<div className={styles.infinityLoader} ref={ref} />
 				</div>
+				{!filters.page && <div className={styles.infinityLoader} ref={ref} />}
+				{/*<div className={styles.infinityLoader} ref={ref} />*/}
 				{payments.length === 0 && <NothingFound />}
 			</Card>
 
