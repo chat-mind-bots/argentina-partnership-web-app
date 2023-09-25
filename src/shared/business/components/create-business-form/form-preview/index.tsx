@@ -9,12 +9,14 @@ export interface FromPreviewProps {
 	maxSteps: number;
 	onChange: React.Dispatch<React.SetStateAction<CreateBusiness>>;
 	value?: string;
+	mainButtonCallback: (text: string) => void;
 	isEmptyCallback: (value: boolean) => void;
 }
 
 const FormPreview = ({
 	currentStep,
 	maxSteps,
+	mainButtonCallback,
 	onChange,
 	value,
 	isEmptyCallback,
@@ -29,6 +31,12 @@ const FormPreview = ({
 	useEffect(() => {
 		isEmptyCallback(false);
 	}, [isEmptyCallback, value]);
+
+	useEffect(() => {
+		mainButtonCallback("Далее");
+
+		!value ? mainButtonCallback("Пропустить") : mainButtonCallback("Далее");
+	}, [value]);
 
 	return (
 		<ContentLayout

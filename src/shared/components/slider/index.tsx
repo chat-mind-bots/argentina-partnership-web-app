@@ -11,17 +11,18 @@ interface SliderProps {
 	isNextButtonDisabled?: boolean;
 	finishButtonText?: string;
 	children?: React.ReactNode;
+	mainButtonText: string;
 	isValidLink: boolean;
 }
 
 const Slider = ({
 	steps,
-	finishButtonText,
 	isNextButtonDisabled,
 	activeStep,
 	onSendData,
 	hideButtons,
 	isValidLink,
+	mainButtonText,
 	children,
 	setActiveStep,
 }: SliderProps) => {
@@ -64,7 +65,7 @@ const Slider = ({
 								isLasStep ? async () => await enterLoading() : handleNext
 							}
 							disabled={isNextButtonDisabled || !isValidLink}
-							text={isLasStep ? finishButtonText : "Далее"}
+							text={mainButtonText}
 							progress={isLasStep ? loading : false}
 						/>
 					)}

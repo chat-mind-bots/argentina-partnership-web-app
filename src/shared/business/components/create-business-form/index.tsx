@@ -93,10 +93,13 @@ function CreateBusinessForm() {
 		preview: business?.preview?._id ?? undefined,
 		avgCheck: business?.avgCheck ?? 0,
 	});
-
+	const [mainButtonText, setMainButtonText] = useState("Далее");
 	const [isEmpty, setIsEmpty] = useState(false);
 	const [hideButtons, setHideButtons] = useState(false);
 	const [isValidLink, setIsValidLinkLink] = useState(true);
+	const handleMainButtonText = (text: string) => {
+		setMainButtonText(text);
+	};
 	const handleOnSend = async () => {
 		const sendData: CreateBusiness = {
 			...data,
@@ -136,6 +139,7 @@ function CreateBusinessForm() {
 			<FormTitle
 				currentStep={currentStep}
 				value={data.title}
+				mainButtonCallback={setMainButtonText}
 				onChange={setData}
 				isEmptyCallback={setIsEmpty}
 				maxSteps={maxSteps}
@@ -145,6 +149,7 @@ function CreateBusinessForm() {
 			<FormDescription
 				currentStep={currentStep}
 				value={data.description}
+				mainButtonCallback={setMainButtonText}
 				onChange={setData}
 				isEmptyCallback={setIsEmpty}
 				maxSteps={maxSteps}
@@ -154,6 +159,7 @@ function CreateBusinessForm() {
 			<FormPreview
 				currentStep={currentStep}
 				maxSteps={maxSteps}
+				mainButtonCallback={setMainButtonText}
 				isEmptyCallback={setIsEmpty}
 				onChange={setData}
 				value={data.preview}
@@ -164,6 +170,7 @@ function CreateBusinessForm() {
 				dataCategory={dataCategory}
 				currentStep={currentStep}
 				value={data.categoryId}
+				mainButtonCallback={setMainButtonText}
 				onChange={onChangeCategory}
 				isEmptyCallback={setIsEmpty}
 				maxSteps={maxSteps}
@@ -174,6 +181,7 @@ function CreateBusinessForm() {
 				maxSteps={maxSteps}
 				currentStep={currentStep}
 				isEmptyCallback={setIsEmpty}
+				mainButtonCallback={setMainButtonText}
 				values={data.contacts}
 				hideButtonsCallback={setHideButtons}
 				setData={setData}
@@ -185,6 +193,7 @@ function CreateBusinessForm() {
 				isValidLink={isValidLink}
 				maxSteps={maxSteps}
 				setValidLink={setIsValidLinkLink}
+				mainButtonCallback={setMainButtonText}
 				setData={setData}
 				isEmptyCallback={setIsEmpty}
 				currentStep={currentStep}
@@ -195,6 +204,7 @@ function CreateBusinessForm() {
 				value={data.avgCheck}
 				maxSteps={maxSteps}
 				currentStep={currentStep}
+				mainButtonCallback={setMainButtonText}
 				isEmptyCallback={setIsEmpty}
 				setData={setData}
 			/>
@@ -214,7 +224,7 @@ function CreateBusinessForm() {
 					activeStep={currentStep}
 					isValidLink={isValidLink}
 					setActiveStep={setCurrentStep}
-					finishButtonText={"Сохранить"}
+					mainButtonText={mainButtonText}
 					isNextButtonDisabled={isEmpty}
 					onSendData={handleOnSend}
 				>

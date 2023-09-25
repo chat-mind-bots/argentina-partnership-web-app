@@ -16,6 +16,7 @@ interface FormTitleProps {
 	setData: React.Dispatch<React.SetStateAction<CreateBusiness>>;
 	isEmptyCallback: (value: boolean) => void;
 	setValidLink: React.Dispatch<React.SetStateAction<boolean>>;
+	mainButtonCallback: (text: string) => void;
 	isValidLink: boolean;
 }
 
@@ -23,6 +24,7 @@ const FormAddress = ({
 	currentStep,
 	maxSteps,
 	value,
+	mainButtonCallback,
 	isEmptyCallback,
 	setData,
 	setValidLink,
@@ -64,6 +66,12 @@ const FormAddress = ({
 		if (!value.isExist) isEmptyCallback(false);
 	}, [value.isExist, value.addressLine, isEmptyCallback]);
 
+	useEffect(() => {
+		value.isExist
+			? mainButtonCallback("Далее")
+			: mainButtonCallback("Пропустить");
+	}, [value.isExist]);
+
 	return (
 		<div>
 			<ContentLayout
@@ -85,7 +93,10 @@ const FormAddress = ({
 					<div className={styles.formWrapper}>
 						<div className={styles.formElement}>
 							<div className={styles.formInnerWrapper}>
-								<div>Введите адрес:</div>
+								<div>
+									Введите адрес:
+									<span className={styles.requireField}>*</span>
+								</div>
 							</div>
 							<InputText
 								className={styles.formInput}

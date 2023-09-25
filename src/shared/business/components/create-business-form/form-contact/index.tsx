@@ -16,6 +16,7 @@ export interface FormContactProps {
 	values: Array<IContacts>;
 	hideButtonsCallback?: (value: boolean) => void;
 	setData: React.Dispatch<React.SetStateAction<any>>;
+	mainButtonCallback: (text: string) => void;
 	isEmptyCallback: (value: boolean) => void;
 }
 
@@ -32,6 +33,7 @@ const FormContact = ({
 	maxSteps,
 	values,
 	hideButtonsCallback,
+	mainButtonCallback,
 	isEmptyCallback,
 	setData,
 }: FormContactProps) => {
@@ -138,6 +140,10 @@ const FormContact = ({
 	useEffect(() => {
 		isEmptyCallback(!values.length);
 	}, [isEmptyCallback, values]);
+
+	useEffect(() => {
+		mainButtonCallback("Далее");
+	}, []);
 
 	return (
 		<ContentLayout
