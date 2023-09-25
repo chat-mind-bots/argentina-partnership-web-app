@@ -75,69 +75,68 @@ const SubscriptionTariff = () => {
 			<div className={styles.pageDescription}>
 				5% скидка на все товары и услуги
 			</div>
-			<Radio.Group
-				value={value}
-				onChange={handleOnChange}
-				className={styles.radioWrapper}
-			>
-				{tariffData.length &&
-					tariffData.map(({ title, _id, period, price }, index) => {
-						return (
-							<Radio key={`raw-tariff-data--${title}`} value={index}>
-								{title}
-							</Radio>
-						);
-					})}
-			</Radio.Group>
-			{!tariffData.length && (
-				<NothingFound className={styles.pageDescription} />
-			)}
-			<div className={styles.buttonWrapper}>
-				{!isOpenSubmit && (
-					<MainButton
-						onClick={handleOnClickModal}
-						disabled={!!subscriptionData.length}
-						text={`К оплате ${tariffData[value].price}$`}
-					/>
-				)}
-			</div>
-			<BackButton onClick={toHome} />
-			{tariffData.length && (
-				<Modal
-					isOpen={isOpenSubmit}
-					onClose={handleOnCloseModal}
-					title={"Ваш счет"}
-				>
-					<div className={styles.subDescription}>
-						<span className={styles.titleSubscription}>Тариф: </span>
-						{tariffData[value].title}
-					</div>
-					<div className={styles.subDescription}>
-						<span className={styles.titleSubscription}>Цена: </span>
-						{tariffData[value].price}$
-					</div>
-					<div className={styles.subDescription}>
-						{tariffData[value].description && (
-							<div className={styles.titleSubscription}>
-								<span className={styles.titleSubscription}>Описание: </span>
-								{tariffData[value].description}
-							</div>
+			{tariffData.length > 0 && (
+				<>
+					<Radio.Group
+						value={value}
+						onChange={handleOnChange}
+						className={styles.radioWrapper}
+					>
+						{tariffData.map(({ title, _id, period, price }, index) => {
+							return (
+								<Radio key={`raw-tariff-data--${title}`} value={index}>
+									{title}
+								</Radio>
+							);
+						})}
+					</Radio.Group>
+					<div className={styles.buttonWrapper}>
+						{!isOpenSubmit && (
+							<MainButton
+								onClick={handleOnClickModal}
+								disabled={!!subscriptionData.length}
+								text={`К оплате ${tariffData[value]?.price}$`}
+							/>
 						)}
 					</div>
-					<div
-						className={`${styles.subDescription} ${styles.buttonDescription}`}
+					<Modal
+						isOpen={isOpenSubmit}
+						onClose={handleOnCloseModal}
+						title={"Ваш счет"}
 					>
-						Вы дейстительно хотите приобрести подписку?
-					</div>
-					{isOpenSubmit && (
-						<MainButton
-							onClick={handleOnClick}
-							progress={pending}
-							text={`Оформить за ${tariffData[value].price}$`}
-						/>
-					)}
-				</Modal>
+						<div className={styles.subDescription}>
+							<span className={styles.titleSubscription}>Тариф: </span>
+							{tariffData[value]?.title}
+						</div>
+						<div className={styles.subDescription}>
+							<span className={styles.titleSubscription}>Цена: </span>
+							{tariffData[value]?.price}$
+						</div>
+						<div className={styles.subDescription}>
+							{tariffData[value]?.description && (
+								<div className={styles.titleSubscription}>
+									<span className={styles.titleSubscription}>Описание: </span>
+									{tariffData[value]?.description}
+								</div>
+							)}
+						</div>
+						<div
+							className={`${styles.subDescription} ${styles.buttonDescription}`}
+						>
+							Вы дейстительно хотите приобрести подписку?
+						</div>
+						{isOpenSubmit && (
+							<MainButton
+								onClick={handleOnClick}
+								progress={pending}
+								text={`Оформить за ${tariffData[value]?.price}$`}
+							/>
+						)}
+					</Modal>
+				</>
 			)}
+			<BackButton onClick={toHome} />
+			{!tariffData.length && <NothingFound />}
 		</div>
 	);
 };
