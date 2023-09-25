@@ -14,6 +14,7 @@ import { ISubscription } from "shared/subscription/interfaces/subscription.inter
 import Modal from "shared/components/modal";
 
 import styles from "./subscription.module.less";
+import NothingFound from "shared/components/nothing-found";
 
 export async function loader() {
 	const tariffDataPromise = await get<Array<ITariff>>(`/tariff`, {});
@@ -79,58 +80,64 @@ const SubscriptionTariff = () => {
 				onChange={handleOnChange}
 				className={styles.radioWrapper}
 			>
-				{tariffData.map(({ title, _id, period, price }, index) => {
-					return (
-						<Radio key={`raw-tariff-data--${title}`} value={index}>
-							{title}
-						</Radio>
-					);
-				})}
+				{tariffData.length &&
+					tariffData.map(({ title, _id, period, price }, index) => {
+						return (
+							<Radio key={`raw-tariff-data--${title}`} value={index}>
+								{title}
+							</Radio>
+						);
+					})}
 			</Radio.Group>
+			{!tariffData.length && (
+				<NothingFound className={styles.pageDescription} />
+			)}
 			<div className={styles.buttonWrapper}>
 				{!isOpenSubmit && (
 					<MainButton
 						onClick={handleOnClickModal}
-						// className={styles.button}
 						disabled={!!subscriptionData.length}
-						// type={"primary"}
 						text={`К оплате ${tariffData[value].price}$`}
 					/>
 				)}
 			</div>
 			<BackButton onClick={toHome} />
-			<Modal
-				isOpen={isOpenSubmit}
-				onClose={handleOnCloseModal}
-				title={"Ваш счет"}
-			>
-				<div className={styles.subDescription}>
-					<span className={styles.titleSubscription}>Тариф: </span>
-					{tariffData[value].title}
-				</div>
-				<div className={styles.subDescription}>
-					<span className={styles.titleSubscription}>Цена: </span>
-					{tariffData[value].price}$
-				</div>
-				<div className={styles.subDescription}>
-					{tariffData[value].description && (
-						<div className={styles.titleSubscription}>
-							<span className={styles.titleSubscription}>Описание: </span>
-							{tariffData[value].description}
-						</div>
+			{tariffData.length && (
+				<Modal
+					isOpen={isOpenSubmit}
+					onClose={handleOnCloseModal}
+					title={"Ваш счет"}
+				>
+					<div className={styles.subDescription}>
+						<span className={styles.titleSubscription}>Тариф: </span>
+						{tariffData[value].title}
+					</div>
+					<div className={styles.subDescription}>
+						<span className={styles.titleSubscription}>Цена: </span>
+						{tariffData[value].price}$
+					</div>
+					<div className={styles.subDescription}>
+						{tariffData[value].description && (
+							<div className={styles.titleSubscription}>
+								<span className={styles.titleSubscription}>Описание: </span>
+								{tariffData[value].description}
+							</div>
+						)}
+					</div>
+					<div
+						className={`${styles.subDescription} ${styles.buttonDescription}`}
+					>
+						Вы дейстительно хотите приобрести подписку?
+					</div>
+					{isOpenSubmit && (
+						<MainButton
+							onClick={handleOnClick}
+							progress={pending}
+							text={`Оформить за ${tariffData[value].price}$`}
+						/>
 					)}
-				</div>
-				<div className={`${styles.subDescription} ${styles.buttonDescription}`}>
-					Вы дейстительно хотите приобрести подписку?
-				</div>
-				{isOpenSubmit && (
-					<MainButton
-						onClick={handleOnClick}
-						progress={pending}
-						text={`Оформить за ${tariffData[value].price}$`}
-					/>
-				)}
-			</Modal>
+				</Modal>
+			)}
 		</div>
 	);
 };
