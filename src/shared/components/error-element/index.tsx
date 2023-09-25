@@ -6,7 +6,7 @@ import {
 	useNavigation,
 	useLocation,
 } from "react-router-dom";
-import { BackButton } from "@vkruglikov/react-telegram-web-app";
+import { BackButton, MainButton } from "@vkruglikov/react-telegram-web-app";
 
 import styles from "./error-element.module.less";
 
@@ -29,6 +29,9 @@ const ErrorElement = ({
 	const toPreviousPage = () => {
 		navigate(-1);
 	};
+	const toPage = (link: string) => {
+		navigate(link);
+	};
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.iconWrapper}>{icon}</div>
@@ -37,7 +40,7 @@ const ErrorElement = ({
 				<div className={styles.secondaryTitle}>{secondaryTitle}</div>
 			</div>
 			<Link to={href}>
-				<Button type={"primary"}>{buttonTitle}</Button>
+				<MainButton text={buttonTitle} onClick={() => toPage(href)} />
 			</Link>
 			{window.history.length > 1 && <BackButton onClick={toPreviousPage} />}
 		</div>
