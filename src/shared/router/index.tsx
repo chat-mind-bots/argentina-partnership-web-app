@@ -170,16 +170,5 @@ export const router = createBrowserRouter([
 		Component() {
 			return <div>Not found</div>;
 		},
-		errorElement: (
-			<ErrorElement
-				icon={<ErrorIcon />}
-				buttonTitle={"Вернуться в меню"}
-				title={"Ошибка. Что-то пошло не так"}
-				secondaryTitle={
-					"если ошибка повторяется слишком часто - обратитесь за помощью к администратору"
-				}
-				href={"/home"}
-			/>
-		),
 	},
 ]);
