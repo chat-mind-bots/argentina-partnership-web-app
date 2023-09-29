@@ -177,7 +177,6 @@ export const router = createBrowserRouter([
 					title={"Что-то пошло не так"}
 					buttonTitle={"Вернуться на главную"}
 					href={"/home"}
-					// secondaryTitle={""}
 				/>
 			</Suspense>
 		),
