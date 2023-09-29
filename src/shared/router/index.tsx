@@ -168,16 +168,18 @@ export const router = createBrowserRouter([
 	{
 		path: "*",
 		element: (
-			<ErrorElement
-				icon={<ErrorIcon />}
-				secondaryTitle={
-					"Если ошибка повторяется слишком часто - обратитесь в поддержку"
-				}
-				title={"Что-то пошло не так"}
-				buttonTitle={"Вернуться на главную"}
-				href={"/home"}
-				// secondaryTitle={""}
-			/>
+			<Suspense>
+				<ErrorElement
+					icon={<ErrorIcon />}
+					secondaryTitle={
+						"Если ошибка повторяется слишком часто - обратитесь в поддержку"
+					}
+					title={"Что-то пошло не так"}
+					buttonTitle={"Вернуться на главную"}
+					href={"/home"}
+					// secondaryTitle={""}
+				/>
+			</Suspense>
 		),
 	},
 ]);
