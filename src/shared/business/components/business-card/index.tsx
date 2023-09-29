@@ -8,7 +8,7 @@ import {
 	useNavigate,
 } from "react-router-dom";
 import { Business } from "shared/business/dto/business.dto";
-import { ReactComponent as Copy } from "public/assets/icons/copy.svg";
+import { ReactComponent as Share } from "public/assets/icons/share.svg";
 import Header from "shared/components/header";
 import styles from "shared/business/components/business-card/business-card.module.less";
 import RoundButton from "shared/business/components/business-card/components/round-button";
@@ -146,12 +146,13 @@ function BusinessCard() {
 				})}
 			</div>
 			<div className={styles.contentWrapper}>
-				<div className={styles.copyIconWrapper}>
-					<div className={styles.copyIcon} onClick={writeToClipboard}>
-						<Copy />
+				<div>{components[active].value}</div>
+				<div className={styles.copyIconWrapper} onClick={writeToClipboard}>
+					<div>Поделиться</div>
+					<div className={styles.copyIcon}>
+						<Share />
 					</div>
 				</div>
-				<div>{components[active].value}</div>
 			</div>
 		</div>
 	);
