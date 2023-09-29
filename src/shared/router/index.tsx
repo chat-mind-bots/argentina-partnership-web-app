@@ -2,13 +2,13 @@ import { createBrowserRouter, Outlet } from "react-router-dom";
 import React, { Suspense, lazy } from "react";
 import PageLoader from "shared/components/page-loader";
 import { ReactComponent as ErrorIcon } from "public/assets/icons/notOk.svg";
-import ErrorElement from "shared/components/error-element";
 
 const QrCheck = lazy(() => import("shared/qr-code/qr-check"));
 
 const TopUp = lazy(() => import("shared/payment/components/top-up"));
 const History = lazy(() => import("shared/payment/components/history"));
 const PortalLoader = lazy(() => import("shared/components/portal-loader"));
+const ErrorElement = lazy(() => import("shared/components/error-element"));
 
 const PaymentAffix = lazy(
 	() => import("shared/payment/components/payment-affix")
@@ -167,8 +167,17 @@ export const router = createBrowserRouter([
 	},
 	{
 		path: "*",
-		Component() {
-			return <div>Not found</div>;
-		},
+		element: (
+			<ErrorElement
+				icon={<ErrorIcon />}
+				secondaryTitle={
+					"Если ошибка повторяется слишком часто - обратитесь в поддержку"
+				}
+				title={"Что-то пошло не так"}
+				buttonTitle={"Вернуться на главную"}
+				href={"/home"}
+				// secondaryTitle={""}
+			/>
+		),
 	},
 ]);

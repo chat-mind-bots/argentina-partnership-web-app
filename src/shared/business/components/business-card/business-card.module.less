@@ -15,15 +15,18 @@
 }
 
 .copyIconWrapper {
-    position: relative;
-    padding: 10px 0;
+    position: absolute;
+    right: 10px;
+    bottom: 8px;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    cursor: pointer;
+    color: var(--tg-theme-hint-color);
+    font-size: 1.3rem;
 }
 
 .copyIcon {
-    position: absolute;
-    right: 0;
-    cursor: pointer;
-    top: -15px;
     color: var(--tg-theme-button-color);
     width: 20px;
     height: 20px;
@@ -64,8 +67,9 @@
 }
 
 .contentWrapper {
+    position: relative;
     background-color: var(--tg-theme-bg-color);
-    padding: 30px 28px 20px;
+    padding: 20px 28px 50px;
     font-size: 1.6rem;
     border-radius: 9px;
 }
