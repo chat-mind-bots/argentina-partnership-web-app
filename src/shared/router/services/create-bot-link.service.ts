@@ -13,5 +13,5 @@ export const createBotStartLink = () => {
 		}
 	}
 
-	return `https://t.me/argentina_bot?start`;
+	return `https://t.me/${import.meta.env.VITE_BOTNAME}?start`;
 };
