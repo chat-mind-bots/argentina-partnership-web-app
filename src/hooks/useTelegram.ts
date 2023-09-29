@@ -25,5 +25,6 @@ export function useTelegram() {
 		theme: tg.themeParams,
 		user: tg.initDataUnsafe?.user,
 		queryId: tg.initDataUnsafe?.query_id,
+		startParam: tg.initDataUnsafe?.start_param,
 	};
 }

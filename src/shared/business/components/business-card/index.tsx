@@ -8,6 +8,7 @@ import {
 	useNavigate,
 } from "react-router-dom";
 import { Business } from "shared/business/dto/business.dto";
+import { ReactComponent as Copy } from "public/assets/icons/copy.svg";
 import Header from "shared/components/header";
 import styles from "shared/business/components/business-card/business-card.module.less";
 import RoundButton from "shared/business/components/business-card/components/round-button";
@@ -20,6 +21,8 @@ import {
 	HomeOutlined,
 } from "@ant-design/icons";
 import { BackButton } from "@vkruglikov/react-telegram-web-app";
+import { useTelegram } from "hooks/useTelegram";
+import { message } from "antd";
 
 export async function loader({
 	params: { businessId },
@@ -31,17 +34,51 @@ export async function loader({
 }
 
 function BusinessCard() {
-	const { preview, address, contacts, title, description, avgCheck } =
+	const { preview, address, contacts, title, description, avgCheck, _id } =
 		useAsyncValue() as Business;
 	const [active, setActive] = useState(0);
 	const navigate = useNavigate();
 	const handleBack = () => {
-		navigate(-1);
+		navigate("/business");
+	};
+	const { user } = useTelegram();
+	const successMessage = (text: string) => {
+		message.success(text);
+	};
+
+	const errorMessage = (text: string) => {
+		message.error(text);
+	};
+
+	const linkData = {
+		page: `/business/${_id}`,
+		ref: String(user.id),
+	};
+	const dataString = JSON.stringify(linkData);
+	console.log(linkData);
+	const encodedData = btoa(dataString);
+
+	const writeToClipboard = () => {
+		window.navigator.clipboard
+			.writeText(
+				`https://t.me/${import.meta.env.VITE_BOTNAME}/${
+					import.meta.env.VITE_WEBAPPNAME
+				}?startapp=${encodedData}&startApp=${encodedData}`
+			)
+			.then(
+				() => successMessage("Адрес скопирован в буффер обмена!"),
+				() => errorMessage("При копировании произошла ошибка")
+			);
 	};
 
 	const components = [
 		{
-			value: <Description>{description}</Description>,
+			value: (
+				<Description>
+					<div>{description}</div>
+					<div className={styles.linkWrapper}></div>
+				</Description>
+			),
 			title: "Описание",
 			icon: <AlignCenterOutlined className={styles.icon} />,
 		},
@@ -56,8 +93,10 @@ function BusinessCard() {
 			icon: <ContactsOutlined className={styles.icon} />,
 		},
 	];
+
 	return (
 		<div>
+			{window.history.length > 1 && <BackButton onClick={handleBack} />}
 			{window.history.length > 1 && <BackButton onClick={handleBack} />}
 			<Header
 				title={
@@ -106,7 +145,14 @@ function BusinessCard() {
 					);
 				})}
 			</div>
-			<div className={styles.contentWrapper}>{components[active].value}</div>
+			<div className={styles.contentWrapper}>
+				<div className={styles.copyIconWrapper}>
+					<div className={styles.copyIcon} onClick={writeToClipboard}>
+						<Copy />
+					</div>
+				</div>
+				<div>{components[active].value}</div>
+			</div>
 		</div>
 	);
 }

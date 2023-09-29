@@ -8,7 +8,7 @@ import {
 	useNavigate,
 } from "react-router-dom";
 import { ITariff } from "shared/subscription/interfaces/tariff.inteface";
-import { Button, Radio, RadioChangeEvent } from "antd";
+import { Radio, RadioChangeEvent } from "antd";
 import { BackButton, MainButton } from "@vkruglikov/react-telegram-web-app";
 import { ISubscription } from "shared/subscription/interfaces/subscription.interface";
 import Modal from "shared/components/modal";
@@ -68,6 +68,7 @@ const SubscriptionTariff = () => {
 			handleOnCloseModal();
 		}
 	};
+	const isActiveSubscription = !!subscriptionData.length;
 	const handleOnChange = (e: RadioChangeEvent) => setValue(e.target.value);
 	return (
 		<div>
@@ -91,14 +92,14 @@ const SubscriptionTariff = () => {
 						})}
 					</Radio.Group>
 					<div className={styles.buttonWrapper}>
-						{!isOpenSubmit && (
+						{!isActiveSubscription && !isOpenSubmit && (
 							<MainButton
 								onClick={handleOnClickModal}
-								disabled={!!subscriptionData.length}
 								text={`К оплате ${tariffData[value]?.price}$`}
 							/>
 						)}
 					</div>
+					{isActiveSubscription && <div>У вас уже есть активная подписка</div>}
 					<Modal
 						isOpen={isOpenSubmit}
 						onClose={handleOnCloseModal}
