@@ -175,7 +175,7 @@ export const router = createBrowserRouter([
 						"Если ошибка повторяется слишком часто - обратитесь в поддержку"
 					}
 					title={"Ошибка. Что-то пошло не так"}
-					buttonTitle={"Вернуться на главную"}
+					buttonTitle={"Вернуться в личный кабинет"}
 					href={"/home"}
 				/>
 			</Suspense>
