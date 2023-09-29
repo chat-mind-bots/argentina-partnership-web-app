@@ -207,19 +207,9 @@ const BusinessList = () => {
 						mas={business}
 						skeleton={<ListSkeleton />}
 						skeletonCount={LIMITONPAGE}
-						renderFunction={({
-							_id,
-							owner: { _id: ownerId },
-							avgCheck,
-							category,
-							preview,
-							title,
-						}) => {
+						renderFunction={({ _id, avgCheck, category, preview, title }) => {
 							return (
-								<NavLink
-									to={`/partner/${ownerId}/business/${_id}/`}
-									key={`nav-link--${_id}`}
-								>
+								<NavLink to={`${_id}`} key={`nav-link--${_id}`}>
 									<BusinessMiniCard
 										title={title}
 										category={category.title}

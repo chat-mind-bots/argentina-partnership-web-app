@@ -1,21 +1,18 @@
 import React from "react";
 import { Button } from "antd";
-import {
-	Link,
-	useNavigate,
-	useNavigation,
-	useLocation,
-} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { BackButton, MainButton } from "@vkruglikov/react-telegram-web-app";
 
 import styles from "./error-element.module.less";
+import { createBotStartLink } from "shared/router/services/create-bot-link.service";
 
 export interface ErrorElementProps {
 	icon: React.ReactElement;
 	title: string;
-	href: string;
 	buttonTitle: string;
 	secondaryTitle?: string;
+	href?: string;
+	isExternalLink?: boolean;
 }
 
 const ErrorElement = ({
@@ -23,6 +20,7 @@ const ErrorElement = ({
 	title,
 	href,
 	secondaryTitle,
+	isExternalLink,
 	buttonTitle,
 }: ErrorElementProps) => {
 	const navigate = useNavigate();
@@ -39,9 +37,19 @@ const ErrorElement = ({
 				<div>{title}</div>
 				<div className={styles.secondaryTitle}>{secondaryTitle}</div>
 			</div>
-			<Link to={href}>
-				<MainButton text={buttonTitle} onClick={() => toPage(href)} />
-			</Link>
+			{isExternalLink && (
+				<Button type={"primary"} href={createBotStartLink()}>
+					Перейти
+				</Button>
+			)}
+
+			{!isExternalLink && (
+				<MainButton
+					text={buttonTitle}
+					onClick={() => toPage(href ? href : "")}
+				/>
+			)}
+
 			{window.history.length > 1 && <BackButton onClick={toPreviousPage} />}
 		</div>
 	);

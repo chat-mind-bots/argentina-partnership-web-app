@@ -45,7 +45,7 @@ const PayInstruction: FC<IOwnProps> = ({ method, toApprove, isActive }) => {
 						title={"Нажать, чтобы скопировать"}
 						onClick={writeToClipboard}
 					>
-						<Copy />{" "}
+						<Copy />
 						<span className={styles.ellipsis}>
 							{getCryptoAddressService(method)}
 						</span>

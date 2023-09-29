@@ -1,9 +1,10 @@
-import { createBrowserRouter, Outlet, useNavigate } from "react-router-dom";
-import React, { Suspense, lazy, useCallback } from "react";
+import { createBrowserRouter, Outlet } from "react-router-dom";
+import React, { Suspense, lazy } from "react";
 import PageLoader from "shared/components/page-loader";
-import QrCheck from "shared/qr-code/qr-check";
-import ErrorElement from "shared/components/error-element";
 import { ReactComponent as ErrorIcon } from "public/assets/icons/notOk.svg";
+
+const QrCheck = lazy(() => import("shared/qr-code/qr-check"));
+const ErrorElement = lazy(() => import("shared/components/error-element"));
 
 const TopUp = lazy(() => import("shared/payment/components/top-up"));
 const History = lazy(() => import("shared/payment/components/history"));
@@ -29,6 +30,10 @@ export const router = createBrowserRouter([
 		),
 		children: [
 			{
+				index: true,
+				lazy: () => import("shared/main"),
+			},
+			{
 				path: "qr-check",
 				element: <QrCheck />,
 			},
@@ -40,13 +45,15 @@ export const router = createBrowserRouter([
 						index: true,
 						lazy: () => import("shared/qr-code/qr-generate"),
 						errorElement: (
-							<ErrorElement
-								icon={<ErrorIcon />}
-								buttonTitle={"Купить подписку"}
-								title={"У вас нет подписки"}
-								secondaryTitle={"но вы всегда можете ее приобрести"}
-								href={"/tariffs"}
-							/>
+							<Suspense>
+								<ErrorElement
+									icon={<ErrorIcon />}
+									buttonTitle={"Купить подписку"}
+									title={"У вас нет подписки"}
+									secondaryTitle={"но вы всегда можете ее приобрести"}
+									href={"/tariffs"}
+								/>
+							</Suspense>
 						),
 					},
 				],
@@ -56,7 +63,21 @@ export const router = createBrowserRouter([
 
 				element: <Outlet />,
 				children: [
-					{ index: true, lazy: () => import("shared/home/components") },
+					{
+						index: true,
+						lazy: () => import("shared/home/components"),
+						errorElement: (
+							<Suspense>
+								<ErrorElement
+									icon={<ErrorIcon />}
+									isExternalLink
+									buttonTitle={"Запустить бота"}
+									title={"Авторизуйтесь через бота"}
+									// secondaryTitle={""}
+								/>
+							</Suspense>
+						),
+					},
 				],
 			},
 			{
@@ -87,7 +108,7 @@ export const router = createBrowserRouter([
 				element: <TopUp />,
 			},
 			{
-				path: "/create/business",
+				path: "business/create",
 
 				element: <Outlet />,
 				children: [
@@ -99,7 +120,7 @@ export const router = createBrowserRouter([
 				],
 			},
 			{
-				path: "/partner/:userId/business/:businessId/",
+				path: "business/:businessId",
 
 				element: <Outlet />,
 				children: [
@@ -110,7 +131,7 @@ export const router = createBrowserRouter([
 				],
 			},
 			{
-				path: "/partner/:userId/business/:businessId/update",
+				path: "business/:businessId/update",
 
 				element: <Outlet />,
 				children: [
@@ -122,7 +143,7 @@ export const router = createBrowserRouter([
 				],
 			},
 			{
-				path: "/partners",
+				path: "business",
 
 				element: <Outlet />,
 				children: [
@@ -133,7 +154,7 @@ export const router = createBrowserRouter([
 				],
 			},
 			{
-				path: "/tariffs",
+				path: "tariffs",
 				element: <Outlet />,
 				children: [
 					{
@@ -149,5 +170,18 @@ export const router = createBrowserRouter([
 		Component() {
 			return <div>Not found</div>;
 		},
+		errorElement: (
+			<Suspense>
+				<ErrorElement
+					icon={<ErrorIcon />}
+					buttonTitle={"Вернуться в меню"}
+					title={"Ошибка. Что-то пошло не так"}
+					secondaryTitle={
+						"если ошибка повторяется слишком часто - обратитесь за помощью к администратору"
+					}
+					href={"/home"}
+				/>
+			</Suspense>
+		),
 	},
 ]);

@@ -15,7 +15,7 @@ const Navigation = () => {
 	return (
 		<Card title={"Возможности пллатформы"}>
 			<NavigationButton
-				onClick={() => navigate("/partners")}
+				onClick={() => navigate("/business")}
 				logo={
 					<div className={styles.logo}>
 						<Business />
