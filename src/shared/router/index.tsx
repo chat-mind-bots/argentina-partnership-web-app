@@ -2,9 +2,9 @@ import { createBrowserRouter, Outlet } from "react-router-dom";
 import React, { Suspense, lazy } from "react";
 import PageLoader from "shared/components/page-loader";
 import { ReactComponent as ErrorIcon } from "public/assets/icons/notOk.svg";
+import ErrorElement from "shared/components/error-element";
 
 const QrCheck = lazy(() => import("shared/qr-code/qr-check"));
-const ErrorElement = lazy(() => import("shared/components/error-element"));
 
 const TopUp = lazy(() => import("shared/payment/components/top-up"));
 const History = lazy(() => import("shared/payment/components/history"));
@@ -171,17 +171,15 @@ export const router = createBrowserRouter([
 			return <div>Not found</div>;
 		},
 		errorElement: (
-			<Suspense>
-				<ErrorElement
-					icon={<ErrorIcon />}
-					buttonTitle={"Вернуться в меню"}
-					title={"Ошибка. Что-то пошло не так"}
-					secondaryTitle={
-						"если ошибка повторяется слишком часто - обратитесь за помощью к администратору"
-					}
-					href={"/home"}
-				/>
-			</Suspense>
+			<ErrorElement
+				icon={<ErrorIcon />}
+				buttonTitle={"Вернуться в меню"}
+				title={"Ошибка. Что-то пошло не так"}
+				secondaryTitle={
+					"если ошибка повторяется слишком часто - обратитесь за помощью к администратору"
+				}
+				href={"/home"}
+			/>
 		),
 	},
 ]);
