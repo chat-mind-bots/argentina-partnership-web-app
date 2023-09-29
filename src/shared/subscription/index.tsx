@@ -99,7 +99,11 @@ const SubscriptionTariff = () => {
 							/>
 						)}
 					</div>
-					{isActiveSubscription && <div>У вас уже есть активная подписка</div>}
+					{isActiveSubscription && (
+						<div className={styles.hasSub}>
+							У вас уже есть активная подписка
+						</div>
+					)}
 					<Modal
 						isOpen={isOpenSubmit}
 						onClose={handleOnCloseModal}
