@@ -32,7 +32,7 @@ Sentry.init({
 	replaysSessionSampleRate: 0.1,
 	replaysOnErrorSampleRate: 1.0,
 });
-console.log(import.meta.env.SENTRY_AUTH_TOKEN);
+console.log(import.meta.env.VITE_SENTRY_AUTH_TOKEN);
 const root = ReactDOM.createRoot(
 	document.getElementById("root") as HTMLElement
 );
