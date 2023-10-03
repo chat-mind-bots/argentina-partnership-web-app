@@ -145,7 +145,6 @@ const BusinessList = () => {
 			handleFilters();
 		}
 	};
-	const mas = [1, 2, 3, 4, 5];
 
 	return (
 		<WebAppProvider>
@@ -203,9 +202,6 @@ const BusinessList = () => {
 						/>
 					)}
 				</Modal>
-				{mas.map((elem) => (
-					<div>{elem}</div>
-				))}
 				<div className={styles.contentWrapper}>
 					<List
 						mas={business}
