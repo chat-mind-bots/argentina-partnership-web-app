@@ -29,6 +29,7 @@ function Home() {
 		user: User,
 		subscriptionData: Array<ISubscription>,
 	];
+	// @ts-ignore
 	return (
 		<div className={styles.wrapper}>
 			<Balance amount={user.balance.amount} />
@@ -36,6 +37,7 @@ function Home() {
 				isActive={!!subscriptionData.length}
 				expiredDate={subscriptionData[0] && subscriptionData[0].expiredDate}
 			/>
+			<button onClick={() => methodDoesNotExist()}>Break the world</button>;
 			<Navigation />
 		</div>
 	);
