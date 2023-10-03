@@ -1,4 +1,4 @@
-name: Dev Deployment
+name: Prod Deployment
 
 on:
   push:
@@ -11,11 +11,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the code from the 'dev' branch
+      # Checkout the code from the 'master' branch
       - name: Checkout code
         uses: actions/checkout@v2
         with:
-          ref: dev
+          ref: master
 
 
       # Set up SSH key for authentication
