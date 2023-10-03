@@ -1,6 +1,7 @@
 import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
 import svgr from "vite-plugin-svgr";
+import { sentryVitePlugin } from "@sentry/vite-plugin";
 import path from "path";
 
 export default ({ mode }) => {
@@ -31,7 +32,14 @@ export default ({ mode }) => {
 			react({
 				include: "**/*.{jsx,tsx}",
 				babel: {
-					plugins: ["babel-plugin-styled-components"],
+					plugins: [
+						"babel-plugin-styled-components",
+						sentryVitePlugin({
+							org: "test-0kb",
+							project: "javascript-react",
+							authToken: import.meta.env.VITE_SENTRY_AUTH_TOKEN,
+						}),
+					],
 				},
 			}),
 			svgr(),

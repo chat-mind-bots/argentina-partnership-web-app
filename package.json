@@ -5,6 +5,7 @@
   "type": "module",
   "dependencies": {
     "@ant-design/icons": "^5.2.5",
+    "@sentry/react": "^7.73.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -60,6 +61,7 @@
     "@babel/preset-env": "^7.22.10",
     "@babel/preset-react": "^7.22.5",
     "@emotion/babel-plugin": "^11.11.0",
+    "@sentry/vite-plugin": "^2.7.1",
     "@vitejs/plugin-react": "^4.0.4",
     "babel-loader": "^9.1.3",
     "babel-plugin-styled-components": "^2.1.4",
