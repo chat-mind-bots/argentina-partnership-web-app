@@ -235,6 +235,37 @@ const BusinessList = () => {
 						}}
 						isLoading={isLoading}
 					/>
+					<List
+						mas={business}
+						skeleton={<ListSkeleton />}
+						skeletonCount={LIMITONPAGE}
+						renderFunction={({ _id, avgCheck, category, preview, title }) => {
+							return (
+								<NavLink to={`${_id}`} key={`nav-link--${_id}`}>
+									<BusinessMiniCard
+										title={title}
+										category={category.title}
+										avgCheck={avgCheck}
+										updateImageState={() => {
+											setBusiness((prevState) =>
+												// prevState.map((prevBusiness) => prevBusiness._id === _id ? {...prevBusiness, isLoadingImage: false} : prevBusiness)
+												prevState.map((prevBusiness) =>
+													prevBusiness._id === _id
+														? { ...prevBusiness }
+														: prevBusiness
+												)
+											);
+										}}
+										preview={
+											preview &&
+											`https://${preview.domain}/${preview.bucket}/${preview.key}`
+										}
+									/>
+								</NavLink>
+							);
+						}}
+						isLoading={isLoading}
+					/>
 					<div ref={ref} className={styles.infinityLoader} />
 					{values.isEmptyResult && (
 						<div>По вашему запросу ничего не найдено...</div>
