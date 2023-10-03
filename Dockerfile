@@ -7,12 +7,24 @@ COPY package.json yarn.lock /app/
 RUN yarn install
 
 COPY . /app/
+ARG VITE_MODE
+ARG VITE_BASE_URL
+ARG VITE_ADDRESS_TRC20
+ARG VITE_ADDRESS_BEP20
+ARG VITE_ADDRESS_SOL
+ARG VITE_ADDRESS_ERC20
+ARG VITE_SUPPORT_USERNAME
+ARG VITE_BOTNAME
+ARG VITE_WEBAPPNAME
+ARG VITE_SENTRY_AUTH_TOKEN
 
 RUN yarn build
 
-FROM nginx:latest
+FROM nginx:alpine AS web
+WORKDIR /app
 
-COPY --from=build /app/build /usr/share/nginx/html
+COPY --from=build /app/build ./
+COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
 

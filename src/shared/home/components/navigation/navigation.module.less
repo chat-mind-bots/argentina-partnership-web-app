@@ -1,0 +1,51 @@
+
+
+
+
+.logo   {
+  background: var(--tg-theme-button-color);
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+    margin-left: 10px;
+    margin-right: 16px;
+
+  svg {
+    height: 28px;
+    width: auto;
+
+    rect {
+      stroke: white;
+    }
+
+    path {
+      fill: white;
+    }
+  }
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  height: 100%;
+  width: 100%;
+  border-bottom: 1px solid var(--tg-theme-hint-color);
+
+  &.last {
+    border-bottom: none;
+  }
+
+
+  span{}
+  svg {
+    height: 20px;
+    fill: var(--tg-theme-hint-color);
+    path {
+    }
+  }
+}

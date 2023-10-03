@@ -1,19 +1,39 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.less";
+import App from "./App";
 
+import * as Sentry from "@sentry/react";
+import {
+	createRoutesFromChildren,
+	matchRoutes,
+	useLocation,
+	useNavigationType,
+} from "react-router-dom";
+
+Sentry.init({
+	dsn: "https://4bbf7a04b475bd259c74002f31f0f445@o4505988001431552.ingest.sentry.io/4505988032626688",
+	integrations: [
+		new Sentry.BrowserTracing({
+			routingInstrumentation: Sentry.reactRouterV6Instrumentation(
+				React.useEffect,
+				useLocation,
+				useNavigationType,
+				createRoutesFromChildren,
+				matchRoutes
+			),
+		}),
+		new Sentry.Replay(),
+	],
+
+	tracesSampleRate: 1.0,
+	tracePropagationTargets: ["localhost", /^https:\/\/yourserver\.io\/api/],
+
+	replaysSessionSampleRate: 0.1,
+	replaysOnErrorSampleRate: 1.0,
+});
+console.log(import.meta.env.VITE_SENTRY_AUTH_TOKEN);
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+	document.getElementById("root") as HTMLElement
 );
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+root.render(<App />);

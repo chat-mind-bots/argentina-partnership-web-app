@@ -1,0 +1,21 @@
+.wrapper {
+    display: flex;
+    gap: 20px;
+}
+
+.primaryButton {
+    background-color: var(--tg-theme-button-color)
+}
+
+.primaryButton:disabled {
+    color: var(--tg-theme-hint-color);
+    background-color: var(--tg-theme-bg-color)
+}
+
+.progress {
+    margin: 0 0 10px 0;
+}
+
+.ant-progress-bg {
+    background-color: var(--tg-theme-button-text-color);
+}

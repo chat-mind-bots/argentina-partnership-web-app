@@ -1,0 +1,24 @@
+.logo {
+    top: 0;
+    width: 100%;
+    border-radius: 20px;
+    bottom: 0;
+    margin: auto;
+    position: absolute;
+    pointer-events: none;
+}
+
+.loadingLogo {
+    opacity: 0;
+}
+
+.isLoadingImage {
+    z-index: -1;
+}
+
+.skeletonWrapper {
+    position: absolute;
+    bottom: 0;
+    z-index: 1;
+    pointer-events: none;
+}

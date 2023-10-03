@@ -1,0 +1,38 @@
+.card {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 10px;
+  padding: 16px 0;
+  border-bottom:  1px solid var(--tg-theme-hint-color);
+  cursor: pointer;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  &Left {
+    align-items: flex-start;
+  }
+
+  &Right {
+    align-items: flex-end;
+  }
+
+  &Title {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--tg-theme-text-color);
+    text-transform: capitalize;
+  }
+
+  &Secondary {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    font-size: 14px;
+    line-height: 14px;
+    color: var(--tg-theme-hint-color)
+  }
+}

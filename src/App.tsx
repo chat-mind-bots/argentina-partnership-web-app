@@ -1,44 +1,49 @@
-import React from 'react';
-import {
-  createBrowserRouter,
-  RouterProvider,
-  useLoaderData,
-} from "react-router-dom";
-import Partners from "partners";
+import React, { useEffect, useLayoutEffect } from "react";
+import { RouterProvider } from "react-router-dom";
+import { router } from "shared/router";
+import PageLoader from "shared/components/page-loader";
+import { useTelegram } from "hooks/useTelegram";
+import { ConfigProvider } from "antd";
+import PaymentProvider from "shared/context/payment/payment.provider";
 
-interface JsonplaceholderResp {
-  userId: number,
-  id: number,
-  title: string,
-  completed: boolean
-}
-
-async function  loadData (): Promise<JsonplaceholderResp> {
-  const data = await fetch('https://jsonplaceholder.typicode.com/todos/1')
-      .then(response => response.json())
-  console.log("Finish")
-  return data
-}
-const router = createBrowserRouter([
-  {
-    path: "/partners",
-    loader: () => loadData(),
-    Component() {
-      const data = useLoaderData() as JsonplaceholderResp
-      return <Partners />
-    },
-  },
-  {
-    path:'*',
-    Component() {
-      return <div>Not found</div>
-    }
-  }
-]);
 function App() {
-  return (
-      <RouterProvider router={router} fallbackElement={<p>Loading.Ы..</p>} />
-  );
+	const { tg, theme, onExpand } = useTelegram();
+	useEffect(() => {
+		tg.setHeaderColor(tg.themeParams.secondary_bg_color);
+	}, [tg]);
+
+	useLayoutEffect(() => {
+		onExpand();
+	}, [onExpand]);
+	return (
+		<PaymentProvider>
+			<ConfigProvider
+				theme={{
+					components: {
+						Tabs: {
+							cardBg: theme.bg_color,
+							itemActiveColor: theme.text_color,
+							itemHoverColor: theme.link_color,
+							// colorText: theme.text_color,
+							itemSelectedColor: theme.link_color,
+							inkBarColor: theme.link_color,
+							colorTextDisabled: theme.hint_color,
+							horizontalMargin: "0 10px 16px 10px",
+						},
+						Button: {
+							colorTextDisabled: theme.text_color,
+						},
+						Radio: {
+							buttonColor: theme.text_color,
+							colorText: theme.text_color,
+						},
+					},
+				}}
+			>
+				<RouterProvider router={router} fallbackElement={<PageLoader />} />
+			</ConfigProvider>
+		</PaymentProvider>
+	);
 }
 
 export default App;

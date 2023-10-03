@@ -1,0 +1,52 @@
+
+.list {
+  padding: 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+}
+
+.infinityLoader {
+  position: absolute;
+  z-index: -1;
+  bottom: 0;
+  left: 0;
+  //background-color: #f44336;
+  height: 100%;
+  width: 100%;
+}
+
+.infinityLoaderWrapper {
+  position: relative;
+}
+
+.contentWrapper{
+  position: relative;
+}
+
+.filterLogo {
+  height: 24px;
+  display: flex;
+  justify-content: flex-end;
+  cursor: pointer;
+
+  svg {
+    height: 100%;
+
+    path {
+      fill: var(--tg-theme-text-color);
+    }
+  }
+}
+
+.logo{
+  height: 100%;
+
+  svg {
+    height: 100%;
+    path {
+      fill: var(--tg-theme-button-text-color);
+    }
+  }
+}
