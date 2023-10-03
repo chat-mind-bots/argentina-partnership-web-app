@@ -29,17 +29,15 @@ export default ({ mode }) => {
 			},
 		},
 		plugins: [
+			sentryVitePlugin({
+				org: "test-0kb",
+				project: "javascript-react",
+				authToken: process.env.VITE_SENTRY_AUTH_TOKEN,
+			}),
 			react({
 				include: "**/*.{jsx,tsx}",
 				babel: {
-					plugins: [
-						"babel-plugin-styled-components",
-						sentryVitePlugin({
-							org: "test-0kb",
-							project: "javascript-react",
-							authToken: process.env.VITE_SENTRY_AUTH_TOKEN,
-						}),
-					],
+					plugins: ["babel-plugin-styled-components"],
 				},
 			}),
 			svgr(),
