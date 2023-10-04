@@ -71,7 +71,6 @@ const SubscriptionTariff = () => {
 	const saleDate = new Date(2023, 10, 20);
 	const data = new Date().valueOf();
 	const isActiveSale = saleDate.valueOf() - data > 0;
-	console.log(isActiveSale);
 	const isActiveSubscription = !!subscriptionData.length;
 	const handleOnChange = (e: RadioChangeEvent) => setValue(e.target.value);
 	return (
