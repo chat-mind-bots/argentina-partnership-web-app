@@ -26,7 +26,7 @@ const UploadPhoto: FC<IOwnProps> = ({ defaultImage, onChange }) => {
 						uid: imageData._id, // or use some unique identifier
 						name: imageData.key,
 						status: "done",
-						url: `https://${imageData.domain}/${imageData.bucket}/${imageData.key}`,
+						url: `https://${imageData.domain}/${imageData.key}`,
 					},
 				]);
 			} else {
