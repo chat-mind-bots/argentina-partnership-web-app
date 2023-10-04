@@ -55,7 +55,6 @@ function BusinessCard() {
 		ref: String(user.id),
 	};
 	const dataString = JSON.stringify(linkData);
-	console.log(linkData);
 	const encodedData = btoa(dataString);
 
 	const writeToClipboard = () => {
