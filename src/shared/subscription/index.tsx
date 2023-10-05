@@ -79,11 +79,6 @@ const SubscriptionTariff = () => {
 			<div className={styles.pageDescription}>
 				5% скидка на все товары и услуги
 			</div>
-			{isActiveSale && (
-				<div className={styles.saleTitle}>
-					Предложение действительно до 20 ноября 2023
-				</div>
-			)}
 			{tariffData.length > 0 && (
 				<>
 					<Radio.Group
