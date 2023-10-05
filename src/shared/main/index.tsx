@@ -9,7 +9,6 @@ export interface IStartParam {
 export async function loader() {
 	// @ts-ignore
 	const startParam = window.Telegram.WebApp.initDataUnsafe?.start_param;
-	console.log(startParam);
 	if (startParam) {
 		const decodedDataString = atob(startParam);
 		const decodedData = JSON.parse(decodedDataString) as IStartParam;
