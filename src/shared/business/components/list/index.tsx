@@ -226,8 +226,7 @@ const BusinessList = () => {
 										}}
 										key={`mini-card--${_id}`}
 										preview={
-											preview &&
-											`https://${preview.domain}/${preview.bucket}/${preview.key}`
+											preview && `https://${preview.domain}/${preview.key}`
 										}
 									/>
 								</NavLink>

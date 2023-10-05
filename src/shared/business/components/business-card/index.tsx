@@ -122,7 +122,7 @@ function BusinessCard() {
 				logo={
 					preview ? (
 						<img
-							src={`https://${preview.domain}/${preview.bucket}/${preview.key}`}
+							src={`https://${preview.domain}/${preview.key}`}
 							alt={preview.key}
 							className={styles.logo}
 						/>
