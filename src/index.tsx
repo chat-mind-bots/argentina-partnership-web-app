@@ -12,7 +12,7 @@ import {
 } from "react-router-dom";
 
 Sentry.init({
-	dsn: "https://4bbf7a04b475bd259c74002f31f0f445@o4505988001431552.ingest.sentry.io/4505988032626688",
+	dsn: "https://d73e43b308f904ac6a52c905665a5ecf@o4505999146811392.ingest.sentry.io/4505999148122112",
 	integrations: [
 		new Sentry.BrowserTracing({
 			routingInstrumentation: Sentry.reactRouterV6Instrumentation(
