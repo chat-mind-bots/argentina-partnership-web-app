@@ -90,7 +90,7 @@ function CreateBusinessForm() {
 		status: business?.status ?? StatusEnum.ACTIVE,
 		contacts: business?.contacts ?? [],
 		preview: business?.preview?._id ?? undefined,
-		avgCheck: business?.avgCheck ?? 0,
+		avgCheck: business?.avgCheck ?? undefined,
 	});
 	const [mainButtonText, setMainButtonText] = useState("Далее");
 	const [isEmpty, setIsEmpty] = useState(false);
