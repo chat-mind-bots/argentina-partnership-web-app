@@ -15,12 +15,16 @@ interface AddContactProps {
 	contactData: { [key: string]: FormData };
 	onChangeInput: (text: string) => void;
 	onSave: () => void;
+	onCancel: () => void;
+	hideCancel?: boolean;
 }
 
 const AddContact = ({
 	optionOnChange,
 	addValue,
 	onChangeInput,
+	onCancel,
+	hideCancel,
 	onSave,
 	contactData,
 }: AddContactProps) => {
@@ -83,7 +87,14 @@ const AddContact = ({
 					</div>
 				</div>
 			</div>
-			{addValue.value && <Button onClick={onSave}>Сохранить</Button>}
+			<div className={styles.formActionButtonsWrapper}>
+				{addValue.value && <Button onClick={onSave}>Сохранить</Button>}
+				{!hideCancel && (
+					<Button onClick={onCancel} type={"link"} danger>
+						Отменить
+					</Button>
+				)}
+			</div>
 		</div>
 	);
 };
