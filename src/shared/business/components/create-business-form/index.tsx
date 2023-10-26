@@ -199,16 +199,16 @@ function CreateBusinessForm() {
 				currentStep={currentStep}
 			/>
 		</Suspense>,
-		<Suspense>
-			<FormAvgCheck
-				value={data.avgCheck}
-				maxSteps={maxSteps}
-				currentStep={currentStep}
-				mainButtonCallback={setMainButtonText}
-				isEmptyCallback={setIsEmpty}
-				setData={setData}
-			/>
-		</Suspense>,
+		// <Suspense>
+		// 	<FormAvgCheck
+		// 		value={data.avgCheck}
+		// 		maxSteps={maxSteps}
+		// 		currentStep={currentStep}
+		// 		mainButtonCallback={setMainButtonText}
+		// 		isEmptyCallback={setIsEmpty}
+		// 		setData={setData}
+		// 	/>
+		// </Suspense>,
 	];
 
 	useEffect(() => {
