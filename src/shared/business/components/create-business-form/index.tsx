@@ -16,7 +16,6 @@ import { WebAppProvider } from "@vkruglikov/react-telegram-web-app";
 import { Await, defer, useAsyncValue, useLoaderData } from "react-router-dom";
 import { Business, StatusEnum } from "shared/business/dto/business.dto";
 import PageLoader from "shared/components/page-loader";
-import FormAvgCheck from "shared/business/components/create-business-form/form-avg-check";
 
 const FormContact = lazy(
 	() => import("shared/business/components/create-business-form/form-contact")
