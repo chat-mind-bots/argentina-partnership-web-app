@@ -167,6 +167,8 @@ const FormContact = ({
 				<AddContact
 					contactData={contactData}
 					addValue={addValue}
+					onCancel={handleOnCancel}
+					hideCancel={isEmptyValues}
 					onChangeInput={onChangeInput}
 					optionOnChange={optionOnChange}
 					onSave={onSave}

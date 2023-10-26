@@ -6,6 +6,7 @@ import {
 } from "shared/business/interfaces/create-business.interface";
 import { Button, Select } from "antd";
 import { FormData } from "shared/business/components/create-business-form/form-contact/index";
+import styles from "shared/business/components/create-business-form/business-form.module.less";
 
 interface AddContactProps {
 	optionOnChange: (value: ContactsTypeEnum) => void;
@@ -56,14 +57,19 @@ const EditContact = ({
 	return (
 		<div>
 			<div>
+				<div className={styles.contactsWrapper}>Выберите тип контакта:</div>
 				<Select
 					style={{ width: "100%" }}
 					options={options}
 					value={addValue.type}
 					defaultValue={addValue.type}
 					onChange={optionOnChange}
+					className={styles.contactSelector}
 				/>
 				<div>
+					<div className={styles.contactsWrapper}>
+						Введите контакт:<span className={styles.requireField}>*</span>
+					</div>
 					<InputText
 						type={
 							addValue.type === ContactsTypeEnum.WHATSAPP ||
@@ -75,13 +81,17 @@ const EditContact = ({
 						value={addValue.value}
 						placeholder={contactData[addValue.type].placeholder}
 						onChange={onChangeInput}
-					></InputText>
+					/>
 				</div>
 			</div>
-			<Button onClick={onCancel}>Отменить</Button>
-			{addValue.value && (
-				<Button onClick={() => onSave(editIndex)}>Сохранить</Button>
-			)}
+			<div className={styles.formActionButtonsWrapper}>
+				{addValue.value && (
+					<Button onClick={() => onSave(editIndex)}>Сохранить</Button>
+				)}
+				<Button onClick={onCancel} type={"link"} danger>
+					Отменить
+				</Button>
+			</div>
 		</div>
 	);
 };
