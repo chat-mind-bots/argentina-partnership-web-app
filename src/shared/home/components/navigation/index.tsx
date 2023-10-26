@@ -66,7 +66,10 @@ const Navigation = () => {
 					<AngleRight />
 				</div>
 			</NavigationButton>
-			<Link to={"https://t.me/kurkul608"} target={"_blank"}>
+			<Link
+				to={`https://t.me/${import.meta.env.VITE_SUPPORT_USERNAME}`}
+				target={"_blank"}
+			>
 				<NavigationButton
 					logo={
 						<div className={styles.logo}>
