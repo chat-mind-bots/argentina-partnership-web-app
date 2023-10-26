@@ -16,7 +16,6 @@ import { WebAppProvider } from "@vkruglikov/react-telegram-web-app";
 import { Await, defer, useAsyncValue, useLoaderData } from "react-router-dom";
 import { Business, StatusEnum } from "shared/business/dto/business.dto";
 import PageLoader from "shared/components/page-loader";
-import FormAvgCheck from "shared/business/components/create-business-form/form-avg-check";
 
 const FormContact = lazy(
 	() => import("shared/business/components/create-business-form/form-contact")
@@ -91,7 +90,7 @@ function CreateBusinessForm() {
 		status: business?.status ?? StatusEnum.ACTIVE,
 		contacts: business?.contacts ?? [],
 		preview: business?.preview?._id ?? undefined,
-		avgCheck: business?.avgCheck ?? 0,
+		avgCheck: business?.avgCheck ?? undefined,
 	});
 	const [mainButtonText, setMainButtonText] = useState("Далее");
 	const [isEmpty, setIsEmpty] = useState(false);
@@ -199,16 +198,16 @@ function CreateBusinessForm() {
 				currentStep={currentStep}
 			/>
 		</Suspense>,
-		<Suspense>
-			<FormAvgCheck
-				value={data.avgCheck}
-				maxSteps={maxSteps}
-				currentStep={currentStep}
-				mainButtonCallback={setMainButtonText}
-				isEmptyCallback={setIsEmpty}
-				setData={setData}
-			/>
-		</Suspense>,
+		// <Suspense>
+		// 	<FormAvgCheck
+		// 		value={data.avgCheck}
+		// 		maxSteps={maxSteps}
+		// 		currentStep={currentStep}
+		// 		mainButtonCallback={setMainButtonText}
+		// 		isEmptyCallback={setIsEmpty}
+		// 		setData={setData}
+		// 	/>
+		// </Suspense>,
 	];
 
 	useEffect(() => {

@@ -21,7 +21,7 @@ export interface CreateBusiness {
 	description: string;
 	contacts: Array<IContacts>;
 	address: IAddress;
-	avgCheck: number;
 	status: StatusEnum;
+	avgCheck?: number;
 	preview?: string;
 }
