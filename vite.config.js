@@ -30,7 +30,7 @@ export default ({ mode }) => {
 		},
 		plugins: [
 			sentryVitePlugin({
-				org: "test-0kb",
+				org: "clubdeamigos",
 				project: "javascript-react",
 				authToken: process.env.VITE_SENTRY_AUTH_TOKEN,
 			}),
