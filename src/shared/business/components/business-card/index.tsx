@@ -34,7 +34,7 @@ export async function loader({
 }
 
 function BusinessCard() {
-	const { preview, address, contacts, title, description, avgCheck, _id } =
+	const { preview, address, contacts, title, description, _id } =
 		useAsyncValue() as Business;
 	const [active, setActive] = useState(0);
 	const navigate = useNavigate();
@@ -101,21 +101,6 @@ function BusinessCard() {
 				title={
 					<div>
 						<div>{title}</div>
-						{/*<div className={styles.avgCheck}>*/}
-						{/*	{Array(3)*/}
-						{/*		.fill(0)*/}
-						{/*		.map((_, index) => {*/}
-						{/*			return (*/}
-						{/*				<span*/}
-						{/*					className={*/}
-						{/*						index <= avgCheck ? styles.activeAvgCheck : undefined*/}
-						{/*					}*/}
-						{/*				>*/}
-						{/*					$*/}
-						{/*				</span>*/}
-						{/*			);*/}
-						{/*		})}*/}
-						{/*</div>*/}
 					</div>
 				}
 				fillBackground={!!preview}
