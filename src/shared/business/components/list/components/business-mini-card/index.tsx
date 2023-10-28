@@ -14,7 +14,6 @@ const BusinessMiniCard = ({
 	title,
 	category,
 	updateImageState,
-	avgCheck = -1,
 	preview,
 }: BusinessMiniCardProps) => {
 	return (
@@ -40,22 +39,6 @@ const BusinessMiniCard = ({
 				<div>{title}</div>
 				<div className={styles.cardDescription}>
 					<div>{category}</div>
-					{/*<div>*/}
-					{/*	{Array(3)*/}
-					{/*		.fill(0)*/}
-					{/*		.map((_, index) => {*/}
-					{/*			return (*/}
-					{/*				<span*/}
-					{/*					className={*/}
-					{/*						index > avgCheck ? undefined : styles.activeAvgCheck*/}
-					{/*					}*/}
-					{/*					key={`card-price--${index}`}*/}
-					{/*				>*/}
-					{/*					$*/}
-					{/*				</span>*/}
-					{/*			);*/}
-					{/*		})}*/}
-					{/*</div>*/}
 				</div>
 			</div>
 		</div>
