@@ -101,21 +101,6 @@ function BusinessCard() {
 				title={
 					<div>
 						<div>{title}</div>
-						{/*<div className={styles.avgCheck}>*/}
-						{/*	{Array(3)*/}
-						{/*		.fill(0)*/}
-						{/*		.map((_, index) => {*/}
-						{/*			return (*/}
-						{/*				<span*/}
-						{/*					className={*/}
-						{/*						index <= avgCheck ? styles.activeAvgCheck : undefined*/}
-						{/*					}*/}
-						{/*				>*/}
-						{/*					$*/}
-						{/*				</span>*/}
-						{/*			);*/}
-						{/*		})}*/}
-						{/*</div>*/}
 					</div>
 				}
 				fillBackground={!!preview}
