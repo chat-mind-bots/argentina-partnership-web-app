@@ -34,7 +34,7 @@ export async function loader({
 }
 
 function BusinessCard() {
-	const { preview, address, contacts, title, description, avgCheck, _id } =
+	const { preview, address, contacts, title, description, _id } =
 		useAsyncValue() as Business;
 	const [active, setActive] = useState(0);
 	const navigate = useNavigate();
