@@ -54,10 +54,10 @@ const UploadPhoto: FC<IOwnProps> = ({ defaultImage, onChange }) => {
 		}
 		if (info.file.status === "done") {
 			setIsLoading(false);
-			message.success(`${info.file.name} file uploaded successfully`);
+			message.success(`${info.file.name} логотип был успешно загружен`);
 		} else if (info.file.status === "error") {
 			setIsLoading(false);
-			message.error(`${info.file.name} file upload failed.`);
+			message.error(`Ошибка. ${info.file.name} логотип не был загружен.`);
 		}
 	};
 
@@ -68,17 +68,17 @@ const UploadPhoto: FC<IOwnProps> = ({ defaultImage, onChange }) => {
 				return;
 			}
 			const formData = new FormData();
-			formData.append("file", file);
+			formData.append("file", file, file.name.toLowerCase());
 			formData.append("userId", user?.id);
 			const response = await uploadPhoto(formData);
 			if (response) {
 				onSuccess(response, file);
 				onChange(response.file._id);
 			} else {
-				onError("Upload failed");
+				onError("Загрузка неудалась");
 			}
 		} catch (error) {
-			onError("Upload failed");
+			onError("Загрузка неудалась");
 		}
 	};
 
