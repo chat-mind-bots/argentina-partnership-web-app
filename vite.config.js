@@ -19,6 +19,12 @@ export default ({ mode }) => {
 		},
 		build: {
 			outDir: "build",
+			rollupOptions: {
+				output: {
+					entryFileNames: "[name].js",
+					chunkFileNames: "[name].js",
+				},
+			},
 		},
 		resolve: {
 			alias: {
