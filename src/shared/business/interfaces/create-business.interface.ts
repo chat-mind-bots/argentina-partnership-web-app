@@ -8,6 +8,7 @@ export enum ContactsTypeEnum {
 	WEBSITE = "website",
 	PHONE = "phone",
 	WHATSAPP = "whatsapp",
+	INSTAGRAM = "instagram",
 }
 
 export interface IContacts {
