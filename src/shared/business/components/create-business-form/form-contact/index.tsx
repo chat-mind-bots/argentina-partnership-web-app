@@ -127,6 +127,11 @@ const FormContact = ({
 			placeholder: "Номер телефона",
 			title: "WhatsApp",
 		},
+		instagram: {
+			icon: <div className={styles.contactBefore}>@</div>,
+			placeholder: "Юзернейм",
+			title: "Instagram",
+		},
 	};
 	useEffect(() => {
 		if (hideButtonsCallback) {

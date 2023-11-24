@@ -3,6 +3,7 @@ import styles from "shared/business/components/business-card/components/contacts
 import { ReactComponent as Telegram } from "public/assets/icons/telegram.svg";
 import { ReactComponent as Website } from "public/assets/icons/website.svg";
 import { ReactComponent as Phone } from "public/assets/icons/phone.svg";
+import { ReactComponent as Instagram } from "public/assets/icons/instagram.svg";
 import { ReactComponent as WhatsApp } from "public/assets/icons/whatsapp.svg";
 import { ReactComponent as Bot } from "public/assets/icons/bot.svg";
 import {
@@ -94,6 +95,20 @@ function getByValue(value: ContactsTypeEnum) {
 			),
 			value: ContactsTypeEnum.PHONE,
 			link: `tel:`,
+		},
+		{
+			label: (
+				<div className={styles.label}>
+					<div>Instagram</div>
+					<div className={styles.icon}>
+						<div className={styles.customIcon}>
+							<Instagram />
+						</div>
+					</div>
+				</div>
+			),
+			value: ContactsTypeEnum.INSTAGRAM,
+			link: `https://www.instagram.com/`,
 		},
 	];
 
