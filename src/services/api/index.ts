@@ -53,6 +53,7 @@ const request = <T>(
 			const body = params.body || {};
 			const headers = {
 				"Content-Type": "application/json",
+				"Cache-Control": "no-store, must-revalidate",
 				...(params.headers || {}),
 			};
 
