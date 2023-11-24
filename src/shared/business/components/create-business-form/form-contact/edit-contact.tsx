@@ -52,6 +52,10 @@ const EditContact = ({
 			label: "Телефон",
 			value: ContactsTypeEnum.PHONE,
 		},
+		{
+			label: "Instagram",
+			value: ContactsTypeEnum.INSTAGRAM,
+		},
 	];
 
 	return (
